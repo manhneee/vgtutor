@@ -9,13 +9,15 @@
     <link rel="icon" href="img/logo.png">
 </head>
 <body class="body-login"> 
-
+    <div class="white-fill">
     <div class="d-flex justify-content-center align-items-center flex-column">
         <form class="login"
               method="post"
               action="req/login.php">
             <div class="text-center">
-                <img src="img/logo.png" alt="Logo" class="d-inline-block align-text align-items-center justify-content-center" style="width: 350px;">
+                <a class="navbar-brand" href="index.php">
+                    <img src="img/logo.png" alt="Logo" class="d-inline-block align-text align-items-center justify-content-center" style="width: 350px;">
+                </a>
             </div>
             <?php
             if (isset($_GET['error'])) { ?>
@@ -33,16 +35,16 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Log In as:</label>
-                <select class="form-control" name="role">
+                <select class="form-select" name="role">
                     <option value="1">Admin</option>
                     <option value="2">Tutor</option>
                     <option value="3">Student</option>
-                    
-                    
                 </select>
             </div> 
-            <button type="submit" class="btn btn-primary" style="background-color: #f47119; border-color: #f47119;">Log In</button>
-            <a href="index.php" class="text-decoration-none">Home</a>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary" style="background-color: #f47119; border-color: #f47119;">Log In</button>
+            </div>
+            <!-- <a href="index.php" class="text-decoration-none">Home</a> -->
         </form>
         <br/><br/>
         <!-- <div class="text-center"> 
@@ -53,7 +55,7 @@
                 ?>
         </div> -->
     </div>
-
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js">
         

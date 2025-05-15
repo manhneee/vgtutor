@@ -9,7 +9,7 @@
     <link rel="icon" href="img/logo.png">
 </head>
 <body class="body-home">
-    <div class="">
+    <div class="white-fill">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
@@ -44,7 +44,7 @@
             
             <img src="img/logo.png" alt="Logo" class="d-inline-block align-text-top">
             <h4>Welcome to VGtUtor</h4>
-            <p>VGtUtor is a platform that connects students with tutors in VGU for personalized learning experiences. Our mission is to make quality education accessible to everyone, everywhere.</p>
+            <!-- <p>VGtUtor is a platform that connects students with tutors in VGU for personalized learning experiences. Our mission is to make quality education accessible to everyone, everywhere.</p> -->
         </section>
 
         <section id="about"
