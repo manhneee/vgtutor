@@ -24,9 +24,9 @@ CREATE TABLE tutor_account (
 	accountid int primary key,
     bank_name varchar(50),
     bank_acc_no varchar(50),
-    gpa NUMBER(2,1),
+    gpa varchar(3),
     description varchar(200),
-    overall_rating NUMBER(2,1),
+    overall_rating varchar(3),
     foreign key (accountid) references student_account (accountid)
 );
 
@@ -40,8 +40,8 @@ CREATE TABLE course (
 CREATE TABLE course_offering (
 	tutorid int,
     courseid int,
-    tutor_grade NUMBER(2,1),
-    rating NUMBER(2,1),
+    tutor_grade varchar(3),
+    rating varchar(3),
     price int,
     primary key (tutorid, courseid),
     foreign key (tutorid) references tutor_account (accountid),
@@ -52,7 +52,7 @@ CREATE TABLE review (
 	studentid int,
     tutorid int,
     courseid int,
-    rating NUMBER(2,1),
+    rating varchar(3),
     review varchar(200),
     primary key (studentid, tutorid, courseid),
     foreign key (tutorid, courseid) references course_offering (tutorid, courseid),
