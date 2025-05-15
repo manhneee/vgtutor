@@ -41,11 +41,11 @@
         </form>
         <br/><br/>
         <div class="text-center"> 
-            <!-- <?php
+            <?php
                 $pass = 123;
                 $pass = password_hash($pass, PASSWORD_DEFAULT);
                 echo $pass; 
-                ?> -->
+                ?>
         </div>
     </div>
     </div>
