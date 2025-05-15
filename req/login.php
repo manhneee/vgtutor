@@ -1,18 +1,15 @@
 <?php 
 
 session_start();
-if (isset($_POST['email']) && 
-    isset($_POST['password']) &&
-    isset($_POST['role'])) {
+if (isset($_POST['userid']) && 
+    isset($_POST['password']))
+{
     
     include "../DB_connection.php";
-    $email = $_POST['email'];
+    $userid = $_POST['userid'];
     $pass = $_POST['password'];
     $role = $_POST['role'];
-
-    
-
-    if(empty($email)) {
+    if(empty($userid)) {
         $em = "Email is required";
         header("Location: ../login.php?error=$em");
         exit;
@@ -21,69 +18,60 @@ if (isset($_POST['email']) &&
         $em = "Password is required";
         header("Location: ../login.php?error=$em");
         exit;
-    }
-    else if(empty($role)) {
-        $em = "An error occurred";
-        header("Location: ../login.php?error=$em");
-        exit;
-    } else {
-        if ($role == '1') {
-            
-            $sql = "SELECT * FROM `admin` WHERE email = ?";
-            $role = "Admin";
-        } else if ($role == '2') {
-            $sql = "SELECT * FROM `tutors` WHERE email = ?";
-            $role = "Tutor";
-        } else {
-            $sql = "SELECT * FROM `students` WHERE email = ?";
-            $role = "Student";
+    }   
+    else {
+        $sql = "SELECT * FROM `account` 
+                WHERE account.userid = ?";
+        
+        
+        $sqladmincheck = "SELECT userid FROM `account`
+                INNER JOIN `admin_account` ON account.userid = admin_account.adminid
+                WHERE EXISTS account.userid = ?"; 
+        
+        // $sqlstudent = "SELECT * FROM `account`
+        //         INNER JOIN `student` ON account.userid = student.accountid
+        //         WHERE EXISTS account.userid = ?";
+        
+        if ($sqladmincheck != NULL) {
+            $role = 'Admin';
+            $sqladmin = "SELECT * FROM `account`
+                INNER JOIN `admin_account` ON account.userid = admin_account.adminid
+                WHERE account.userid = ?"; 
+            $stmt = $conn->prepare($sqladmin);
+            $stmt->execute([$userid]);
         }
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([$email]);
-
         if($stmt->rowCount() == 1) {
             $user = $stmt->fetch();
-            $e = $user['email'];
+            $uid = $user['userid'];
             $password = $user['password'];
-
-            if ($e === $email) {
+            
+            if ($uid === $userid) { // Compare $uid with $userid
                 if (password_verify($pass, $password)) {
                     $_SESSION['role'] = $role;
-                    $_SESSION['fname'] = $user['fname'];
-                    $_SESSION['lname'] = $user['lname'];
+                    $_SESSION['name'] = $user['name'];
                     if ($role == 'Admin') {
-                        $id = $user['admin_id'];
-                        $_SESSION['admin_id'] = $id;
+                        $admid = $user['adminid'];
+                        $_SESSION['adminid'] = $admid;
                         header("Location: ../admin/index.php");
                         exit;
                     } 
-                    // else if ($role == 'Tutor') {
-                    //     header("Location: ../tutor/index.php");
-                    // } else {
-                    //     header("Location: ../student/index.php");
-                    // }
-                    
-                    
                 } else {
                     $em = "Incorrect password";
                     header("Location: ../login.php?error=$em");
                     exit;
                 }
             } else {
-                $em = "Incorrect email";
+                $em = "Incorrect userid";
                 header("Location: ../login.php?error=$em");
                 exit;
             }
 
         } else {
-            $em = "Incorrect email or password";
+            $em = "Incorrect userid or password";
             header("Location: ../login.php?error=$em");
             exit;
         }
-            
-        
     }
-    
 } else {
     header("Location: ../login.php");
 }

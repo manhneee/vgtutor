@@ -26,21 +26,14 @@
                 </div>
             <?php } ?>
             <div class="mb-3">
-                <label class="form-label">Email address</label>
-                <input type="text" class="form-control" name="email">
+                <label class="form-label">User ID</label>
+                <input type="text" class="form-control" name="userid">
             </div>
             <div class="mb-3">
                 <label class="form-label">Password</label>
                 <input type="password" class="form-control" name="password">
             </div>
-            <div class="mb-3">
-                <label class="form-label">Log In as:</label>
-                <select class="form-select" name="role">
-                    <option value="1">Admin</option>
-                    <option value="2">Tutor</option>
-                    <option value="3">Student</option>
-                </select>
-            </div> 
+            
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary" style="background-color: #f47119; border-color: #f47119;">Log In</button>
             </div>

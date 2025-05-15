@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if (isset($_SESSION['admin_id']) && 
+if (isset($_SESSION['adminid']) && 
     isset($_SESSION['role'])) {
     
     if ($_SESSION['role'] == 'Admin') {
@@ -21,6 +21,14 @@ if (isset($_SESSION['admin_id']) &&
 <body class="body-home"> 
     <?php include "inc/navbar.php"; ?>
 
+    <div class="container mt-5">
+        <div class="text-center">
+            <div class="col btn bg-orange m-2 py-3">
+                <h1 style="color: white">Welcome, <?= $_SESSION['name']?> - <?=$_SESSION['adminid'] ?></h1>
+                <p style="color: white">You are logged in as an <?= $_SESSION['role'] ?>.</p>
+            </div>
+        </div>
+        
     <div class="container mt-5">
         <div class="container text-center">
             <div class="row row-cols-5">
@@ -68,11 +76,15 @@ if (isset($_SESSION['admin_id']) &&
 
 <?php
  } else {
-    header("Location: ../login.php");
+    $em = "You are not authorized to access this page.";
+    header("Location: ../login.php?error=$em");
+    // header("Location: ../login.php");
     exit;
  } 
 } else {
-    header("Location: ../login.php");
+    $em = "You are not logged in.";
+    header("Location: ../login.php?error=$em");
+    // header("Location: ../login.php");
     exit;
  }
 ?>
