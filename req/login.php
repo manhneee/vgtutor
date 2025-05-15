@@ -13,8 +13,7 @@ if (isset($_POST['userid']) &&
         $em = "User ID is required";
         header("Location: ../login.php?error=$em");
         exit;
-    }
-    else if(empty($pass)) {
+    } elseif (empty($pass)) {
         $em = "Password is required";
         header("Location: ../login.php?error=$em");
         exit;
@@ -65,7 +64,6 @@ if (isset($_POST['userid']) &&
                 header("Location: ../login.php?error=$em");
                 exit;
             }
-
         } else {
             $em = "Incorrect User ID or Password";
             header("Location: ../login.php?error=$em");
@@ -74,4 +72,5 @@ if (isset($_POST['userid']) &&
     }
 } else {
     header("Location: ../login.php");
+    exit;
 }
