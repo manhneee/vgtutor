@@ -4,7 +4,7 @@
     background-attachment: fixed;
 }
 .white-fill {
-    background: rgba(255, 255, 255, 0.5);;
+    background: rgba(255, 255, 255, 0.6);
 }
 #homeNav {
     background: #ff6600 !important; /* Orange background */
@@ -51,11 +51,18 @@ textarea {
     max-width: 500px;
     width: 90%;
     /* padding: 20px; */
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
     margin: 0 auto;
     margin-top: 200px;
 }
+
+#table {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    border: #fff;
+}
+#tutor
 .login h3 {
     text-align: center;
     font-size: 50px;
@@ -65,6 +72,9 @@ textarea {
 }
 .bg-orange {
     background: #ff6600 !important; /* Orange background */
+    outline: none;
     color: #fff;
 }
-
+.n-table {
+    max-width: 800px;
+}

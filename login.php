@@ -9,7 +9,7 @@
     <link rel="icon" href="img/logo.png">
 </head>
 <body class="body-login"> 
-    <div class="white-fill">
+    <div class="white-fill br-10">
     <div class="d-flex justify-content-center align-items-center flex-column">
         <form class="login"
               method="post"
@@ -33,7 +33,7 @@
                 <label class="form-label">Password</label>
                 <input type="password" class="form-control" name="password">
             </div>
-            
+            <br />
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary" style="background-color: #f47119; border-color: #f47119;">Log In</button>
             </div>

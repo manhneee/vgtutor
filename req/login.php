@@ -11,7 +11,7 @@ if (isset($_POST['userid']) &&
     $role = $_POST['role'] ?? ''; // Use null coalescing operator to avoid undefined index
 
     if (empty($userid)) {
-        $em = "Email is required";
+        $em = "User ID is required";
         header("Location: ../login.php?error=$em");
         exit;
     } elseif (empty($pass)) {
