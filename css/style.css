@@ -1,0 +1,66 @@
+.body-home{
+    background-color: #efefef; /* White background */
+}
+#homeNav {
+    background: #ff6600 !important; /* Orange background */
+    color: #ffffff; /* White text */
+}
+.welcome-text {
+    min-height: 80vh;
+    border-radius: 10px;
+}
+.welcome-text img {
+    width: 800px;
+}
+.welcome-text h4 {
+    color: #ff6600; /* Orange text */
+    font-size: 51px;
+}
+.welcome-text p {
+    color: #333; /* Darker text for contrast */
+    /* background: #ffffff !important; White background */
+    padding: 5px;
+    border-radius: 4px;
+}
+#about {
+    min-height: 100vh;
+}
+#contact {
+    min-height: 100vh;
+}
+#contact form {
+    max-width: 600px;
+    width: 90%;
+}
+#contact form h3 {
+    text-align: center;
+}
+
+textarea {
+    resize: none;
+    width: 100%;
+    height: 150px; /* Increased height for a bigger box */
+}
+
+.body-login {
+    max-width: 500px;
+    width: 90%;
+    background: #efefef !important; /* Gray background */
+    padding: 20px;
+    border-radius: 10px;
+    background-color: linear-gradient(to right, #ff6600, #ff9900); /* Gradient background */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin: 0 auto;
+    margin-top: 200px;
+}
+.login h3 {
+    text-align: center;
+    font-size: 50px;
+}
+.w-450 {
+    width: 450px;
+}
+.bg-orange {
+    background: #ff6600 !important; /* Orange background */
+    color: #fff;
+}
