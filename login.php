@@ -47,13 +47,13 @@
             <!-- <a href="index.php" class="text-decoration-none">Home</a> -->
         </form>
         <br/><br/>
-        <!-- <div class="text-center"> 
-            <?php
+        <div class="text-center"> 
+            <!-- <?php
                 $pass = 123;
                 $pass = password_hash($pass, PASSWORD_DEFAULT);
                 echo $pass; 
                 ?>
-        </div> -->
+        </div>
     </div>
     </div>
 
