@@ -1,89 +1,73 @@
 <?php 
 
 session_start();
-if (isset($_POST['email']) && 
-    isset($_POST['password']) &&
-    isset($_POST['role'])) {
-    
+if (isset($_POST['userid']) && 
+    isset($_POST['password']))
+{
     include "../DB_connection.php";
-    $email = $_POST['email'];
+
+    $userid = trim($_POST['userid']); // Trim to avoid whitespace issues
     $pass = $_POST['password'];
-    $role = $_POST['role'];
+    $role = $_POST['role'] ?? ''; // Use null coalescing operator to avoid undefined index
 
-    
-
-    if(empty($email)) {
+    if (empty($userid)) {
         $em = "Email is required";
         header("Location: ../login.php?error=$em");
         exit;
-    }
-    else if(empty($pass)) {
+    } elseif (empty($pass)) {
         $em = "Password is required";
         header("Location: ../login.php?error=$em");
         exit;
-    }
-    else if(empty($role)) {
-        $em = "An error occurred";
-        header("Location: ../login.php?error=$em");
-        exit;
     } else {
-        if ($role == '1') {
-            
-            $sql = "SELECT * FROM `admin` WHERE email = ?";
-            $role = "Admin";
-        } else if ($role == '2') {
-            $sql = "SELECT * FROM `tutors` WHERE email = ?";
-            $role = "Tutor";
-        } else {
-            $sql = "SELECT * FROM `students` WHERE email = ?";
-            $role = "Student";
-        }
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([$email]);
+        $sqladmincheck = "SELECT userid FROM `account`
+                          INNER JOIN `admin_account` ON account.userid = admin_account.adminid
+                          WHERE account.userid = ?";
 
-        if($stmt->rowCount() == 1) {
-            $user = $stmt->fetch();
-            $e = $user['email'];
-            $password = $user['password'];
+        $stmt = $conn->prepare($sqladmincheck);
+        $stmt->execute([$userid]);
 
-            if ($e === $email) {
-                if (password_verify($pass, $password)) {
-                    $_SESSION['role'] = $role;
-                    $_SESSION['fname'] = $user['fname'];
-                    $_SESSION['lname'] = $user['lname'];
-                    if ($role == 'Admin') {
-                        $id = $user['admin_id'];
-                        $_SESSION['admin_id'] = $id;
-                        header("Location: ../admin/index.php");
+        if ($stmt->rowCount() == 1) {
+            $role = 'Admin';
+            $sqladmin = "SELECT * FROM `account`
+                         INNER JOIN `admin_account` ON account.userid = admin_account.adminid
+                         WHERE account.userid = ?";
+            $stmt = $conn->prepare($sqladmin);
+            $stmt->execute([$userid]);
+
+            if ($stmt->rowCount() == 1) {
+                $user = $stmt->fetch(PDO::FETCH_ASSOC); // Explicit fetch mode for clarity
+                $uid = $user['userid'];
+                $password = $user['password'];
+
+                // Normalize and trim values before comparison
+                if (trim($uid) === trim($userid)) {
+                    if (password_verify($pass, $password)) {
+                        $_SESSION['role'] = $role;
+                        $_SESSION['name'] = $user['name'];
+                        if ($role === 'Admin') {
+                            $admid = $user['adminid'];
+                            $_SESSION['adminid'] = $admid;
+                            header("Location: ../admin/index.php");
+                            exit;
+                        }
+                    } else {
+                        $em = "Incorrect password";
+                        header("Location: ../login.php?error=$em");
                         exit;
-                    } 
-                    // else if ($role == 'Tutor') {
-                    //     header("Location: ../tutor/index.php");
-                    // } else {
-                    //     header("Location: ../student/index.php");
-                    // }
-                    
-                    
+                    }
                 } else {
-                    $em = "Incorrect password";
+                    $em = "Incorrect userid";
                     header("Location: ../login.php?error=$em");
                     exit;
                 }
-            } else {
-                $em = "Incorrect email";
-                header("Location: ../login.php?error=$em");
-                exit;
             }
-
         } else {
-            $em = "Incorrect email or password";
+            $em = "Incorrect userid or password";
             header("Location: ../login.php?error=$em");
             exit;
         }
-            
-        
     }
-    
 } else {
     header("Location: ../login.php");
+    exit;
 }
