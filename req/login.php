@@ -51,18 +51,18 @@ if (isset($_POST['userid']) &&
                             exit;
                         }
                     } else {
-                        $em = "Incorrect password";
+                        $em = "Incorrect Password";
                         header("Location: ../login.php?error=$em");
                         exit;
                     }
                 } else {
-                    $em = "Incorrect userid";
+                    $em = "Incorrect User ID";
                     header("Location: ../login.php?error=$em");
                     exit;
                 }
             }
         } else {
-            $em = "Incorrect userid or password";
+            $em = "Incorrect User ID or Password";
             header("Location: ../login.php?error=$em");
             exit;
         }
