@@ -1,9 +1,9 @@
 <?php 
 session_start();
-if (isset($_SESSION['adminid']) && 
+if (isset($_SESSION['tutorid']) && 
     isset($_SESSION['role'])) {
     
-    if ($_SESSION['role'] == 'Admin') {
+    if ($_SESSION['role'] == 'Tutor') {
        
 ?>
 <!DOCTYPE html>
@@ -11,7 +11,7 @@ if (isset($_SESSION['adminid']) &&
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin-Home</title>
+    <title>Tutor-Home</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/style.css">
@@ -25,7 +25,7 @@ if (isset($_SESSION['adminid']) &&
     <div class="container mt-5">
         <div class="text-center">
             <div class="col btn bg-orange m-2 py-3">
-                <h1 style="color: white">Welcome, <?= $_SESSION['name']?> - <?=$_SESSION['adminid'] ?></h1>
+                <h1 style="color: white">Welcome, <?= $_SESSION['name']?> - <?=$_SESSION['tutorid'] ?></h1>
                 <p style="color: white">You are logged in as an <?= $_SESSION['role'] ?>.</p>
             </div>
         </div>
