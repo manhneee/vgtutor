@@ -88,35 +88,50 @@ if (isset($_POST['userid']) &&
             $uid = $user['userid'];
             $password = $user['password'];
 
-                // Normalize and trim values before comparison
-                if (trim($uid) === trim($userid)) {
-                    if (password_verify($pass, $password)) {
-                        $_SESSION['role'] = $role;
-                        $_SESSION['name'] = $user['name'];
-                        if ($role === 'Admin') {
-                            $admid = $user['adminid'];
-                            $_SESSION['adminid'] = $admid;
-                            header("Location: ../admin/index.php");
-                            exit;
+            // Normalize and trim values before comparison
+            if (trim($uid) === trim($userid)) {
+                if (password_verify($pass, $password)) {
+                    $_SESSION['role'] = $role;
+                    $_SESSION['name'] = $user['name'];
+                    if ($role === 'Admin') {
+                        $admid = $user['adminid'];
+                        $_SESSION['adminid'] = $admid;
+                        header("Location: ../admin/index.php");
+                        exit;
+                    }
+                    else if ($role === 'Tutor') {
+                        $tutorid = $user['accountid'];
+                        $_SESSION['tutorid'] = $tutorid;
+                        $_SESSION['studentid'] = $tutorid;
+                        header("Location: ../tutor/index.php");
+                        exit;
+                    } else if ($role === 'Student') {
+                        $studentid = $user['accountid'];
+                        $_SESSION['studentid'] = $studentid;
+                        if (isset($_SESSION['is_tutor']) && $_SESSION['is_tutor'] === true) {
+                            $tutorid = $studentid;
+                            $_SESSION['tutorid'] = $tutorid;
+                        } else {
+                            unset($_SESSION['tutorid']);
                         }
-                    } else {
-                        $em = "Incorrect password";
-                        header("Location: ../login.php?error=$em");
+                        header("Location: ../student/index.php");
                         exit;
                     }
                 } else {
-                    $em = "Incorrect userid";
+                    $em = "Incorrect password";
                     header("Location: ../login.php?error=$em");
                     exit;
                 }
+            } else {
+                $em = "Incorrect userid";
+                header("Location: ../login.php?error=$em");
+                exit;
             }
-        } else {
-            $em = "Incorrect userid or password";
-            header("Location: ../login.php?error=$em");
-            exit;
         }
     }
-} else {
-    header("Location: ../login.php");
+    $em = "Incorrect userid or password";
+    header("Location: ../login.php?error=$em");
     exit;
 }
+
+
