@@ -39,6 +39,7 @@
                     <a class="nav-link" href="#">Settings</a>
                 </li>
             </ul>
+            
             <ul class="navbar-nav me-right mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="btn btn-outline-primary me-2" href="switch_to_student.php">Switch to Student Mode</a>
