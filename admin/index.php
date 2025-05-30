@@ -40,7 +40,7 @@ if (isset($_SESSION['adminid']) &&
                     <i class="fa fa-users fs-1" aria-hidden="true"></i><br>Students
                 </a>
                 <a href="" class="col btn bg-orange m-2 py-3">
-                    <i class="fa fa-pencil-square fs-1" aria-hidden="true"></i><br>Registration Office
+                    <i class="fa fa-book fs-1" aria-hidden="true"></i><br>Registration Office
                 </a>
                 <a href="" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-cubes fs-1" aria-hidden="true"></i><br>Class
@@ -51,8 +51,8 @@ if (isset($_SESSION['adminid']) &&
                 <a href="" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-calendar fs-1" aria-hidden="true"></i><br>Schedule
                 </a>
-                <a href="" class="col btn bg-orange m-2 py-3">
-                    <i class="fa fa-book fs-1" aria-hidden="true"></i><br>Courses
+                <a href="/vgtutor/admin/course_processing/pending_offerings.php" class="col btn bg-orange m-2 py-3">
+                    <i class="fa fa-pencil-square fs-1" aria-hidden="true"></i><br>Pending Offerings
                 </a>
                 <a href="" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-comments fs-1" aria-hidden="true"></i><br>Messages

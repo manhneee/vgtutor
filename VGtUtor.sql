@@ -34,7 +34,8 @@ CREATE TABLE course (
 	courseid int primary key,
     course_name varchar(50),
     major varchar(3),
-    semester int
+    semester int,
+    cond varchar(200)
 );
 
 CREATE TABLE course_offering (
@@ -70,3 +71,15 @@ CREATE TABLE session (
     foreign key (tutorid, courseid) references course_offering (tutorid, courseid),
     foreign key (studentid) references student_account (accountid)
 );
+
+CREATE TABLE pending_offering (
+    tutorid int,
+    courseid int,
+    status varchar(20),
+    gpa varchar(3),
+    price int,
+    self_description varchar(200),
+    primary key (tutorid, courseid),
+    foreign key (tutorid) references tutor_account (accountid),
+    foreign key (courseid) references course (courseid)
+)
