@@ -9,7 +9,7 @@ function getAllPendingOfferings($conn) {
             po.courseid,
             c.course_name,
             c.major,
-            po.gpa,
+            po.grade,
             po.price,
             po.self_description
         FROM pending_offering po
@@ -24,12 +24,12 @@ function getAllPendingOfferings($conn) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function processPendingOfferingAction($conn, $action, $tutorid, $courseid, $gpa = null, $price = null) {
+function processPendingOfferingAction($conn, $action, $tutorid, $courseid, $grade = null, $price = null) {
     if ($action === 'permit') {
         // Insert into offering table
         $insertSql = "INSERT INTO course_offering (tutorid, courseid, tutor_grade, rating, price) VALUES (?, ?, ?, NULL, ?)";
         $stmt = $conn->prepare($insertSql);
-        $stmt->execute([$tutorid, $courseid, $gpa, $price]);
+        $stmt->execute([$tutorid, $courseid, $grade, $price]);
 
         // Update status in pending_offering (permitted)
         $updateSql = "UPDATE pending_offering SET status = 'permitted' WHERE tutorid = ? AND courseid = ?";

@@ -15,7 +15,6 @@ CREATE TABLE student_account (
     email varchar(50),
     name varchar(50),
     major varchar(3),
-    studentid int unique,
     intake int,
     foreign key (accountid) references account (userid)
 );
@@ -83,3 +82,14 @@ CREATE TABLE pending_offering (
     foreign key (tutorid) references tutor_account (accountid),
     foreign key (courseid) references course (courseid)
 )
+
+CREATE TABLE tutor_registration (
+    studentid int,
+    status varchar(20),
+    gpa varchar(3),
+    bank_name varchar(50),
+    bank_acc_no varchar(50),
+    self_description varchar(1000),
+    primary key (studentid),
+    foreign key (studentid) references student_account (accountid)
+);

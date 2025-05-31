@@ -33,14 +33,14 @@ if (isset($_SESSION['adminid']) &&
     <div class="container mt-5">
         <div class="container text-center">
             <div class="row row-cols-5">
-                <a href="tutor.php" class="col btn bg-orange m-2 py-3">
+                <a href="tutor_processing/tutor.php" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-user-md fs-1" aria-hidden="true"></i><br>Tutors
                 </a>
                 <a href="" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-users fs-1" aria-hidden="true"></i><br>Students
                 </a>
-                <a href="" class="col btn bg-orange m-2 py-3">
-                    <i class="fa fa-book fs-1" aria-hidden="true"></i><br>Registration Office
+                <a href="tutor_processing/pending_registration.php" class="col btn bg-orange m-2 py-3">
+                    <i class="fa fa-book fs-1" aria-hidden="true"></i><br>Tutor Registration
                 </a>
                 <a href="" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-cubes fs-1" aria-hidden="true"></i><br>Class
