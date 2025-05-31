@@ -1,5 +1,4 @@
 <?php
-// Start session
 session_start();
 ?>
 <!DOCTYPE html>
@@ -7,7 +6,7 @@ session_start();
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>VGtUtor Login</title>
+  <title>Sign Up - VGtUtor</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css">
   <style>
@@ -15,14 +14,14 @@ session_start();
       box-sizing: border-box;
     }
 
-    body, html {
+    html, body {
       margin: 0;
       padding: 0;
       height: 100%;
       font-family: 'Inter', sans-serif;
     }
 
-    .login-page {
+    .signup-page {
       display: flex;
       height: 100vh;
       width: 100%;
@@ -30,9 +29,7 @@ session_start();
       position: relative;
     }
 
-
-
-    .login-container {
+    .signup-container {
       z-index: 1;
       margin: auto;
       display: flex;
@@ -42,47 +39,43 @@ session_start();
       overflow: hidden;
       max-width: 900px;
       width: 100%;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease-out forwards;
     }
-    .login-container {
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInUp 0.8s ease-out forwards;
-}
 
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
+    .signup-left {
+      background-color: rgba(237, 213, 183, 0.9);
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+      min-height: 100%;
+      transition: all 0.4s ease;
+      box-shadow: inset -5px 0 10px rgba(0, 0, 0, 0.05);
+    }
 
+    .logo {
+      max-width: 400px;
+      transition: transform 0.3s ease;
+    }
 
-.login-left {
-  background-color: rgba(237, 213, 183, 0.9); /* Soft white background */
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-  min-height: 100%;
-  transition: all 0.4s ease;
-  box-shadow: inset -5px 0 10px rgba(0, 0, 0, 0.05);
-}
+    .logo:hover {
+      transform: scale(1.15);
+    }
 
-.logo {
-  max-width: 400px;
-  transition: transform 0.3s ease;
-}
-.logo:hover {
-  transform: scale(1.15);
-}
+    .description-text {
+      font-size: 1rem;
+      color: #555;
+      max-width: 250px;
+    }
 
-
-
-.description-text {
-  font-size: 1rem;
-  color: #555;
-  max-width: 250px;
-}
-    .login-right {
+    .signup-right {
       flex: 1;
       padding: 3rem;
       display: flex;
@@ -99,7 +92,7 @@ session_start();
       border: 1px solid #ccc;
     }
 
-    .btn-login {
+    .btn-signup {
       background-color: #f57c00;
       color: white;
       font-weight: 600;
@@ -110,7 +103,7 @@ session_start();
       transition: all 0.3s ease;
     }
 
-    .btn-login:hover {
+    .btn-signup:hover {
       background-color: #e65100;
       transform: scale(1.03);
     }
@@ -122,7 +115,7 @@ session_start();
     }
 
     .form-footer a {
-      color:rgb(228, 114, 32);
+      color: rgb(228, 114, 32);
       text-decoration: none;
     }
 
@@ -131,30 +124,29 @@ session_start();
     }
 
     @media (max-width: 768px) {
-      .login-container {
+      .signup-container {
         flex-direction: column;
       }
 
-      .login-left {
+      .signup-left {
         display: none;
       }
     }
   </style>
 </head>
 <body>
-  <div class="login-page">
-    <div class="login-container">
+  <div class="signup-page">
+    <div class="signup-container">
       <!-- Left side -->
-<div class="login-left d-flex flex-column justify-content-center align-items-center text-center p-4">
-  <img src="img/logo.png" alt="VGtUtor Logo" class="logo mb-3">
-  <p class="description-text">Your gateway to smarter learning with trusted tutors from VGU.</p>
-</div>
-
+      <div class="signup-left d-flex flex-column justify-content-center align-items-center text-center p-4">
+        <img src="img/logo.png" alt="VGtUtor Logo" class="logo mb-3">
+        <p class="description-text">Create your account and start your learning journey with us.</p>
+      </div>
 
       <!-- Right side -->
-      <div class="login-right">
-        <h2 class="fw-bold">Welcome Back</h2>
-        <p class="text-muted">Login to access your tutor dashboard</p>
+      <div class="signup-right">
+        <h2 class="fw-bold">Create Account</h2>
+        <p class="text-muted">Sign up to access all features</p>
 
         <?php if (isset($_GET['error'])): ?>
           <div class="alert alert-danger" role="alert">
@@ -162,15 +154,17 @@ session_start();
           </div>
         <?php endif; ?>
 
-        <form action="req/login.php" method="post">
+        <form action="req/signup.php" method="post">
+          <input type="text" name="fullname" class="form-control" placeholder="Full Name" required>
           <input type="text" name="userid" class="form-control" placeholder="Username" required>
+          <input type="email" name="email" class="form-control" placeholder="Email" required>
           <input type="password" name="password" class="form-control" placeholder="Password" required>
-          <button type="submit" class="btn btn-login">Login</button>
+          <input type="password" name="confirm_password" class="form-control" placeholder="Confirm Password" required>
+          <button type="submit" class="btn btn-signup">Sign Up</button>
         </form>
 
         <div class="form-footer">
-          <p><a href="#">Forgot your password?</a></p>
-              <p>Not a member? <a href="signup.php">Register here</a></p>
+          <p>Already have an account? <a href="login.php">Login here</a></p>
         </div>
       </div>
     </div>
