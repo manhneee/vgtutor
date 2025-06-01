@@ -93,3 +93,16 @@ CREATE TABLE tutor_registration (
     primary key (studentid),
     foreign key (studentid) references student_account (accountid)
 );
+
+
+--ALTER TABLE tutor_registration ADD COLUMN denied_at DATETIME NULL DEFAULT NULL;
+
+-- CREATE EVENT IF NOT EXISTS delete_old_denied_tutors
+-- ON SCHEDULE EVERY 1 DAY
+-- DO
+--   DELETE FROM tutor_registration
+--   WHERE status = 'denied'
+--     AND denied_at IS NOT NULL
+--     AND denied_at < (NOW() - INTERVAL 3 DAY);
+
+--SET GLOBAL event_scheduler = ON;

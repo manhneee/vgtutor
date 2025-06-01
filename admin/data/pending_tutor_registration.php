@@ -20,18 +20,21 @@ function getPendingTutorStatus($conn, $studentid) {
 function processPendingTutorAction($conn, $action, $studentid) {
     if ($action === 'permit') {
         $status = 'permitted';
-
+        $sql = "UPDATE tutor_registration SET status = ?, denied_at = NULL WHERE studentid = ?";
+        $stmt = $conn->prepare($sql);
+        $result = $stmt->execute([$status, $studentid]);
     } elseif ($action === 'deny') {
         $status = 'denied';
+        $sql = "UPDATE tutor_registration SET status = ?, denied_at = NOW() WHERE studentid = ?";
+        $stmt = $conn->prepare($sql);
+        $result = $stmt->execute([$status, $studentid]);
     } else {
         return false;
     }
-    $sql = "UPDATE tutor_registration SET status = ? WHERE studentid = ?";
-    $stmt = $conn->prepare($sql);
-    $result = $stmt->execute([$status, $studentid]);
+
     // If permitted, insert into tutor_account
-    if ($result && $action === 'permit') {
-        $sqlGet = "SELECT bank_name, bank_acc_no, gpa, self_description FROM tutor_registration tr JOIN student_account sa ON tr.studentid = sa.accountid WHERE studentid = ? AND tr.status = 'permitted'";
+    if (isset($result) && $result && $action === 'permit') {
+        $sqlGet = "SELECT bank_name, bank_acc_no, gpa, self_description FROM tutor_registration WHERE studentid = ?";
         $stmtGet = $conn->prepare($sqlGet);
         $stmtGet->execute([$studentid]);
         $reg = $stmtGet->fetch(PDO::FETCH_ASSOC);
@@ -51,4 +54,5 @@ function processPendingTutorAction($conn, $action, $studentid) {
 
     return $result;
 }
+
 ?>

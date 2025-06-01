@@ -22,6 +22,8 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                 $error = $result;
             }
         }
+
+        
 ?>
 <!DOCTYPE html>
 <html lang="en">
