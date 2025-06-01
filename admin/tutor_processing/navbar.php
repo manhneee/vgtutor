@@ -41,6 +41,14 @@
         </ul>
         <ul class="navbar-nav me-right mb-2 mb-lg-0">
                 <li class="nav-item">
+                    <a class="btn btn-secondary me-2" href="../index.php">
+                        <i class="fa fa-arrow-left"></i> Back to Menu
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-outline-primary me-2" href="switch_to_student.php">Switch to Student Mode</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="../../login.php">Sign Out</a>
                 </li>
             </ul>
