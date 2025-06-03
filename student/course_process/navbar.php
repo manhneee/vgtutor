@@ -41,15 +41,17 @@
             </ul>
             <ul class="navbar-nav me-right mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="btn btn-secondary me-2" href="../index.php">
-                        <i class="fa fa-arrow-left"></i> Back to Menu
+                    <a class="btn me-2" 
+                        style="border: 2px solid #f47119; color: #f47119; background: #fff;" 
+                        href="/vgtutor/student/index.php">
+                        Back to Menu
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-outline-primary me-2" href="../switch_to_student.php">Switch to Student Mode</a>
+                    <a class="btn btn-outline-primary me-2" href="../switch_to_tutor.php">Switch to Tutor Mode</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../../login.php">Sign Out</a>
+                    <a class="nav-link" href="../logout.php">Sign Out</a>
                 </li>
             </ul>
         </div>

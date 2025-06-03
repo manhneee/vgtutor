@@ -75,8 +75,8 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                 <a href="" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-calendar fs-1" aria-hidden="true"></i><br>Schedule
                 </a>
-                <a href="" class="col btn bg-orange m-2 py-3">
-                    <i class="fa fa-book fs-1" aria-hidden="true"></i><br>Courses
+                <a href="course_process/courseSelection.php " class="col btn bg-orange m-2 py-3">
+                    <i class="fa fa-book fs-1" aria-hidden="true"></i><br>Register Courses
                 </a>
                 <a href="" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-comments fs-1" aria-hidden="true"></i><br>Messages
