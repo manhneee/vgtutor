@@ -46,6 +46,7 @@ $tutors = tutorFetching($conn, $courseid);
                         <th>Major</th>
                         <th>GPA</th>
                         <th>Description</th>
+                        <th>Price</th>
                         <th>Email</th>
                         <th>Overall Rating</th>
                         <th>Reviews</th>
@@ -60,6 +61,7 @@ $tutors = tutorFetching($conn, $courseid);
                             <td><?= htmlspecialchars($tutor['major']) ?></td>
                             <td><?= htmlspecialchars($tutor['gpa']) ?></td>
                             <td><?= htmlspecialchars($tutor['description']) ?></td>
+                            <td><?= htmlspecialchars($tutor['price']) ?></td>
                             <td><?= htmlspecialchars($tutor['email']) ?></td>
                             <td><?= htmlspecialchars($tutor['rating']) ?></td>
                             <td>

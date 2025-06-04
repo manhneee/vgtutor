@@ -30,7 +30,7 @@ function getCourseName($conn, $courseid) {
 }
 
 function tutorFetching($conn, $courseid) {
-    $sql = "SELECT t.accountid AS tutorid, s.name AS tutor_name, co.rating AS rating, s.email AS email, s.major AS major, t.gpa, t.description
+    $sql = "SELECT t.accountid AS tutorid, s.name AS tutor_name, co.rating AS rating, s.email AS email, s.major AS major, t.gpa, t.description, co.price AS price
             FROM course_offering co
             LEFT JOIN student_account s ON co.tutorid = s.accountid
             LEFT JOIN  tutor_account t ON co.tutorid = t.accountid
