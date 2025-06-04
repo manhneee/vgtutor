@@ -107,30 +107,30 @@
   <div class="container">
     <div class="row g-4 align-items-stretch">
       <!-- Left: Upcoming Features -->
-<div class="col-md-6">
-  <div class="upcoming-container shadow-lg rounded-4 p-4">
-    <h2 class="upcoming-title">Upcoming <span class="highlight">features</span></h2>
-    <div id="updateCarousel" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="img/test1.jpg" class="d-block w-100 rounded-3 carousel-img" alt="Update 1">
+        <div class="col-md-6">
+          <div class="container shadow-lg rounded-4 p-4 h-100 bg-white">  
+            <h2 class="upcoming-title">Upcoming <span class="highlight">features</span></h2>
+            <div id="updateCarousel" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img src="img/test1.jpg" class="d-block w-100 rounded-3 carousel-img" alt="Update 1">
+                </div>
+                <div class="carousel-item">
+                  <img src="img/test.jpg" class="d-block w-100 rounded-3 carousel-img" alt="Update 2">
+                </div>
+                <div class="carousel-item">
+                  <img src="img/test3.jpg" class="d-block w-100 rounded-3 carousel-img" alt="Update 3">
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#updateCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#updateCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+              </button>
+            </div>
+          </div>
         </div>
-        <div class="carousel-item">
-          <img src="img/test.jpg" class="d-block w-100 rounded-3 carousel-img" alt="Update 2">
-        </div>
-        <div class="carousel-item">
-          <img src="img/test3.jpg" class="d-block w-100 rounded-3 carousel-img" alt="Update 3">
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#updateCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#updateCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </button>
-    </div>
-  </div>
-</div>
 
         <!-- Right: Contact Form -->
         <div class="col-md-6">
