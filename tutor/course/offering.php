@@ -12,7 +12,7 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role']) && $_SESSION['role']
     // Handle form submission
     $success = $error = '';
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $gpa = trim($_POST['grade'] ?? '');
+        $grade = trim($_POST['grade'] ?? '');
         $price = intval($_POST['price'] ?? 0);
         $self_description = trim($_POST['self_intro'] ?? '');
 
@@ -22,7 +22,7 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role']) && $_SESSION['role']
         }
 
         // Insert into pending_offering table using a function from course_offering.php
-        $result = insertPendingOffering($tutorid, $courseid, $gpa, $price, $self_description);
+        $result = insertPendingOffering($tutorid, $courseid, $grade, $price, $self_description);
 
         if ($result === true) {
             $success = "Offer submitted and pending approval.";
@@ -66,7 +66,7 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role']) && $_SESSION['role']
                                 <input type="text" class="form-control" id="tutorid" name="tutorid" value="<?= htmlspecialchars($tutorid) ?>" readonly required>
                             </div>
                             <div class="mb-3">
-                                <label for="grade" class="form-label">GPA</label>
+                                <label for="grade" class="form-label">Grade</label>
                                 <input type="text" class="form-control" id="grade" name="grade" required>
                             </div>
                             <div class="mb-3">

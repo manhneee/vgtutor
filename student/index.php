@@ -1,10 +1,22 @@
 <?php 
 session_start();
-if (isset($_SESSION['studentid']) && 
-    isset($_SESSION['role'])) {
-    
+if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
     if ($_SESSION['role'] == 'Student') {
-       
+        $showDeniedMsg = false;
+        $deniedAt = null;
+        if (isset($_SESSION['studentid'])) {
+            include_once $_SERVER['DOCUMENT_ROOT'] . "/vgtutor/DB_connection.php";
+            $stmt = $conn->prepare("SELECT status, denied_at FROM tutor_registration WHERE studentid = ? ORDER BY denied_at DESC LIMIT 1");
+            $stmt->execute([$_SESSION['studentid']]);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($row && $row['status'] === 'denied' && $row['denied_at']) {
+                $deniedAt = strtotime($row['denied_at']);
+                // Show alert only if this is the first page load after denial (within 10 seconds)
+                if (time() - $deniedAt < 10) {
+                    $showDeniedMsg = true;
+                }
+            }
+        }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +41,19 @@ if (isset($_SESSION['studentid']) &&
                 <p style="color: white">You are logged in as an <?= $_SESSION['role'] ?>.</p>
             </div>
         </div>
-        
+    <div class="container mt-3">
+        <?php if ($showDeniedMsg): ?>
+            <div class="alert alert-danger text-center" id="denied-alert">
+                Your application to become a Tutor has been <strong>denied</strong>. Please register again after 3 days.
+            </div>
+            <script>
+                setTimeout(function() {
+                    var alertBox = document.getElementById('denied-alert');
+                    if (alertBox) alertBox.style.display = 'none';
+                }, 30000); // 30 seconds
+            </script>
+        <?php endif; ?>
+    </div>
     <div class="container mt-5">
         <div class="container text-center">
             <div class="row row-cols-5">
@@ -51,8 +75,8 @@ if (isset($_SESSION['studentid']) &&
                 <a href="" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-calendar fs-1" aria-hidden="true"></i><br>Schedule
                 </a>
-                <a href="" class="col btn bg-orange m-2 py-3">
-                    <i class="fa fa-book fs-1" aria-hidden="true"></i><br>Courses
+                <a href="course_process/courseSelection.php " class="col btn bg-orange m-2 py-3">
+                    <i class="fa fa-book fs-1" aria-hidden="true"></i><br>Register Courses
                 </a>
                 <a href="" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-comments fs-1" aria-hidden="true"></i><br>Messages

@@ -32,10 +32,13 @@
                     
                 </ul>
                 <ul class="navbar-nav me-right mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="login.php">Login</a>
-                        </li>
-                    </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.php">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="signup.php">Signup</a>
+                    </li>
+                </ul>
                 </div>
             </div>
         </nav>

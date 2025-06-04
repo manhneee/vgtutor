@@ -1,14 +1,14 @@
 <?php
 include_once "../../DB_connection.php";
 
-function insertPendingOffering($tutorid, $courseid, $gpa, $price, $self_description) {
+function insertPendingOffering($tutorid, $courseid, $grade, $price, $self_description) {
     global $conn;
     $status = 'pending';
     try {
-        $sql = "INSERT INTO pending_offering (tutorid, courseid, status, gpa, price, self_description)
+        $sql = "INSERT INTO pending_offering (tutorid, courseid, status, grade, price, self_description)
                 VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->execute([$tutorid, $courseid, $status, $gpa, $price, $self_description]);
+        $stmt->execute([$tutorid, $courseid, $status, $grade, $price, $self_description]);
         return true;
     } catch (PDOException $e) {
         return $e->getMessage();
@@ -22,7 +22,7 @@ function getTutorPendingOfferings($conn, $tutorid) {
             po.courseid as course_courseid,
             c.course_name,
             c.major as major,
-            po.gpa as gpa,
+            po.grade as grade,
             po.price as price,
             po.self_description as self_description,
             po.status as status

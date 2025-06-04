@@ -1,13 +1,13 @@
-<?php 
+<?php
 session_start();
 if (isset($_SESSION['adminid']) && 
     isset($_SESSION['role'])) {
     
     if ($_SESSION['role'] == 'Admin') {
-        include "../DB_connection.php";
-        include "data/tutor.php";
-        include "data/course.php";
-        include "data/course_offering.php";
+        include "../../DB_connection.php";
+        include "../data/tutor.php";
+        include "../data/course.php";
+        include "../data/course_offering.php";
 
         $tutors = getAllTutors($conn);
         $courses = getAllCourses($conn);
@@ -22,14 +22,14 @@ if (isset($_SESSION['adminid']) &&
     <title>Admin-Tutors</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="../img/logo.png">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="icon" href="../../img/logo.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 </head>
 <body class="body-home"> 
     <?php 
-        include "inc/navbar.php"; 
+        include "navbar.php"; 
         if ($tutors !=0) {
 
     ?>
@@ -92,14 +92,12 @@ if (isset($_SESSION['adminid']) &&
 <?php
  } else {
     $em = "You are not authorized to access this page.";
-    header("Location: ../login.php?error=$em");
-    // header("Location: ../login.php");
+    header("Location: ../../login.php?error=$em");
     exit;
  } 
 } else {
     $em = "You are not logged in.";
-    header("Location: ../login.php?error=$em");
-    // header("Location: ../login.php");
+    header("Location: ../../login.php?error=$em");
     exit;
  }
 ?>

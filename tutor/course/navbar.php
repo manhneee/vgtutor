@@ -46,7 +46,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-outline-primary me-2" href="switch_to_student.php">Switch to Student Mode</a>
+                    <a class="btn btn-outline-primary me-2" href="../switch_to_student.php">Switch to Student Mode</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../../login.php">Sign Out</a>
