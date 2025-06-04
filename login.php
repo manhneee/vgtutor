@@ -37,7 +37,6 @@
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary" style="background-color: #f47119; border-color: #f47119;">Log In</button>
             </div>
-            <!-- <a href="index.php" class="text-decoration-none">Home</a> -->
         </form>
         <br/><br/>
         <!--<div class="text-center"> 
@@ -45,13 +44,8 @@
                 $pass = 123;
                 $pass = password_hash($pass, PASSWORD_DEFAULT);
                 echo $pass; 
-<<<<<<< HEAD
-                ?> -->
-        </div>
-=======
                 ?>
         </div> -->
->>>>>>> d90349dfd14d2b007fdd74621fbdf7daea529034
     </div>
     </div>
 
