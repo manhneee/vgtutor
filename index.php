@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     
+    
 </head>
 
 <body>
@@ -31,22 +32,29 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">Contact</a>
                     </li>
+                    
+                </ul>
+                <ul class="navbar-nav me-right mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="login.php">Login</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="signup.php">Signup</a>
+                    </li>
                 </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+        
+<section class="hero">
+  <h1>Find the Right Tutor for You</h1>
+  <p>Connecting VGU students with the best tutors for their success.</p>
+  <div class="d-flex gap-3">
+    <a href="login.php" class="btn btn-orange px-4 py-2">Get Started Today</a>
+    <a href="#about" class="btn btn-outline-orange px-4 py-2">Learn More</a>
+  </div>
+</section>
 
-    <section class="hero">
-        <h1>Find the Right Tutor for You</h1>
-        <p>Connecting VGU students with the best tutors for their success.</p>
-        <div class="d-flex gap-3">
-            <a href="login.php" class="btn btn-orange px-4 py-2">Get Started Today</a>
-            <a href="#about" class="btn btn-outline-orange px-4 py-2">Learn More</a>
-        </div>
-    </section>
 
     <!-- About Section -->
     <section id="about" class="bg-white text-dark py-5">

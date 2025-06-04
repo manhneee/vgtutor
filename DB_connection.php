@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 $sName = "localhost";
 $uName = "root";
 $pass = "";
-$db_name = "vgtutor";
+$db_name = "vgtutor1";
 
 try {
     $conn = new PDO("mysql:host=$sName;dbname=$db_name", $uName, $pass);

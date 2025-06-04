@@ -69,7 +69,7 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
                         <th>#</th>
                         <th>Course Name</th>
                         <th>Major</th>
-                        <th>GPA</th>
+                        <th>Grade</th>
                         <th>Price</th>
                         <th>Self Introduction</th>
                         <th>Status</th>
@@ -82,7 +82,7 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
                             <td><?= $i + 1 ?></td>
                             <td><?= htmlspecialchars($row['course_name']) ?></td>
                             <td><?= htmlspecialchars($row['major']) ?></td>
-                            <td><?= htmlspecialchars($row['gpa']) ?></td>
+                            <td><?= htmlspecialchars($row['grade']) ?></td>
                             <td><?= htmlspecialchars($row['price']) ?></td>
                             <td><?= nl2br(htmlspecialchars($row['self_description'])) ?></td>
                             <td>

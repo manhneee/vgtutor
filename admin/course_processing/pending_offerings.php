@@ -11,9 +11,9 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
             $action = $_POST['action'];
             $tutorid = intval($_POST['tutorid']);
             $courseid = intval($_POST['courseid']);
-            $gpa = $_POST['gpa'] ?? null;
+            $grade = $_POST['grade'] ?? null;
             $price = $_POST['price'] ?? null;
-            processPendingOfferingAction($conn, $action, $tutorid, $courseid, $gpa, $price);
+            processPendingOfferingAction($conn, $action, $tutorid, $courseid, $grade, $price);
         }
         
     
@@ -51,7 +51,7 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
                         <th>Tutor Name</th>
                         <th>Course Name</th>
                         <th>Major</th>
-                        <th>GPA</th>
+                        <th>Grade</th>
                         <th>Price</th>
                         <th>Self Introduction</th>
                         <th>Permission</th>
@@ -65,7 +65,7 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
                             <td><?= htmlspecialchars($row['tutor_name']) ?></td>
                             <td><?= htmlspecialchars($row['course_name']) ?></td>
                             <td><?= htmlspecialchars($row['major']) ?></td>
-                            <td><?= htmlspecialchars($row['gpa']) ?></td>
+                            <td><?= htmlspecialchars($row['grade']) ?></td>
                             <td><?= htmlspecialchars($row['price']) ?></td>
                             <td><?= nl2br(htmlspecialchars($row['self_description'])) ?></td>
                             <td>
@@ -83,7 +83,7 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
                                 <form action="" method="post" class="d-inline">
                                     <input type="hidden" name="tutorid" value="<?= htmlspecialchars($row['tutorid']) ?>">
                                     <input type="hidden" name="courseid" value="<?= htmlspecialchars($row['courseid']) ?>">
-                                    <input type="hidden" name="gpa" value="<?= htmlspecialchars($row['gpa']) ?>">
+                                    <input type="hidden" name="grade" value="<?= htmlspecialchars($row['grade']) ?>">
                                     <input type="hidden" name="price" value="<?= htmlspecialchars($row['price']) ?>">
                                     <button type="submit" name="action" value="permit" class="btn btn-permit btn-sm">Permit</button>
                                 </form>
