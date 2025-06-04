@@ -9,7 +9,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="navLinks">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="index.php">Dashboard</a>
+                    <a class="nav-link" aria-current="page" href="../index.php">Dashboard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="tutor.php">Tutors</a>
@@ -46,7 +46,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-outline-primary me-2" href="switch_to_student.php">Switch to Student Mode</a>
+                    <a class="btn btn-outline-primary me-2" href="../switch_to_student.php">Switch to Student Mode</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../../login.php">Sign Out</a>

@@ -13,16 +13,46 @@ session_start();
   <link rel="icon" href="img/logo.png">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body >
-  <div class="login-page">
-    <div class="login-container">
-      <!-- Left side -->
-<div class="login-left d-flex flex-column justify-content-center align-items-center text-center p-4">
-  <a href="index.php" class="mb-4">
-    <img src="img/logo.png" alt="VGtUtor Logo" class="logo">
-  </a>
-  <p class="description-text">Your gateway to smarter learning with trusted tutors from VGU.</p>
-</div>
+<body class="body-login"> 
+    <div class="white-fill br-10">
+    <div class="d-flex justify-content-center align-items-center flex-column">
+        <form class="login"
+              method="post"
+              action="req/login.php">
+            <div class="text-center">
+                <a class="navbar-brand" href="index.php">
+                    <img src="img/logo.png" alt="Logo" class="d-inline-block align-text align-items-center justify-content-center" style="width: 350px;">
+                </a>
+            </div>
+            <?php
+            if (isset($_GET['error'])) { ?>
+                <div class="alert alert-danger" role="alert">
+                    <?=$_GET['error']?>
+                </div>
+            <?php } ?>
+            <div class="mb-3">
+                <label class="form-label">User ID</label>
+                <input type="text" class="form-control" name="userid">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-control" name="password">
+            </div>
+            <br />
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary" style="background-color: #f47119; border-color: #f47119;">Log In</button>
+            </div>
+        </form>
+        <br/><br/>
+        <!--<div class="text-center"> 
+             <?php
+                $pass = 123;
+                $pass = password_hash($pass, PASSWORD_DEFAULT);
+                echo $pass; 
+                ?>
+        </div> -->
+    </div>
+    </div>
 
 
       <!-- Right side -->

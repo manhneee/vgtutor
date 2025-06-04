@@ -27,7 +27,7 @@ if (isset($_SESSION['studentid'])) {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="navLinks">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="index.php">Dashboard</a>
+                    <a class="nav-link" aria-current="page" href="../index.php">Dashboard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="tutor.php">Tutors</a>
@@ -71,7 +71,7 @@ if (isset($_SESSION['studentid'])) {
                     <a class="btn btn-outline-primary me-2" href="switch_to_tutor.php">Switch to Tutor Mode</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../logout.php">Sign Out</a>
+                    <a class="nav-link" href="../../logout.php">Sign Out</a>
                 </li>
             </ul>
         </div>

@@ -77,11 +77,11 @@ CREATE TABLE pending_offering (
     status varchar(20),
     gpa varchar(3),
     price int,
-    self_description varchar(200),
+    self_description varchar(1000),
     primary key (tutorid, courseid),
     foreign key (tutorid) references tutor_account (accountid),
     foreign key (courseid) references course (courseid)
-)
+);
 
 CREATE TABLE tutor_registration (
     studentid int,
@@ -105,4 +105,4 @@ CREATE TABLE tutor_registration (
 --     AND denied_at IS NOT NULL
 --     AND denied_at < (NOW() - INTERVAL 3 DAY);
 
---SET GLOBAL event_scheduler = ON;
+-- SET GLOBAL event_scheduler = ON;

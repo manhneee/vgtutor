@@ -52,7 +52,7 @@ if (isset($_SESSION['tutorid']) &&
                     <i class="fa fa-calendar fs-1" aria-hidden="true"></i><br>Schedule
                 </a>
                 <a href="course/course.php" class="col btn bg-orange m-2 py-3">
-                    <i class="fa fa-book fs-1" aria-hidden="true"></i><br>Courses
+                    <i class="fa fa-book fs-1" aria-hidden="true"></i><br>Courses Offering
                 </a>
                 <a href="" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-comments fs-1" aria-hidden="true"></i><br>Messages
