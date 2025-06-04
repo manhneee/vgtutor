@@ -41,7 +41,7 @@
         </ul>
         <ul class="navbar-nav me-right mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="../logout.php">Sign Out</a>
+                    <a class="nav-link" href="../../logout.php">Sign Out</a>
                 </li>
             </ul>
         </div>
