@@ -29,15 +29,14 @@ if (isset($_SESSION['adminid']) &&
 </head>
 <body class="body-home"> 
     <?php 
-        include "navbar.php"; 
+        include "../inc/navbar.php"; 
         if ($tutors !=0) {
 
     ?>
         
     <div class="container mt-5">
-        <a href="" class="btn bg-orange">Add New Tutor</a>
         <div class="table-responsive">
-            <table id="table" class="table table-bordered mt-3 n-table ">
+            <table id="table" class="table table-bordered">
             <thead>
                 <tr>
                 <th scope="col">#</th>
@@ -45,23 +44,29 @@ if (isset($_SESSION['adminid']) &&
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">GPA</th>
+                <th scope="col">Description</th>
                 <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($tutors as $tutor) { ?>
+                <?php foreach ($tutors as $i => $tutor) { ?>
                     
                 
                 <tr>
-                    <th scope="row">1</th>
+                    <th scope="row"><?= $i + 1 ?></th>
                     <td><?= $tutor['accountid'] ?></td>
                     <td><?= $tutor['name'] ?></td>
                     <td><?= $tutor['email'] ?></td>
                     <td><?= $tutor['gpa'] ?></td>
+                    <td><?= $tutor['description'] ?></td>
                     
                     <td>
-                        <a href="" class="btn btn-warning">Edit</a>
-                        <a href="" class="btn btn-danger">Delete</a>
+                        <a href="/vgtutor/admin/tutor_processing/editTutor.php?tutorid=<?= urlencode($tutor['accountid']) ?>" class="btn btn-warning">Edit</a>
+                        <a href="/vgtutor/admin/tutor_processing/deleteTutor.php?tutorid=<?= urlencode($tutor['accountid']) ?>"
+                            class="btn btn-danger"
+                            onclick="return confirm('Are you sure you want to delete this tutor?');">
+                            Delete
+                        </a>
                     </td>
                 </tr>
 
