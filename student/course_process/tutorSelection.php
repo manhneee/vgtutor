@@ -1,25 +1,23 @@
 <?php
 session_start();
-if (!isset($_SESSION['studentid']) || $_SESSION['role'] !== 'Student') {
-    header("Location: ../login.php?error=Unauthorized access");
-    exit;
-}
+if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
+    if ($_SESSION['role'] == 'Student') {
 
-include "../../DB_connection.php";
-include "../data/courseSelection.php";
+        include "../../DB_connection.php";
+        include "../data/courseSelection.php";
 
-// Get courseid from URL
-$courseid = isset($_GET['courseid']) ? $_GET['courseid'] : null;
-if (!$courseid) {
-    echo "No course selected.";
-    exit;
-}
+        // Get courseid from URL
+        $courseid = isset($_GET['courseid']) ? $_GET['courseid'] : null;
+        if (!$courseid) {
+            echo "No course selected.";
+            exit;
+        }
 
-// Fetch course name
-$course_name = getCourseName($conn, $courseid); 
+        // Fetch course name
+        $course_name = getCourseName($conn, $courseid); 
 
-// Fetch tutors teaching this course
-$tutors = tutorFetching($conn, $courseid);
+        // Fetch tutors teaching this course
+        $tutors = tutorFetching($conn, $courseid);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,7 +53,7 @@ $tutors = tutorFetching($conn, $courseid);
                 <tbody>
                 <?php if (count($tutors) > 0): ?>
                     <?php foreach ($tutors as $i => $tutor): ?>
-                        <tr>
+                        <tr style="cursor:pointer;" onclick="window.location='../session_process/session_setup.php?tutorid=<?= urlencode($tutor['tutorid']) ?>&courseid=<?= urlencode($courseid) ?>'">
                             <td><?= $i + 1 ?></td>
                             <td><?= htmlspecialchars($tutor['tutor_name']) ?></td>
                             <td><?= htmlspecialchars($tutor['major']) ?></td>
@@ -81,3 +79,15 @@ $tutors = tutorFetching($conn, $courseid);
             </table>
 </body>
 </html>
+<?php
+    } else {
+        $em = "You are not authorized to access this page.";
+        header("Location: ../login.php?error=$em");
+        exit;
+    }
+} else {
+    $em = "You are not logged in.";
+    header("Location: ../login.php?error=$em");
+    exit;
+}
+?>
