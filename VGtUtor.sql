@@ -105,7 +105,7 @@ CREATE TABLE tutor_registration (
 
 
 -- CREATE EVENT IF NOT EXISTS delete_old_denied_tutors
--- ON SCHEDULE EVERY 1 DAY
+-- ON SCHEDULE EVERY 1 SECOND
 -- DO
 --   DELETE FROM tutor_registration
 --   WHERE status = 'denied'

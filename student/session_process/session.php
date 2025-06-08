@@ -121,7 +121,8 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                             </td>
                             <td>
                             <?php
-                            if ($session['tutor_chat_requested'] && !$session['student_chat_requested']) {
+                            if ($session['tutor_chat_requested'] && !$session['student_chat_requested'] && $session['consensus'] != "denied" && $session['consensus'] != "accepted") {
+                                // Show Accept and Deny buttons
                             ?>
                                 <form method="post" style="display:inline;">
                                     <input type="hidden" name="studentid" value="<?= htmlspecialchars($session['studentid']) ?>">
