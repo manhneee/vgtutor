@@ -15,7 +15,6 @@ CREATE TABLE student_account (
     email varchar(50),
     name varchar(50),
     major varchar(3),
-    studentid int unique,
     intake int,
     foreign key (accountid) references account (userid)
 );
@@ -34,7 +33,8 @@ CREATE TABLE course (
 	courseid int primary key,
     course_name varchar(50),
     major varchar(3),
-    semester int
+    semester int,
+    cond varchar(200)
 );
 
 CREATE TABLE course_offering (
@@ -70,3 +70,46 @@ CREATE TABLE session (
     foreign key (tutorid, courseid) references course_offering (tutorid, courseid),
     foreign key (studentid) references student_account (accountid)
 );
+
+CREATE TABLE pending_offering (
+    tutorid int,
+    courseid int,
+    status varchar(20),
+    gpa varchar(3),
+    price int,
+    self_description varchar(1000),
+    primary key (tutorid, courseid),
+    foreign key (tutorid) references tutor_account (accountid),
+    foreign key (courseid) references course (courseid)
+);
+
+CREATE TABLE tutor_registration (
+    studentid int,
+    status varchar(20),
+    gpa varchar(3),
+    bank_name varchar(50),
+    bank_acc_no varchar(50),
+    self_description varchar(1000),
+    primary key (studentid),
+    foreign key (studentid) references student_account (accountid)
+);
+
+-- ALTER TABLE session ADD COLUMN consensus varchar(20) NOT NULL DEFAULT 'pending';
+-- ALTER TABLE session ADD COLUMN tutor_chat_requested boolean NOT NULL DEFAULT false;
+-- ALTER TABLE session ADD COLUMN student_chat_requested boolean NOT NULL DEFAULT false;
+-- ALTER TABLE session ADD COLUMN notified TINYINT(1) DEFAULT 0;
+-- ALTER TABLE session ADD COLUMN place varchar(50) NOT NULL DEFAULT 'online';
+
+
+--ALTER TABLE tutor_registration ADD COLUMN denied_at DATETIME NULL DEFAULT NULL;
+
+
+-- CREATE EVENT IF NOT EXISTS delete_old_denied_tutors
+-- ON SCHEDULE EVERY 1 SECOND
+-- DO
+--   DELETE FROM tutor_registration
+--   WHERE status = 'denied'
+--     AND denied_at IS NOT NULL
+--     AND denied_at < (NOW() - INTERVAL 3 DAY);
+
+-- SET GLOBAL event_scheduler = ON;
