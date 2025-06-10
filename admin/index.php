@@ -36,7 +36,7 @@ if (isset($_SESSION['adminid']) &&
                 <a href="tutor_processing/tutor.php" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-user-md fs-1" aria-hidden="true"></i><br>Tutors
                 </a>
-                <a href="" class="col btn bg-orange m-2 py-3">
+                <a href="student_processing/student.php" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-users fs-1" aria-hidden="true"></i><br>Students
                 </a>
                 <a href="tutor_processing/pending_registration.php" class="col btn bg-orange m-2 py-3">
