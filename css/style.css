@@ -80,3 +80,12 @@ textarea {
 .n-table {
     max-width: 800px;
 }
+.cond-col {
+    min-width: 220px;
+    max-width: 350px;
+    max-height: 100px;
+    overflow-y: auto;
+    white-space: pre-line;
+    word-break: break-word;
+    display: block;
+}

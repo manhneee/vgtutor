@@ -35,12 +35,13 @@ if (isset($_SESSION['adminid']) &&
     ?>
         
     <div class="container mt-5">
+        <h2 class="mb-4">Tutors</h2>
         <div class="table-responsive">
             <table id="table" class="table table-bordered">
             <thead>
                 <tr>
                 <th scope="col">#</th>
-                <th scope="col">TutorID</th>
+                <th scope="col">Tutor ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">GPA</th>

@@ -21,7 +21,7 @@
                 <a class="nav-link" href="/vgtutor/admin/tutor_processing/pending_registration.php">Tutor Registration</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Courses</a>
+                <a class="nav-link" href="/vgtutor/admin/course_processing/course.php">Courses</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Offerings</a>
