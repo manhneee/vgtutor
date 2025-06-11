@@ -71,6 +71,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="card-body">
                         <form method="post">
                             <div class="mb-3">
+                                <label class="form-label">Tutor ID</label>
+                                <input type="text" class="form-control" value="<?= htmlspecialchars($tutor['accountid']) ?>" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="text" class="form-control" value="<?= htmlspecialchars($tutor['email']) ?>" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" value="<?= htmlspecialchars($tutor['name']) ?>" readonly>
+                            </div>
+                            <div class="mb-3">
                                 <label class="form-label">GPA</label>
                                 <input type="text" name="gpa" class="form-control" value="<?= htmlspecialchars($_POST['gpa'] ?? $tutor['gpa'] ?? '') ?>" required>
                             </div>

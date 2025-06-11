@@ -18,16 +18,16 @@
                 <a class="nav-link" href="/vgtutor/admin/student_processing/student.php">Students</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/vgtutor/admin/tutor_processing/pending_registration.php">Tutor Registration</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="/vgtutor/admin/course_processing/course.php">Courses</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/vgtutor/admin/course_processing/offerings.php">Offerings</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Reviews</a>
+                <a class="nav-link" href="/vgtutor/admin/review_processing/review.php">Reviews</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/vgtutor/admin/tutor_processing/pending_registration.php">Tutor Registration</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/vgtutor/admin/course_processing/pending_offerings.php">Pending Offerings</a>

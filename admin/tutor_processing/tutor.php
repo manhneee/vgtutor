@@ -23,15 +23,15 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
     <?php include "../inc/navbar.php"; ?>
     <div class="container mt-5">
         <h2 class="mb-4">Tutors</h2>
-        <?php if (!empty($tutors)): ?>
+        <?php if ($tutors && count($tutors) > 0): ?>
         <div class="table-responsive">
             <table id="table" class="table table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Tutor ID</th>
-                        <th scope="col">Name</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Name</th>
                         <th scope="col">GPA</th>
                         <th scope="col">Description</th>
                         <th scope="col">Action</th>
@@ -42,13 +42,13 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
                     <tr>
                         <th scope="row"><?= $i + 1 ?></th>
                         <td><?= htmlspecialchars($tutor['accountid']) ?></td>
-                        <td><?= htmlspecialchars($tutor['name']) ?></td>
                         <td><?= htmlspecialchars($tutor['email']) ?></td>
+                        <td><?= htmlspecialchars($tutor['name']) ?></td>
                         <td><?= htmlspecialchars($tutor['gpa']) ?></td>
                         <td><?= htmlspecialchars($tutor['description']) ?></td>
                         <td>
-                            <a href="editTutor.php?tutorid=<?= urlencode($tutor['accountid']) ?>" class="btn btn-warning">Edit</a>
-                            <a href="deleteTutor.php?tutorid=<?= urlencode($tutor['accountid']) ?>" class="btn btn-danger"
+                            <a href="editTutor.php?tutorid=<?= urlencode($tutor['accountid']) ?>" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="deleteTutor.php?tutorid=<?= urlencode($tutor['accountid']) ?>" class="btn btn-danger btn-sm"
                                onclick="return confirm('Are you sure you want to delete this tutor?');">Delete</a>
                         </td>
                     </tr>
@@ -57,7 +57,7 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
             </table>
         </div>
         <?php else: ?>
-            <div class="alert alert-info w-450 m-5" role="alert">
+            <div class="alert alert-info w-50 m-5 mx-auto text-center" role="alert">
                 Empty!
             </div>
         <?php endif; ?>
@@ -65,7 +65,8 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function(){
-            $("#navLinks li:nth-child(2) a").addClass('active');
+            // Highlight nav if needed
+            // $("#navLinks li:contains('Tutors') a").addClass('active');
         });
     </script>
 </body>
