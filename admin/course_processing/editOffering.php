@@ -5,36 +5,35 @@ if (!isset($_SESSION['adminid']) || $_SESSION['role'] !== 'Admin') {
     exit;
 }
 
-if (!isset($_GET['courseid'])) {
-    header("Location: course.php?error=No course ID specified");
+if (!isset($_GET['tutorid']) || !isset($_GET['courseid'])) {
+    header("Location: offerings.php?error=Missing tutor or course ID");
     exit;
 }
 
 include "../../DB_connection.php";
-include "../data/course.php";
+include "../data/offerings.php";
 
-// Fetch course data
+$tutorid = $_GET['tutorid'];
 $courseid = $_GET['courseid'];
-$course = getCourse($conn, $courseid);
 
-if (!$course) {
-    header("Location: course.php?error=Course not found");
+$offering = getOffering($conn, $tutorid, $courseid);
+if (!$offering) {
+    header("Location: offerings.php?error=Offering not found");
     exit;
 }
 
 // Handle form submission
 $success = $error = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $course_name = $_POST['course_name'] ?? '';
-    $major = $_POST['major'] ?? '';
-    $semester = $_POST['semester'] ?? '';
-    $cond = $_POST['cond'] ?? '';
+    $tutor_grade = $_POST['tutor_grade'] ?? '';
+    $rating = $_POST['rating'] ?? '';
+    $price = $_POST['price'] ?? '';
 
-    if (updateCourse($conn, $courseid, $course_name, $major, $semester, $cond)) {
-        $success = "Course updated successfully!";
-        $course = getCourse($conn, $courseid);
+    if (updateOffering($conn, $tutorid, $courseid, $tutor_grade, $rating, $price)) {
+        $success = "Offering updated successfully!";
+        $offering = getOffering($conn, $tutorid, $courseid);
     } else {
-        $error = "Failed to update course.";
+        $error = "Failed to update Offering.";
     }
 }
 ?>
@@ -43,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Course</title>
+    <title>Edit Offering</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="icon" href="../../img/logo.png">
@@ -55,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="col-md-7">
                 <div class="card shadow-lg" style="border: 2px solid #000;">
                     <div class="card-header text-white text-center" style="background-color: #f47119;">
-                        <h3 class="mb-0">Edit Course</h3>
+                        <h3 class="mb-0">Edit Offering</h3>
                     </div>
                     <?php if ($success): ?>
                         <div class="alert alert-success" role="alert">
@@ -69,28 +68,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="card-body">
                         <form method="post">
                             <div class="mb-3">
-                                <label class="form-label">Course ID</label>
-                                <input type="text" class="form-control" value="<?= htmlspecialchars($course['courseid']) ?>" readonly>
+                                <label class="form-label">Tutor Name</label>
+                                <input type="text" class="form-control" value="<?= htmlspecialchars($offering['tutor_name']) ?>" readonly>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Course Name</label>
-                                <input type="text" name="course_name" class="form-control" value="<?= htmlspecialchars($_POST['course_name'] ?? $course['course_name'] ?? '') ?>" required>
+                                <input type="text" class="form-control" value="<?= htmlspecialchars($offering['course_name']) ?>" readonly>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Major</label>
-                                <input type="text" name="major" class="form-control" value="<?= htmlspecialchars($_POST['major'] ?? $course['major'] ?? '') ?>" required>
+                                <label class="form-label">Tutor Grade</label>
+                                <input type="text" name="tutor_grade" class="form-control" value="<?= htmlspecialchars($_POST['tutor_grade'] ?? $offering['tutor_grade'] ?? '') ?>" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Semester</label>
-                                <input type="text" name="semester" class="form-control" value="<?= htmlspecialchars($_POST['semester'] ?? $course['semester'] ?? '') ?>" required>
+                                <label class="form-label">Rating</label>
+                                <input type="text" name="rating" class="form-control" value="<?= htmlspecialchars($_POST['rating'] ?? $offering['rating'] ?? '') ?>" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Conditions</label>
-                                <textarea name="cond" class="form-control" rows="4" required><?= htmlspecialchars($_POST['cond'] ?? $course['cond'] ?? '') ?></textarea>
+                                <label class="form-label">Price</label>
+                                <input type="text" name="price" class="form-control" value="<?= htmlspecialchars($_POST['price'] ?? $offering['price'] ?? '') ?>" required>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary" style="background-color: #f47119; border-color: #f47119;">Update Course</button>
-                                <a href="course.php" class="btn btn-secondary ms-2">Cancel</a>
+                                <button type="submit" class="btn btn-primary" style="background-color: #f47119; border-color: #f47119;">Update Offering</button>
+                                <a href="offerings.php" class="btn btn-secondary ms-2">Cancel</a>
                             </div>
                         </form>
                     </div>

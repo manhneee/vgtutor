@@ -11,12 +11,11 @@ if (!isset($_GET['tutorid'])) {
 }
 
 include "../../DB_connection.php";
+include "../data/tutor.php";
 
 // Fetch tutor data
 $tutorid = intval($_GET['tutorid']);
-$stmt = $conn->prepare("SELECT * FROM tutor_account WHERE accountid = ?");
-$stmt->execute([$tutorid]);
-$tutor = $stmt->fetch(PDO::FETCH_ASSOC);
+$tutor = getTutor($conn, $tutorid);
 
 if (!$tutor) {
     header("Location: tutor.php?error=Tutor not found");
@@ -33,9 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($update->execute([$gpa, $description, $tutorid])) {
         $success = "Tutor updated successfully!";
         // Refresh tutor data
-        $stmt = $conn->prepare("SELECT * FROM tutor_account WHERE accountid = ?");
-        $stmt->execute([$tutorid]);
-        $tutor = $stmt->fetch(PDO::FETCH_ASSOC);
+        $tutor = getTutor($conn, $tutorid);
     } else {
         $error = "Failed to update tutor.";
     }

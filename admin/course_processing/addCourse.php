@@ -6,6 +6,7 @@ if (!isset($_SESSION['adminid']) || $_SESSION['role'] !== 'Admin') {
 }
 
 include "../../DB_connection.php";
+include "../data/course.php";
 
 $success = $error = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -17,8 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($courseid && $course_name && $major && $semester && $cond) {
         try {
-            $stmt = $conn->prepare("INSERT INTO course (courseid, course_name, major, semester, cond) VALUES (?, ?, ?, ?, ?)");
-            if ($stmt->execute([$courseid, $course_name, $major, $semester, $cond])) {
+            if (addCourse($conn, $courseid, $course_name, $major, $semester, $cond)) {
                 $success = "Course added successfully!";
                 // Clear form fields after success
                 $_POST = [];

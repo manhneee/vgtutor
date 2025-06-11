@@ -11,19 +11,13 @@ if (!isset($_GET['courseid'])) {
 }
 
 include "../../DB_connection.php";
+include "../data/course.php";
 
 $courseid = $_GET['courseid'];
 
-// Delete course from database using PDO
-$sql = "DELETE FROM course WHERE courseid = ?";
-$stmt = $conn->prepare($sql);
-if ($stmt) {
-    if ($stmt->execute([$courseid])) {
-        header("Location: course.php?success=Course deleted successfully");
-    } else {
-        header("Location: course.php?error=Failed to delete course");
-    }
+if (deleteCourse($conn, $courseid)) {
+    header("Location: course.php?success=Course deleted successfully");
 } else {
-    header("Location: course.php?error=Failed to prepare statement");
+    header("Location: course.php?error=Failed to delete course");
 }
 exit;

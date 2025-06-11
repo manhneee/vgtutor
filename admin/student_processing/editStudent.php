@@ -11,12 +11,11 @@ if (!isset($_GET['studentid'])) {
 }
 
 include "../../DB_connection.php";
+include "../data/student.php";
 
 // Fetch student data
 $studentid = intval($_GET['studentid']);
-$stmt = $conn->prepare("SELECT * FROM student_account WHERE accountid = ?");
-$stmt->execute([$studentid]);
-$student = $stmt->fetch(PDO::FETCH_ASSOC);
+$student = getStudent($conn, $studentid);
 
 if (!$student) {
     header("Location: student.php?error=Student not found");
@@ -31,13 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $major = $_POST['major'] ?? '';
     $intake = $_POST['intake'] ?? '';
 
-    $update = $conn->prepare("UPDATE student_account SET email = ?, name = ?, major = ?, intake = ? WHERE accountid = ?");
-    if ($update->execute([$email, $name, $major, $intake, $studentid])) {
+    if (updateStudent($conn, $studentid, $email, $name, $major, $intake)) {
         $success = "Student updated successfully!";
-        // Refresh student data
-        $stmt = $conn->prepare("SELECT * FROM student_account WHERE accountid = ?");
-        $stmt->execute([$studentid]);
-        $student = $stmt->fetch(PDO::FETCH_ASSOC);
+        $student = getStudent($conn, $studentid);
     } else {
         $error = "Failed to update Student.";
     }

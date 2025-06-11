@@ -3,11 +3,9 @@ session_start();
 if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
     if ($_SESSION['role'] == 'Admin') {
         include "../../DB_connection.php";
+        include "../data/student.php";
 
-        // Fetch all students
-        $stmt = $conn->prepare("SELECT * FROM student_account");
-        $stmt->execute();
-        $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $students = getAllStudents($conn);
 ?>
 <!DOCTYPE html>
 <html lang="en">
