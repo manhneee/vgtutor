@@ -51,8 +51,14 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role']) && $_SESSION['role']
                             <td><?= htmlspecialchars($row['price']) ?></td>
                             <td>
                                 <a href="editOffering.php?tutorid=<?= urlencode($row['tutorid']) ?>&courseid=<?= urlencode($row['courseid']) ?>" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="deleteOffering.php?tutorid=<?= urlencode($row['tutorid']) ?>&courseid=<?= urlencode($row['courseid']) ?>" class="btn btn-danger btn-sm"
-                                   onclick="return confirm('Are you sure you want to delete this offering?');">Delete</a>
+                                <button type="button"
+                                        class="btn btn-danger btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deleteOfferingModal"
+                                        data-tutorid="<?= htmlspecialchars($row['tutorid']) ?>"
+                                        data-courseid="<?= htmlspecialchars($row['courseid']) ?>">
+                                    Delete
+                                </button>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -65,11 +71,43 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role']) && $_SESSION['role']
             </div>
         <?php endif; ?>
     </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteOfferingModal" tabindex="-1" aria-labelledby="deleteOfferingModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title w-100 text-center" id="deleteOfferingModalLabel">Delete Offering</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger mb-0 text-center">
+                      <strong>Warning:</strong> Are you sure you want to delete this offering? This will also delete all reviews for this offering. This action cannot be undone.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <form id="deleteOfferingForm" method="get" action="deleteOffering.php" class="mb-0 w-100 d-flex">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <input type="hidden" name="tutorid" id="modalTutorId" value="">
+                        <input type="hidden" name="courseid" id="modalCourseId" value="">
+                        <button type="button" class="btn btn-warning ms-auto" data-bs-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        $(document).ready(function(){
-            // Highlight nav if needed, e.g.:
-            // $("#navLinks li:contains('Courses') a").addClass('active');
+        document.addEventListener('DOMContentLoaded', function () {
+            var deleteModal = document.getElementById('deleteOfferingModal');
+            deleteModal.addEventListener('show.bs.modal', function (event) {
+                var button = event.relatedTarget;
+                var tutorId = button.getAttribute('data-tutorid');
+                var courseId = button.getAttribute('data-courseid');
+                document.getElementById('modalTutorId').value = tutorId;
+                document.getElementById('modalCourseId').value = courseId;
+            });
         });
     </script>
 </body>

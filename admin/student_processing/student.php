@@ -47,8 +47,13 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
                         <td><?= htmlspecialchars($student['intake']) ?></td>
                         <td>
                             <a href="editStudent.php?studentid=<?= urlencode($student['accountid']) ?>" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="deleteStudent.php?studentid=<?= urlencode($student['accountid']) ?>" class="btn btn-danger btn-sm"
-                               onclick="return confirm('Are you sure you want to delete this student?');">Delete</a>
+                            <button type="button"
+                                    class="btn btn-danger btn-sm"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteStudentModal"
+                                    data-studentid="<?= htmlspecialchars($student['accountid']) ?>">
+                                Delete
+                            </button>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -61,11 +66,55 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
             </div>
         <?php endif; ?>
     </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteStudentModal" tabindex="-1" aria-labelledby="deleteStudentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title w-100 text-center" id="deleteStudentModalLabel">Delete Student</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger mb-0 text-center">
+                      Are you sure you want to delete this student? This will also delete their entry in the tutor table, if it exists, and all of this student's reviews. This action cannot be undone.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <form id="deleteStudentForm" method="get" action="deleteStudent.php" class="mb-0 w-100 d-flex">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <input type="hidden" name="studentid" id="modalStudentId" value="">
+                        <button type="button" class="btn btn-warning ms-auto" data-bs-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function(){
             // Highlight nav if needed
             // $("#navLinks li:contains('Students') a").addClass('active');
+
+            // Set student ID in delete form
+            $('#deleteStudentModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget) // Button that triggered the modal
+                var studentId = button.data('studentid') // Extract info from data-* attributes
+                var modal = $(this)
+                modal.find('.modal-footer #modalStudentId').val(studentId);
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var deleteModal = document.getElementById('deleteStudentModal');
+            if (deleteModal) {
+                deleteModal.addEventListener('show.bs.modal', function (event) {
+                    var button = event.relatedTarget;
+                    var studentId = button.getAttribute('data-studentid');
+                    document.getElementById('modalStudentId').value = studentId;
+                });
+            }
         });
     </script>
 </body>

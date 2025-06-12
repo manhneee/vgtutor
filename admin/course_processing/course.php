@@ -52,8 +52,13 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role']) && $_SESSION['role']
                             </td>
                             <td>
                                 <a href="editCourse.php?courseid=<?= urlencode($row['courseid']) ?>" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="deleteCourse.php?courseid=<?= urlencode($row['courseid']) ?>" class="btn btn-danger btn-sm"
-                                   onclick="return confirm('Are you sure you want to delete this course?');">Delete</a>
+                                <button type="button"
+                                        class="btn btn-danger btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal"
+                                        data-courseid="<?= htmlspecialchars($row['courseid']) ?>">
+                                    Delete
+                                </button>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -66,11 +71,41 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role']) && $_SESSION['role']
             </div>
         <?php endif; ?>
     </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title w-100 text-center" id="deleteModalLabel">Delete Course</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger mb-0 text-center">
+                      <strong>Warning:</strong> Are you sure you want to delete this course? This will delete all of this course's offerings and their reviews. This action cannot be undone.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <form id="deleteForm" method="get" action="deleteCourse.php" class="mb-0 w-100 d-flex">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <input type="hidden" name="courseid" id="modalCourseId" value="">
+                        <button type="button" class="btn btn-warning ms-auto" data-bs-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        $(document).ready(function(){
-            // Highlight nav if needed, e.g.:
-            // $("#navLinks li:contains('Courses') a").addClass('active');
+        document.addEventListener('DOMContentLoaded', function () {
+            var deleteModal = document.getElementById('deleteModal');
+            deleteModal.addEventListener('show.bs.modal', function (event) {
+                var button = event.relatedTarget;
+                var courseId = button.getAttribute('data-courseid');
+                var input = document.getElementById('modalCourseId');
+                input.value = courseId;
+            });
         });
     </script>
 </body>

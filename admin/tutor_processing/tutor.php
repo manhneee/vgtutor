@@ -48,8 +48,13 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
                         <td><?= htmlspecialchars($tutor['description']) ?></td>
                         <td>
                             <a href="editTutor.php?tutorid=<?= urlencode($tutor['accountid']) ?>" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="deleteTutor.php?tutorid=<?= urlencode($tutor['accountid']) ?>" class="btn btn-danger btn-sm"
-                               onclick="return confirm('Are you sure you want to delete this tutor?');">Delete</a>
+                            <button type="button"
+                                    class="btn btn-danger btn-sm"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteTutorModal"
+                                    data-tutorid="<?= htmlspecialchars($tutor['accountid']) ?>">
+                                Delete
+                            </button>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -62,11 +67,55 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
             </div>
         <?php endif; ?>
     </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteTutorModal" tabindex="-1" aria-labelledby="deleteTutorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title w-100 text-center" id="deleteTutorModalLabel">Delete Tutor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger mb-0 text-center">
+                      <strong>Warning:</strong> Are you sure you want to delete this tutor? This will delete all of their offerings and reviews. This action cannot be undone.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <form id="deleteTutorForm" method="get" action="deleteTutor.php" class="mb-0 w-100 d-flex">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <input type="hidden" name="tutorid" id="modalTutorId" value="">
+                        <button type="button" class="btn btn-warning ms-auto" data-bs-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function(){
             // Highlight nav if needed
             // $("#navLinks li:contains('Tutors') a").addClass('active');
+
+            // Set tutor ID in delete form
+            $('#deleteTutorModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget) // Button that triggered the modal
+                var tutorid = button.data('tutorid') // Extract info from data-* attributes
+                var modal = $(this)
+                modal.find('#modalTutorId').val(tutorid);
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var deleteModal = document.getElementById('deleteTutorModal');
+            if (deleteModal) {
+                deleteModal.addEventListener('show.bs.modal', function (event) {
+                    var button = event.relatedTarget;
+                    var tutorId = button.getAttribute('data-tutorid');
+                    document.getElementById('modalTutorId').value = tutorId;
+                });
+            }
         });
     </script>
 </body>

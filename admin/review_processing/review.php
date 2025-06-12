@@ -50,8 +50,15 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
                             <td><?= nl2br(htmlspecialchars($row['review'])) ?></td>
                             <td>
                                 <a href="editReview.php?studentid=<?= urlencode($row['studentid']) ?>&tutorid=<?= urlencode($row['tutorid']) ?>&courseid=<?= urlencode($row['courseid']) ?>" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="deleteReview.php?studentid=<?= urlencode($row['studentid']) ?>&tutorid=<?= urlencode($row['tutorid']) ?>&courseid=<?= urlencode($row['courseid']) ?>" class="btn btn-danger btn-sm"
-                                   onclick="return confirm('Are you sure you want to delete this review?');">Delete</a>
+                                <button type="button"
+                                        class="btn btn-danger btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deleteReviewModal"
+                                        data-studentid="<?= htmlspecialchars($row['studentid']) ?>"
+                                        data-tutorid="<?= htmlspecialchars($row['tutorid']) ?>"
+                                        data-courseid="<?= htmlspecialchars($row['courseid']) ?>">
+                                    Delete
+                                </button>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -64,11 +71,45 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
             </div>
         <?php endif; ?>
     </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteReviewModal" tabindex="-1" aria-labelledby="deleteReviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title w-100 text-center" id="deleteReviewModalLabel">Delete Review</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger mb-0 text-center">
+                      Are you sure you want to delete this review? This action cannot be undone.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <form id="deleteReviewForm" method="get" action="deleteReview.php" class="mb-0 w-100 d-flex">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <input type="hidden" name="studentid" id="modalStudentId" value="">
+                        <input type="hidden" name="tutorid" id="modalTutorId" value="">
+                        <input type="hidden" name="courseid" id="modalCourseId" value="">
+                        <button type="button" class="btn btn-warning ms-auto" data-bs-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        $(document).ready(function(){
-            // Highlight nav if needed
-            // $("#navLinks li:contains('Reviews') a").addClass('active');
+        document.addEventListener('DOMContentLoaded', function () {
+            var deleteModal = document.getElementById('deleteReviewModal');
+            if (deleteModal) {
+                deleteModal.addEventListener('show.bs.modal', function (event) {
+                    var button = event.relatedTarget;
+                    document.getElementById('modalStudentId').value = button.getAttribute('data-studentid');
+                    document.getElementById('modalTutorId').value = button.getAttribute('data-tutorid');
+                    document.getElementById('modalCourseId').value = button.getAttribute('data-courseid');
+                });
+            }
         });
     </script>
 </body>
