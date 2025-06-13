@@ -7,10 +7,6 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
         include "../../DB_connection.php";
         include "../data/session.php";
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['studentid'], $_POST['courseid'], $_POST['action'])) {
-            handleSessionAction($conn, $_POST['studentid'], $_POST['courseid'], $_POST['action']);
-        }
-
         $sessions = getTutorSessions($conn, $_SESSION['tutorid']);
 ?>
 <!DOCTYPE html>
@@ -65,10 +61,11 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
                         <th>Date & Time</th>
                         <th>Duration (hours)</th>
                         <th>Total Price</th>
-                        <th>Chat with Student/Your Decision</th>
+                        <th>Status</th>
+                        <th>Chat with Student</th>
                     </tr>
                 </thead>
-                <tbody>`
+                <tbody>
                 <?php if (count($sessions) > 0): ?>
                     <?php foreach ($sessions as $i => $session): ?>
                         <tr>
@@ -86,60 +83,18 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
                             </td>
                             <td>
                             <?php
-                            if (
-                                $session['student_chat_request'] &&
-                                $session['consensus'] !== 'denied' &&
-                                isset($session['tutor_chat_requested']) && $session['tutor_chat_requested'] == 1
-                            ) {
+                            if ($session['consensus'] == 'pending') {
                                 echo '<span class="badge bg-secondary">Pending</span>';
-                            } elseif ($session['student_chat_request']) {
-                                if ($session['consensus'] == 'denied') {
-                                    echo '<span class="badge bg-danger">Session Denied</span>';
-                                } else {
-                            ?>
-                                    <form method="post" class="d-inline" style="display:inline;">
-                                        <input type="hidden" name="studentid" value="<?= htmlspecialchars($session['studentid']) ?>">
-                                        <input type="hidden" name="courseid" value="<?= htmlspecialchars($session['courseid']) ?>">
-                                        <input type="hidden" name="action" value="accept_chat">
-                                        <button type="submit" class="btn btn-success btn-sm">Accept</button>
-                                    </form>
-                                    <button type="button"
-                                            class="btn btn-danger btn-sm"
-                                            onclick="showDenyChatModal('<?= htmlspecialchars($session['studentid']) ?>', '<?= htmlspecialchars($session['courseid']) ?>')">
-                                        Deny
-                                    </button>
-                            <?php
-                                }
-                            } else {
-                                if ($session['consensus'] == 'accepted') {
-                                    echo '<span class="badge bg-success">Accepted</span>';
-                                } elseif ($session['consensus'] == 'denied') {
-                                    echo '<span class="badge bg-danger">Denied</span>';
-                                } else {
-                            ?>
-                                    <form method="post" class="d-inline">
-                                        <input type="hidden" name="studentid" value="<?= htmlspecialchars($session['studentid']) ?>">
-                                        <input type="hidden" name="courseid" value="<?= htmlspecialchars($session['courseid']) ?>">
-                                        <input type="hidden" name="action" value="accept">
-                                        <button type="submit" class="btn btn-success btn-sm">Accept</button>
-                                    </form>
-                                    <form method="post" class="d-inline">
-                                        <input type="hidden" name="studentid" value="<?= htmlspecialchars($session['studentid']) ?>">
-                                        <input type="hidden" name="courseid" value="<?= htmlspecialchars($session['courseid']) ?>">
-                                        <input type="hidden" name="action" value="deny">
-                                        <button type="submit" class="btn btn-danger btn-sm">Deny</button>
-                                    </form>
-                                    <form method="post" class="d-inline" style="display:inline;">
-                                        <input type="hidden" name="studentid" value="<?= htmlspecialchars($session['studentid']) ?>">
-                                        <input type="hidden" name="courseid" value="<?= htmlspecialchars($session['courseid']) ?>">
-                                        <input type="hidden" name="action" value="request_chat">
-                                        <button type="submit" class="btn btn-warning btn-sm">Request Chat</button>
-                                    </form>
-                            <?php
-                                }
+                            } elseif ($session['consensus'] == 'denied') {
+                                echo '<span class="badge bg-danger">Session Denied</span>';
+                            } elseif($session['consensus'] == 'accepted') {
+                                echo '<span class="badge bg-success">Session Accepted</span>';
                             }
                             ?>
                             </td>
+                            <td>
+                            <a href="../chat/chat.php?studentid=<?= urlencode($session['studentid']) ?>" class="btn btn-primary">Chat</a>
+                        </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>

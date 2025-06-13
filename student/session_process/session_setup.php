@@ -29,7 +29,6 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
             $time = $_POST['time'] ?? '';
             $duration = $_POST['duration'] ?? '';
             $place = $_POST['place'] ?? '';
-            $request_chat = isset($_POST['request_chat']) ? 1 : 0;
 
 
             // Combine date and time
@@ -39,7 +38,7 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
             if ($_SESSION['studentid'] == $tutorid) {
                 $error = "You cannot set up a session with yourself as the tutor.";
             } else {
-                $inserted = insertSession($conn, $_SESSION['studentid'], $tutorid, $courseid, $date_and_time, $duration, 0, $request_chat, $place);
+                $inserted = insertSession($conn, $_SESSION['studentid'], $tutorid, $courseid, $date_and_time, $duration, 0, $place);
                 if ($inserted) {
                     $success = "Session request sent!";
                 } else {
@@ -90,12 +89,7 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                         <label for="place" class="form-label">Place</label>
                         <input type="text" name="place" id="place" class="form-control" placeholder="e.g., Online, Library, etc." required>
                     </div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" name="request_chat" id="request_chat">
-                        <label class="form-check-label" for="request_chat">
-                            Request a chat with the tutor
-                        </label>
-                    </div>
+                    
                     <button type="submit" class="btn btn-primary">Request Session</button>
                     <a href="tutorSelection.php?courseid=<?= urlencode($courseid) ?>" class="btn btn-secondary ms-2">Back</a>
                 </form>
