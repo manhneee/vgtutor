@@ -36,19 +36,19 @@ if (isset($_SESSION['adminid']) &&
                 <a href="tutor_processing/tutor.php" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-user-md fs-1" aria-hidden="true"></i><br>Tutors
                 </a>
-                <a href="" class="col btn bg-orange m-2 py-3">
+                <a href="student_processing/student.php" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-users fs-1" aria-hidden="true"></i><br>Students
                 </a>
                 <a href="tutor_processing/pending_registration.php" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-book fs-1" aria-hidden="true"></i><br>Tutor Registration
                 </a>
-                <a href="" class="col btn bg-orange m-2 py-3">
+                <a href="course_processing/course.php" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-cubes fs-1" aria-hidden="true"></i><br>Courses
                 </a>
-                <a href="" class="col btn bg-orange m-2 py-3">
+                <a href="course_processing/offerings.php" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-columns fs-1" aria-hidden="true"></i><br>Offerings
                 </a>
-                <a href="" class="col btn bg-orange m-2 py-3">
+                <a href="review_processing/review.php" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-star fs-1" aria-hidden="true"></i><br>Reviews
                 </a>
                 <a href="course_processing/pending_offerings.php" class="col btn bg-orange m-2 py-3">

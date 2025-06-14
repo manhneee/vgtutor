@@ -11,6 +11,7 @@ if (!isset($_GET['tutorid'])) {
 }
 
 include "../../DB_connection.php";
+include "../data/tutor.php";
 
 if (!isset($conn) || !($conn instanceof PDO)) {
     die("Database connection error.");
@@ -20,15 +21,9 @@ if (!isset($conn) || !($conn instanceof PDO)) {
 $tutorid = intval($_GET['tutorid']);
 
 // Delete tutor from database using PDO
-$sql = "DELETE FROM tutor_account WHERE accountid = ?";
-$stmt = $conn->prepare($sql);
-if ($stmt) {
-    if ($stmt->execute([$tutorid])) {
-        header("Location: tutor.php?success=Tutor deleted successfully");
-    } else {
-        header("Location: tutor.php?error=Failed to delete tutor");
-    }
+if (deleteTutor($conn, $tutorid)) {
+    header("Location: tutor.php?success=Tutor deleted successfully");
 } else {
-    header("Location: tutor.php?error=Failed to prepare statement");
+    header("Location: tutor.php?error=Failed to delete tutor");
 }
 exit;

@@ -5,36 +5,36 @@ if (!isset($_SESSION['adminid']) || $_SESSION['role'] !== 'Admin') {
     exit;
 }
 
-if (!isset($_GET['tutorid'])) {
-    header("Location: tutor.php?error=No tutor ID specified");
+if (!isset($_GET['studentid'])) {
+    header("Location: student.php?error=No student ID specified");
     exit;
 }
 
 include "../../DB_connection.php";
-include "../data/tutor.php";
+include "../data/student.php";
 
-// Fetch tutor data
-$tutorid = intval($_GET['tutorid']);
-$tutor = getTutor($conn, $tutorid);
+// Fetch student data
+$studentid = intval($_GET['studentid']);
+$student = getStudent($conn, $studentid);
 
-if (!$tutor) {
-    header("Location: tutor.php?error=Tutor not found");
+if (!$student) {
+    header("Location: student.php?error=Student not found");
     exit;
 }
 
 // Handle form submission
 $success = $error = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $gpa = $_POST['gpa'] ?? '';
-    $description = $_POST['description'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $name = $_POST['name'] ?? '';
+    $major = $_POST['major'] ?? '';
+    $intake = $_POST['intake'] ?? '';
 
-    $update = $conn->prepare("UPDATE tutor_account SET gpa = ?, description = ? WHERE accountid = ?");
-    if ($update->execute([$gpa, $description, $tutorid])) {
-        $success = "Tutor updated successfully!";
-        // Refresh tutor data
-        $tutor = getTutor($conn, $tutorid);
+    if (updateStudent($conn, $studentid, $email, $name, $major, $intake)) {
+        $success = "Student updated successfully!";
+        $student = getStudent($conn, $studentid);
     } else {
-        $error = "Failed to update tutor.";
+        $error = "Failed to update Student.";
     }
 }
 ?>
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Tutor</title>
+    <title>Edit Student</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../../css/style.css">
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="col-md-6">
                 <div class="card shadow-lg" style="border: 2px solid #000;">
                     <div class="card-header text-white text-center" style="background-color: #f47119;">
-                        <h3 class="mb-0">Edit Tutor</h3>
+                        <h3 class="mb-0">Edit Student</h3>
                     </div>
                     <?php if ($success): ?>
                         <div class="alert alert-success" role="alert">
@@ -71,28 +71,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="card-body">
                         <form method="post">
                             <div class="mb-3">
-                                <label class="form-label">Tutor ID</label>
-                                <input type="text" class="form-control" value="<?= htmlspecialchars($tutor['accountid']) ?>" readonly>
+                                <label class="form-label">Student ID</label>
+                                <input type="text" class="form-control" value="<?= htmlspecialchars($student['accountid']) ?>" readonly>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Email</label>
-                                <input type="text" class="form-control" value="<?= htmlspecialchars($tutor['email']) ?>" readonly>
+                                <input type="text" name="email" class="form-control" value="<?= htmlspecialchars($_POST['email'] ?? $student['email'] ?? '') ?>" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Name</label>
-                                <input type="text" class="form-control" value="<?= htmlspecialchars($tutor['name']) ?>" readonly>
+                                <input type="text" name="name" class="form-control" value="<?= htmlspecialchars($_POST['name'] ?? $student['name'] ?? '') ?>" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">GPA</label>
-                                <input type="text" name="gpa" class="form-control" value="<?= htmlspecialchars($_POST['gpa'] ?? $tutor['gpa'] ?? '') ?>" required>
+                                <label class="form-label">Major</label>
+                                <input type="text" name="major" class="form-control" value="<?= htmlspecialchars($_POST['major'] ?? $student['major'] ?? '') ?>" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Description</label>
-                                <textarea name="description" class="form-control" maxlength="200" rows="4" required><?= htmlspecialchars($_POST['description'] ?? $tutor['description'] ?? '') ?></textarea>
+                                <label class="form-label">Intake</label>
+                                <input type="text" name="intake" class="form-control" value="<?= htmlspecialchars($_POST['intake'] ?? $student['intake'] ?? '') ?>" required>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary" style="background-color: #f47119; border-color: #f47119;">Update Tutor</button>
-                                <a href="tutor.php" class="btn btn-secondary ms-2">Cancel</a>
+                                <button type="submit" class="btn btn-primary" style="background-color: #f47119; border-color: #f47119;">Update Student</button>
+                                <a href="student.php" class="btn btn-secondary ms-2">Cancel</a>
                             </div>
                         </form>
                     </div>

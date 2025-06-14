@@ -31,7 +31,7 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
 <body class="body-home">
     <?php include "../inc/navbar.php"; ?>
     <div class="container mt-5">
-        <h2 class="mb-4">Pending Tutor Registrations</h3>
+        <h2 class="mb-4">Pending Tutor Registrations</h2>
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead class="table-dark">

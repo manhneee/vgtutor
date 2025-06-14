@@ -15,19 +15,19 @@
                 <a class="nav-link" href="/vgtutor/admin/tutor_processing/tutor.php">Tutors</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Students</a>
+                <a class="nav-link" href="/vgtutor/admin/student_processing/student.php">Students</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/vgtutor/admin/course_processing/course.php">Courses</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/vgtutor/admin/course_processing/offerings.php">Offerings</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/vgtutor/admin/review_processing/review.php">Reviews</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/vgtutor/admin/tutor_processing/pending_registration.php">Tutor Registration</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Courses</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Offerings</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Reviews</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/vgtutor/admin/course_processing/pending_offerings.php">Pending Offerings</a>
@@ -41,7 +41,7 @@
         </ul>
         <ul class="navbar-nav me-right mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="../../logout.php">Sign Out</a>
+                    <a class="nav-link" href="/vgtutor/logout.php">Sign Out</a>
                 </li>
             </ul>
         </div>
