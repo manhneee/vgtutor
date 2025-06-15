@@ -39,7 +39,7 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
     </style>
 </head>
 <body class="body-home">
-    <?php include "navbar.php"; ?>
+    <?php include "../inc/navbar.php"; ?>
 
     <div class="container mt-5">
         <h2 class="mb-4">Pending Course Offerings</h2>
