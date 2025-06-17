@@ -31,7 +31,7 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body class="body-home">
-    <?php include "navbar.php"; ?>
+    <?php include "../inc/navbar.php"; ?>
 
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-4">

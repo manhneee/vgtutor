@@ -89,7 +89,7 @@ var tutorBankInfo = <?= json_encode($tutorBankInfo) ?>;
     <link rel="icon" href="../../img/logo.png">
 </head>
 <body class="body-home">
-<?php include "navbar.php"; ?>
+<?php include "../inc/navbar.php"; ?>
 
 <div class="container mt-5">
     <?php if (!empty($deniedPayments)): ?>

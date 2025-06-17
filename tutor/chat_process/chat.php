@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     <link rel="stylesheet" href="../../css/chatForTutor.css">
 </head>
 <body>
-<?php include "navbar.php"; ?>
+<?php include "../inc/navbar.php"; ?>
 <div class="messenger-main">
     <div class="messenger-sidebar">
         <h5>Contacted Students</h5>

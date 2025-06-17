@@ -24,7 +24,7 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
     <link rel="stylesheet" href="../../css/chatForTutor.css">
 </head>
 <body>
-<?php include "navbar.php"; ?>
+<?php include "../inc/navbar.php"; ?>
 <div class="messenger-main">
     <!-- Sidebar: Contacted Tutors -->
     <div class="messenger-sidebar">

@@ -50,16 +50,16 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
     <div class="container mt-5">
         <div class="container text-center">
             <div class="row row-cols-5">
-                <a href="session/session.php" class="col btn bg-orange m-2 py-3">
-                    <i class="fa fa-columns fs-1" aria-hidden="true"></i><br>Session
+                <a href="session_process/session.php" class="col btn bg-orange m-2 py-3">
+                    <i class="fa fa-columns fs-1" aria-hidden="true"></i><br>Sessions
                 </a>
                 <a href="" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-calendar fs-1" aria-hidden="true"></i><br>Schedule
                 </a>
-                <a href="course/course.php" class="col btn bg-orange m-2 py-3">
+                <a href="course_process/course.php" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-book fs-1" aria-hidden="true"></i><br>Courses Offering
                 </a>
-                <a href="chat/chat.php" class="col btn bg-orange m-2 py-3">
+                <a href="chat_process/chat.php" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-comments fs-1" aria-hidden="true"></i><br>Messages
                 </a>
             </div>
