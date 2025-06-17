@@ -33,10 +33,7 @@
                 <a class="nav-link" href="/vgtutor/admin/course_processing/pending_offerings.php">Pending Offerings</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Message</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Settings</a>
+                <a class="nav-link" href="/vgtutor/admin/report_processing/getReport.php">Reports</a>
             </li>
         </ul>
         <ul class="navbar-nav me-right mb-2 mb-lg-0">

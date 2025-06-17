@@ -17,6 +17,20 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                 }
             }
         }
+        // --- Payment denied notification ---
+        if (isset($_POST['hide_payment_denied'])) {
+            $_SESSION['hide_payment_denied'] = true;
+            header("Location: index.php");
+            exit;
+        }
+        $paymentDenied = [];
+        $stmt = $conn->prepare("SELECT pc.*, sa.name AS tutor_name 
+            FROM payment_confirmation pc
+            JOIN student_account sa ON pc.tutorid = sa.accountid
+            WHERE pc.studentid = ? AND pc.status = 'denied'
+            ORDER BY pc.date_and_time DESC");
+        $stmt->execute([$_SESSION['studentid']]);
+        $paymentDenied = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,12 +67,29 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                 }, 30000); // 30 seconds
             </script>
         <?php endif; ?>
+        <?php if (!empty($paymentDenied) && empty($_SESSION['hide_payment_denied'])): ?>
+            <div class="alert alert-danger text-center" id="payment-denied-alert">
+                <?php foreach ($paymentDenied as $pay): ?>
+                    Your payment to tutor <strong><?= htmlspecialchars($pay['tutor_name']) ?></strong> for session on <strong><?= htmlspecialchars($pay['date_and_time']) ?></strong> has been <strong>denied</strong>.
+                    Please <a href="chat_process/chat.php?tutorid=<?= htmlspecialchars($pay['tutorid']) ?>" class="alert-link">chat with tutor</a>.<br>
+                <?php endforeach; ?>
+                <form method="post" style="display:inline;">
+                    <button type="submit" name="hide_payment_denied" class="btn btn-sm btn-outline-light mt-2">Dismiss</button>
+                </form>
+            </div>
+            <script>
+                setTimeout(function() {
+                    var alertBox = document.getElementById('payment-denied-alert');
+                    if (alertBox) alertBox.style.display = 'none';
+                }, 30000); // 30 seconds
+            </script>
+        <?php endif; ?>
     </div>
     <div class="container mt-5">
         <div class="container text-center">
             <div class="row row-cols-5">
                 <a href="session_process/session.php" class="col btn bg-orange m-2 py-3">
-                    <i class="fa fa-columns fs-1" aria-hidden="true"></i><br>Session
+                    <i class="fa fa-columns fs-1" aria-hidden="true"></i><br>Sessions
                 </a>
                 <a href="" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-calendar fs-1" aria-hidden="true"></i><br>Schedule

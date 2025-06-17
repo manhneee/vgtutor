@@ -92,14 +92,6 @@ var tutorBankInfo = <?= json_encode($tutorBankInfo) ?>;
 <?php include "../inc/navbar.php"; ?>
 
 <div class="container mt-5">
-    <?php if (!empty($deniedPayments)): ?>
-        <div class="alert alert-danger">
-            <?php foreach ($deniedPayments as $pay): ?>
-                Your payment to tutor <strong><?= htmlspecialchars($pay['tutor_name']) ?></strong> for session on <strong><?= htmlspecialchars($pay['date_and_time']) ?></strong> has been <strong>denied</strong>.
-                Please <a href="../chat_process/chat.php?tutorid=<?= htmlspecialchars($pay['tutorid']) ?>" class="alert-link">chat with tutor</a>.<br>
-            <?php endforeach; ?>
-        </div>
-    <?php endif; ?>
     <h2 class="mb-4">Your Registered Courses</h2>
     <div class="table-responsive">
         <table class="table table-bordered table-striped align-middle">
