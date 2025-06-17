@@ -11,19 +11,6 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
         // Fetch all sessions for this student
         $sessions = getStudentSessions($conn, $_SESSION['studentid']);
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && 
-            isset($_POST['studentid'], $_POST['tutorid'], $_POST['courseid'], $_POST['date_and_time'], $_POST['chat_response'])) {
-            
-            handleChatResponse(
-                $conn,
-                $_POST['studentid'],
-                $_POST['tutorid'],
-                $_POST['courseid'],
-                $_POST['date_and_time'],
-                $_POST['chat_response']
-            );
-        }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -114,34 +101,11 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                                         } else {
                                             echo '<span class="badge bg-secondary">Pending</span>';
                                         }
-                                    } else {
-                                        echo '<span class="badge bg-secondary">Pending</span>';
                                     }
                                 ?>
                             </td>
                             <td>
-                            <?php
-                            if ($session['tutor_chat_requested'] && !$session['student_chat_requested'] && $session['consensus'] != "denied" && $session['consensus'] != "accepted") {
-                                // Show Accept and Deny buttons
-                            ?>
-                                <form method="post" style="display:inline;">
-                                    <input type="hidden" name="studentid" value="<?= htmlspecialchars($session['studentid']) ?>">
-                                    <input type="hidden" name="tutorid" value="<?= htmlspecialchars($session['tutorid']) ?>">
-                                    <input type="hidden" name="courseid" value="<?= htmlspecialchars($session['courseid']) ?>">
-                                    <input type="hidden" name="date_and_time" value="<?= htmlspecialchars($session['date_and_time']) ?>">
-                                    <input type="hidden" name="chat_response" value="accept">
-                                    <button type="submit" class="btn btn-success btn-sm">Accept</button>
-                                </form>
-                                <button type="button"
-                                            class="btn btn-danger btn-sm"
-                                            onclick="showDenyChatModal('<?= htmlspecialchars($session['studentid']) ?>', '<?= htmlspecialchars($session['tutorid']) ?>', '<?= htmlspecialchars($session['courseid']) ?>', '<?= htmlspecialchars($session['date_and_time']) ?>')">
-                                        Deny
-                                    </button>
-                            <?php
-                            } else {
-                                echo '<span class="text-muted">—</span>';
-                            }
-                            ?>
+                                <a class="btn btn-primary" href="../chat_process/chat.php?tutorid=<?= htmlspecialchars($session['tutorid']) ?>">Chat</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

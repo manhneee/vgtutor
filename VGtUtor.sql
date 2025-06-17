@@ -95,8 +95,6 @@ CREATE TABLE tutor_registration (
 );
 
 -- ALTER TABLE session ADD COLUMN consensus varchar(20) NOT NULL DEFAULT 'pending';
--- ALTER TABLE session ADD COLUMN tutor_chat_requested boolean NOT NULL DEFAULT false;
--- ALTER TABLE session ADD COLUMN student_chat_requested boolean NOT NULL DEFAULT false;
 -- ALTER TABLE session ADD COLUMN notified TINYINT(1) DEFAULT 0;
 -- ALTER TABLE session ADD COLUMN place varchar(50) NOT NULL DEFAULT 'online';
 

@@ -10,6 +10,9 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
         include "../data/chatHandle.php";
         // Fetch all tutors the student has chatted with
         $tutors = fetchAllTutorMessage($conn, $userid);
+
+        // Fetch the tutorid from the URL, if provided.
+        $selectedTutor = isset($_GET['tutorid']) ? $_GET['tutorid'] : null;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,7 +55,8 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
 </div>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
-let currentTutorId = null;
+// Get the tutorid from PHP (from the URL)
+let currentTutorId = <?= json_encode($selectedTutor) ?>;
 
 function fetchMessages() {
     if (!currentTutorId) return;
@@ -77,6 +81,7 @@ function fetchMessages() {
     });
 }
 
+// When a tutor is selected from the sidebar, update currentTutorId.
 $('#studentList').on('click', 'li', function() {
     $('#studentList li').removeClass('active');
     $(this).addClass('active');
@@ -96,18 +101,29 @@ $('#chatForm').on('submit', function(e) {
     });
 });
 setInterval(fetchMessages, 1500);
+
+// If tutorid is fetched from URL, preselect it.
+if (currentTutorId) {
+    let $li = $('#studentList li[data-tutorid="' + currentTutorId + '"]');
+    if ($li.length) {
+        $li.addClass('active');
+        $('#chatHeader').text('Chat with ' + $li.text());
+        $('#chatForm').show();
+        fetchMessages();
+    }
+}
 </script>
 </body>
 </html>
 <?php
- } else {
-    $em = "You are not authorized to access this page.";
-    header("Location: ../login.php?error=$em");
-    exit;
- } 
+    } else {
+        $em = "You are not authorized to access this page.";
+        header("Location: ../login.php?error=$em");
+        exit;
+    }
 } else {
     $em = "You are not logged in.";
     header("Location: ../login.php?error=$em");
     exit;
- }
+}
 ?>

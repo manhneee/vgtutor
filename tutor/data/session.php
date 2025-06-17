@@ -29,7 +29,6 @@ function getTutorSessions($conn, $tutorid) {
                 sa.name AS student_name, 
                 sa.major AS student_major,
                 co.price AS price_per_hour,
-                s.student_chat_requested AS student_chat_request,
                 c.course_name AS course_name
          FROM session s
          JOIN course_offering co ON s.tutorid = co.tutorid AND s.courseid = co.courseid
@@ -42,26 +41,43 @@ function getTutorSessions($conn, $tutorid) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function updateSessionConsensus($conn, $studentid, $courseid, $consensus) {
-    $stmt = $conn->prepare("UPDATE session SET consensus = ? WHERE studentid = ? AND courseid = ?");
-    return $stmt->execute([$consensus, $studentid, $courseid]);
+/**
+ * Get pending sessions for a tutor and a student.
+ * Joins session with course table to obtain course_name.
+ */
+function getPendingSessions($conn, $tutorid, $studentid) {
+    $query = "SELECT s.tutorid as tutorid, s.studentid as studentid, s.consensus as consensus, s.courseid as courseid, c.course_name as course_name, s.duration as duration, s.place as place, s.date_and_time as date_and_time
+              FROM session s
+              JOIN course c ON s.courseid = c.courseid
+              WHERE s.tutorid = ? AND s.studentid = ? 
+                AND (s.consensus = 'pending' OR s.consensus IS NULL)";
+    $stmt = $conn->prepare($query);
+    $stmt->execute([$tutorid, $studentid]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function handleSessionAction($conn, $studentid, $courseid, $action) {
-    if ($action === 'accept') {
-        updateSessionConsensus($conn, $studentid, $courseid, 'accepted');
-        header("Location: session.php");
-        exit;
-    } elseif ($action === 'deny') {
-        updateSessionConsensus($conn, $studentid, $courseid, 'denied');
-        header("Location: session.php");
-        exit;
-    } elseif ($action === 'accept_chat' || $action === 'request_chat') {
-        $stmt = $conn->prepare("UPDATE session SET tutor_chat_requested = 1 WHERE studentid = ? AND courseid = ?");
-        $stmt->execute([$studentid, $courseid]);
-        header("Location: ../chat/chat.php?studentid=" . urlencode($studentid));
-        exit;
+/**
+ * Update the consensus for a session identified by tutorid, studentid, courseid, and date_and_time.
+ */
+function updateConsensus($conn, $action, $tutorid, $studentid, $courseid, $date_and_time) {
+    if($action == "accept") {
+        $query = "UPDATE session SET consensus = 'accepted' 
+                  WHERE tutorid = ? AND studentid = ? AND courseid = ? AND date_and_time = ?";
     }
+    else if($action == "deny") {
+        $query = "UPDATE session SET consensus = 'denied' 
+                  WHERE tutorid = ? AND studentid = ? AND courseid = ? AND date_and_time = ?";
+    }
+    $stmt = $conn->prepare($query);
+    $stmt->execute([$tutorid, $studentid, $courseid, $date_and_time]);
+    return $stmt->rowCount();
+}
+
+function updateSessionDetails($conn, $tutorid, $studentid, $courseid, $originalDateTime, $newPlace, $newDateTime, $newDuration) {
+    $query = "UPDATE session SET place = ?, date_and_time = ?, duration = ?
+              WHERE tutorid = ? AND studentid = ? AND courseid = ? AND date_and_time = ?";
+    $stmt = $conn->prepare($query);
+    return $stmt->execute([$newPlace, $newDateTime, $newDuration, $tutorid, $studentid, $courseid, $originalDateTime]);
 }
 
 ?>
