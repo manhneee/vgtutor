@@ -61,7 +61,7 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                             <td><?= htmlspecialchars($tutor['description']) ?></td>
                             <td><?= htmlspecialchars($tutor['price']) ?></td>
                             <td><?= htmlspecialchars($tutor['email']) ?></td>
-                            <td><?= htmlspecialchars($tutor['rating']) ?></td>
+                            <td><?= number_format((float)$tutor['rating'], 1) ?></td>
                             <td>
                                 <a href="tutorReviews.php?tutorid=<?= urlencode($tutor['tutorid']) ?>" class="btn btn-primary">
                                     View Reviews
