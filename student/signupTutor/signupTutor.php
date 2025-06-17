@@ -14,12 +14,62 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
             $bank_acc_no = $_POST['bank_account'];
             $self_description = $_POST['self_intro'];
 
-            $result = registerTutorApplication($conn, $studentid, $gpa, $bank_name, $bank_acc_no, $self_description);
+            // Handle transcript upload
+            $transcript_path = null;
+            if (isset($_FILES['transcript']) && $_FILES['transcript']['error'] === UPLOAD_ERR_OK) {
+                $fileTmpPath = $_FILES['transcript']['tmp_name'];
+                $fileName = $_FILES['transcript']['name'];
+                $fileSize = $_FILES['transcript']['size'];
+                $fileType = $_FILES['transcript']['type'];
+                $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
-            if ($result === true) {
-                $success = "Register successfully!";
+                $allowedExt = ['pdf'];
+                // Check extension and MIME type separately
+                if ($fileExt !== 'pdf') {
+                    $error = "Only PDF files are allowed.";
+                } elseif ($fileType !== 'application/pdf') {
+                    $error = "File type must be PDF.";
+                } elseif ($fileSize > 2 * 1024 * 1024) {
+                    $error = "File size must be less than 2MB.";
+                } else {
+                    // Optional: check file content for PDF signature
+                    $fh = fopen($fileTmpPath, 'rb');
+                    $header = fread($fh, 4);
+                    fclose($fh);
+                    if ($header !== '%PDF') {
+                        $error = "Uploaded file is not a valid PDF.";
+                    } else {
+                        $uploadDir = __DIR__ . '/uploads/';
+                        $adminUploadDir = __DIR__ . '/../../admin/tutor_processing/uploads/';
+                        if (!is_dir($uploadDir)) {
+                            mkdir($uploadDir, 0777, true);
+                        }
+                        if (!is_dir($adminUploadDir)) {
+                            mkdir($adminUploadDir, 0777, true);
+                        }
+                        $newFileName = 'transcript_' . $studentid . '_' . time() . '.pdf';
+                        $destPath = $uploadDir . $newFileName;
+                        $adminDestPath = $adminUploadDir . $newFileName;
+                        if (move_uploaded_file($fileTmpPath, $destPath)) {
+                            // Copy to admin directory as well
+                            copy($destPath, $adminDestPath);
+                            $transcript_path = 'uploads/' . $newFileName;
+                        } else {
+                            $error = "Failed to upload file.";
+                        }
+                    }
+                }
             } else {
-                $error = $result;
+                $error = "Transcript file is required.";
+            }
+
+            if (empty($error)) {
+                $result = registerTutorApplication($conn, $studentid, $gpa, $bank_name, $bank_acc_no, $self_description, $transcript_path);
+                if ($result === true) {
+                    $success = "Register successfully!";
+                } else {
+                    $error = $result;
+                }
             }
         }
 
@@ -57,12 +107,17 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                         </div>
                     <?php endif; ?>
                     <div class="card-body">
-                        <form action="" method="post">
+                        <form action="" method="post" enctype="multipart/form-data">
                             <!-- Part 1: Tutor Info -->
                             <h5 class="mb-3">Tutor Information</h5>
                             <div class="mb-3">
                                 <label for="gpa" class="form-label">GPA</label>
                                 <input type="text" class="form-control" id="gpa" name="gpa" required>
+                            </div>
+                            <form action="" method="post" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="transcript" class="form-label">Upload Transcript (PDF only, max 2MB)</label>
+                                <input type="file" class="form-control" id="transcript" name="transcript" accept="application/pdf" required>
                             </div>
                             <div class="mb-3">
                                 <label for="self_intro" class="form-label">Self Introduction (max 1000 characters)</label>
