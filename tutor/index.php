@@ -5,11 +5,32 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
         include "../DB_connection.php";
         include "data/session.php";
         // Notification logic
-        $notification = '';
+        $notifications = [];
+        // New session notification
         $row = getNewSessionNotification($conn, $_SESSION['tutorid']);
         if ($row) {
             markSessionNotified($conn, $row['studentid'], $row['tutorid'], $row['courseid'], $row['date_and_time']);
-            $notification = htmlspecialchars($row['student_name']) . " has registered your " . htmlspecialchars($row['course_name']) . " course, please check your session for more information.";
+            $notifications[] = [
+                'type' => 'warning',
+                'msg' => htmlspecialchars($row['student_name']) . " has registered your " . htmlspecialchars($row['course_name']) . " course, please check your session for more information."
+            ];
+        }
+        // Payment confirmation notification (pending payments)
+        $stmt = $conn->prepare("
+            SELECT pc.*, sa.name AS student_name, c.course_name
+            FROM payment_confirmation pc
+            JOIN student_account sa ON pc.studentid = sa.accountid
+            JOIN course c ON pc.courseid = c.courseid
+            WHERE pc.tutorid = ? AND pc.status = 'pending'
+            ORDER BY pc.date_and_time DESC
+        ");
+        $stmt->execute([$_SESSION['tutorid']]);
+        $pendingPayments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($pendingPayments as $pay) {
+            $notifications[] = [
+                'type' => 'info',
+                'msg' => "Payment confirmation from <strong>" . htmlspecialchars($pay['student_name']) . "</strong> for <strong>" . htmlspecialchars($pay['course_name']) . "</strong> is pending. <a href='session_process/session.php' class='alert-link'>Check now</a>."
+            ];
         }
 ?>
 <!DOCTYPE html>
@@ -33,33 +54,22 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
                 <h1 style="color: white">Welcome, <?= $_SESSION['name']?> - <?=$_SESSION['tutorid'] ?></h1>
                 <p style="color: white">You are logged in as an <?= $_SESSION['role'] ?>.</p>
             </div>
-            <?php if (!empty($notification)): ?>
-                <div id="notif" class="alert alert-warning position-relative mt-3" style="background-color: #fff3cd; color: #856404; border-color: #ffeeba;">
-                    <?= $notification ?>
-                </div>
-                <script>
-                    setTimeout(function() {
-                        var notif = document.getElementById('notif');
-                        if (notif) notif.remove();
-                    }, 5000);
-                </script>
-            <?php endif; ?>
         </div>
     </div>
 
     <div class="container mt-5">
         <div class="container text-center">
             <div class="row row-cols-5">
-                <a href="session/session.php" class="col btn bg-orange m-2 py-3">
-                    <i class="fa fa-columns fs-1" aria-hidden="true"></i><br>Session
+                <a href="session_process/session.php" class="col btn bg-orange m-2 py-3">
+                    <i class="fa fa-columns fs-1" aria-hidden="true"></i><br>Sessions
                 </a>
                 <a href="" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-calendar fs-1" aria-hidden="true"></i><br>Schedule
                 </a>
-                <a href="course/course.php" class="col btn bg-orange m-2 py-3">
+                <a href="course_process/course.php" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-book fs-1" aria-hidden="true"></i><br>Courses Offering
                 </a>
-                <a href="chat/chat.php" class="col btn bg-orange m-2 py-3">
+                <a href="chat_process/chat.php" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-comments fs-1" aria-hidden="true"></i><br>Messages
                 </a>
             </div>

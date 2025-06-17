@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="../index.php">
             <img src="/vgtutor/img/logo.png" alt="Logo" width="200" height="" class="d-inline-block align-text-top">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,10 +33,7 @@
                 <a class="nav-link" href="/vgtutor/admin/course_processing/pending_offerings.php">Pending Offerings</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Message</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Settings</a>
+                <a class="nav-link" href="/vgtutor/admin/report_processing/getReport.php">Reports</a>
             </li>
         </ul>
         <ul class="navbar-nav me-right mb-2 mb-lg-0">

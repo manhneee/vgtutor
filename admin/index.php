@@ -54,14 +54,8 @@ if (isset($_SESSION['adminid']) &&
                 <a href="course_processing/pending_offerings.php" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-pencil-square fs-1" aria-hidden="true"></i><br>Pending Offerings
                 </a>
-                <a href="" class="col btn bg-orange m-2 py-3">
-                    <i class="fa fa-comments fs-1" aria-hidden="true"></i><br>Message
-                </a>
-                <a href="" class="col btn bg-primary m-2 py-3 col-5 text-white">
-                    <i class="fa fa-cogs fs-1" aria-hidden="true"></i><br>Settings
-                </a>
-                <a href="../logout.php" class="col btn btn-warning m-2 py-3 col-5 text-white">
-                    <i class="fa fa-sign-out fs-1" aria-hidden="true"></i><br>Logout
+                <a href="report_processing/getReport.php" class="col btn btn-danger m-2 py-3">
+                    <i class="fa fa-comments fs-1" aria-hidden="true"></i><br>Reports
                 </a>
             </div>
         </div>

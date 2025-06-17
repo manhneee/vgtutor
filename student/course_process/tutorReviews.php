@@ -48,7 +48,7 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
     </style>
 </head>
 <body class="body-home">
-    <?php include "navbar.php"; ?>
+    <?php include "../inc/navbar.php"; ?>
     <div class="container mt-5">
         <h2 class="mb-4">Reviews about Tutor: <?= htmlspecialchars($tutor_name) ?></h2>
         <?php if (count($reviews) > 0): ?>

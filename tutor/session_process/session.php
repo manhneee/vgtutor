@@ -56,7 +56,7 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
     <link rel="icon" href="../../img/logo.png">
 </head>
 <body class="body-home">
-    <?php include "navbar.php"; ?>
+    <?php include "../inc/navbar.php"; ?>
 
     <!-- Deny Chat Confirmation Modal -->
     <div class="modal fade" id="denyChatModal" tabindex="-1" aria-labelledby="denyChatModalLabel" aria-hidden="true">
