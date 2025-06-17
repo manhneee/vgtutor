@@ -75,7 +75,7 @@ CREATE TABLE pending_offering (
     tutorid int,
     courseid int,
     status varchar(20),
-    gpa varchar(3),
+    grade varchar(3),
     price int,
     self_description varchar(1000),
     primary key (tutorid, courseid),
