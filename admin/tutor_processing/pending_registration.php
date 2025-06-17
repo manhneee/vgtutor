@@ -40,6 +40,7 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
                         <th>Name</th>
                         <th>Major</th>
                         <th>GPA</th>
+                        <th>Transcript</th>
                         <th>Self Description</th>
                         <th>Status/Action</th>
                     </tr>
@@ -52,6 +53,15 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
                                 <td><?= htmlspecialchars($row['name']) ?></td>
                                 <td><?= htmlspecialchars($row['major']) ?></td>
                                 <td><?= htmlspecialchars($row['gpa']) ?></td>
+                                <td>
+                                    <?php if (!empty($row['transcript_path'])): ?>
+                                        <a href="<?php echo htmlspecialchars($row['transcript_path']); ?>" target="_blank" class="btn btn-sm btn-primary">
+                                            Download Transcript
+                                        </a>
+                                    <?php else: ?>
+                                        No file
+                                    <?php endif; ?>
+                                </td>
                                 <td><?= nl2br(htmlspecialchars($row['self_description'])) ?></td>
                                 <td>
                                     <?php
@@ -76,7 +86,7 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="6" class="text-center">No pending tutor registrations.</td>
+                            <td colspan="7" class="text-center">No pending tutor registrations.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>

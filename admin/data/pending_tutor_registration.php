@@ -1,6 +1,6 @@
 <?php
 function getAllPendingTutorRegistrations($conn) {
-    $sql = "SELECT sa.name, sa.major, tr.gpa, tr.self_description, tr.studentid, tr.status
+    $sql = "SELECT sa.name, sa.major, tr.gpa, tr.self_description, tr.studentid, tr.status, tr.transcript_path
             FROM tutor_registration tr
             JOIN student_account sa ON tr.studentid = sa.accountid
             WHERE tr.status = 'pending'";
