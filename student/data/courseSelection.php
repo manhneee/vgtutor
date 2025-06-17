@@ -30,12 +30,23 @@ function getCourseName($conn, $courseid) {
 }
 
 function tutorFetching($conn, $courseid) {
-    $sql = "SELECT t.accountid AS tutorid, s.name AS tutor_name, co.rating AS rating, s.email AS email, s.major AS major, t.gpa, t.description, co.price AS price
-            FROM course_offering co
-            LEFT JOIN student_account s ON co.tutorid = s.accountid
-            LEFT JOIN  tutor_account t ON co.tutorid = t.accountid
-            WHERE co.courseid = ?";
-    $stmt = $conn->prepare($sql);
+    $stmt = $conn->prepare("
+        SELECT 
+            ta.accountid AS tutorid,
+            sa.name AS tutor_name,
+            sa.major,
+            ta.gpa,
+            ta.description,
+            co.price,
+            sa.email,
+            ROUND(COALESCE(AVG(r.rating), 0), 1) AS rating
+        FROM course_offering co
+        JOIN tutor_account ta ON co.tutorid = ta.accountid
+        JOIN student_account sa ON ta.accountid = sa.accountid
+        LEFT JOIN review r ON r.tutorid = ta.accountid
+        WHERE co.courseid = ?
+        GROUP BY ta.accountid, sa.name, sa.major, ta.gpa, ta.description, co.price, sa.email
+    ");
     $stmt->execute([$courseid]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }

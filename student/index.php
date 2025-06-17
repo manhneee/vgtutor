@@ -57,18 +57,6 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
     <div class="container mt-5">
         <div class="container text-center">
             <div class="row row-cols-5">
-                <a href="tutor.php" class="col btn bg-orange m-2 py-3">
-                    <i class="fa fa-user-md fs-1" aria-hidden="true"></i><br>Tutors
-                </a>
-                <a href="" class="col btn bg-orange m-2 py-3">
-                    <i class="fa fa-users fs-1" aria-hidden="true"></i><br>Students
-                </a>
-                <a href="" class="col btn bg-orange m-2 py-3">
-                    <i class="fa fa-pencil-square fs-1" aria-hidden="true"></i><br>Registration Office
-                </a>
-                <a href="" class="col btn bg-orange m-2 py-3">
-                    <i class="fa fa-cubes fs-1" aria-hidden="true"></i><br>Class
-                </a>
                 <a href="session_process/session.php" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-columns fs-1" aria-hidden="true"></i><br>Session
                 </a>
@@ -80,12 +68,6 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                 </a>
                 <a href="chat_process/chat.php" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-comments fs-1" aria-hidden="true"></i><br>Messages
-                </a>
-                <a href="" class="col btn bg-primary m-2 py-3 col-5 text-white">
-                    <i class="fa fa-cogs fs-1" aria-hidden="true"></i><br>Settings
-                </a>
-                <a href="../logout.php" class="col btn btn-warning m-2 py-3 col-5 text-white">
-                    <i class="fa fa-sign-out fs-1" aria-hidden="true"></i><br>Logout
                 </a>
             </div>
         </div>
