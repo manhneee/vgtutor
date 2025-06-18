@@ -29,13 +29,14 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
     <link rel="icon" href="../../img/logo.png">
 </head>
 <body class="body-home">
-    <?php include "navbar.php"; ?>
+    <?php include "../inc/navbar.php"; ?>
     <div class="container mt-5">
-        <h3 class="mb-4">Pending Tutor Registrations</h3>
+        <h2 class="mb-4">Pending Tutor Registrations</h3>
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead class="table-dark">
                     <tr>
+                        <th>#</th>
                         <th>Name</th>
                         <th>Major</th>
                         <th>GPA</th>
@@ -45,8 +46,9 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
                 </thead>
                 <tbody>
                     <?php if ($pending_tutors && count($pending_tutors) > 0): ?>
-                        <?php foreach ($pending_tutors as $row): ?>
+                        <?php foreach ($pending_tutors as $i => $row): ?>
                             <tr>
+                                <td><?= $i + 1 ?></td>
                                 <td><?= htmlspecialchars($row['name']) ?></td>
                                 <td><?= htmlspecialchars($row['major']) ?></td>
                                 <td><?= htmlspecialchars($row['gpa']) ?></td>
@@ -74,7 +76,7 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="5" class="text-center">No pending tutor registrations.</td>
+                            <td colspan="6" class="text-center">No pending tutor registrations.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>

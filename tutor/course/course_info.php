@@ -21,42 +21,65 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Condition</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../../css/style.css">
-    <link rel="icon" href="../../img/logo.png">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Course Condition</title>
+  <link rel="stylesheet" href="../../css/style1.css" />
+  <link rel="stylesheet" href="../../css/framework.css" />
+  <link rel="stylesheet" href="../../css/master.css" />
+  <link rel="icon" href="../../img/logo.png" />
 </head>
-<body class="body-home">
-    <?php include "navbar.php"; ?>
 
-    <div class="container mt-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Course Condition</h2>
-            <a href="offering.php?courseid=<?= urlencode($courseid) ?>" class="btn bg-orange text-white">
-                <i class="fa fa-plus"></i> Offering
-            </a>
+ <div class="page d-flex">
+    <?php include_once '../inc/navbar.php'; ?> <!-- Sidebar -->
+
+    <div class="content w-full">
+      <?php include_once '../inc/upbar.php'; ?> <!-- Top Bar -->
+
+<div class="content w-full p-20">
+  <!-- Header -->
+    <h1 class="c-orange m-0">📋 Course Condition</h1>
+
+
+  <!-- Condition Display -->
+<?php if ($cond !== null): ?>
+  <div class="bg-white p-20 rad-10 shadow d-flex flex-column justify-content-between" style="min-height: 300px;">
+    <div> 
+      <h3 class="c-orange mb-20">🔎 Requirements Overview</h3>
+
+      <?php
+        $lines = explode("\n", $cond);
+        foreach ($lines as $line):
+          if (trim($line) === '') continue;
+          $parts = explode(":", $line, 2);
+          $title = $parts[0] ?? '';
+          $desc = $parts[1] ?? '';
+      ?>
+        <div class="mb-15">
+          <div class="fw-bold fs-15 c-orange mb-5">
+            ✅ <?= htmlspecialchars($title) ?>
+          </div>
+          <div class="fs-14 c-black ms-4"><?= htmlspecialchars(trim($desc)) ?></div>
         </div>
-        <?php if ($cond !== null): ?>
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <p class="card-text"><strong>Condition:</strong></p>
-                    <p class="card-text"><?= nl2br(htmlspecialchars($cond)) ?></p>
-                </div>
-            </div>
-        <?php else: ?>
-            <div class="alert alert-warning">Course condition not found.</div>
-        <?php endif; ?>
+      <?php endforeach; ?>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $("#navLinks li:nth-child(1) a").addClass('active');
-        });
-    </script>
+
+    
+
+  </div>
+<?php else: ?>
+  <div class="bg-orange rad-10 p-15 mt-15 c-white">
+    <i class="fa fa-warning me-2"></i> Course condition not found.
+  </div>
+<?php endif; ?>
+<!-- Offer Button at bottom-right -->
+  <div class="d-flex justify-content-end mt-3">
+    <a href="offering.php?courseid=<?= urlencode($courseid) ?>" class="btn-shape bg-orange c-white w-fit">
+      <i class="fa fa-plus me-1"></i> Offer Course
+    </a>
+  </div>
+</div>
+
 </body>
 </html>
 <?php

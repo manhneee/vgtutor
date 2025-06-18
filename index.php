@@ -2,172 +2,550 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    
-    
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tittle</title>
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="css/home_page.css">
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- 
+    - preload images
+  -->
+  <link rel="preload" as="image" href="img/hero-banner.png">
+  <link rel="preload" as="image" href="img/hero-abs-1.png" media="min-width(768px)">
+  <link rel="preload" as="image" href="img/hero-abs-2.png" media="min-width(768px)">
+
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="img/logo.png" alt="Logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-               <ul class="navbar-nav ms-auto d-flex gap-5">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                    
-                </ul>
-                <ul class="navbar-nav me-right mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.php">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="signup.php">Signup</a>
-                    </li>
-                </ul>
-                </div>
-            </div>
-        </nav>
+<body id="top">
+
+  <!-- 
+    - #HEADER
+  -->
+
+<header class="header" data-header style="background-color: white; color: black;">
+    <div class="container">
+
+      <h1>
+        <a href="#" class="logo">VGTUTOR</a>
+      </h1>
+
+      <nav class="navbar" data-navbar>
+
+        <div class="navbar-top">
+          <a href="#" class="logo">VGTUTOR</a>
+
+          <button class="nav-close-btn" aria-label="Close menu" data-nav-toggler>
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+        </div>
+
+        <ul class="navbar-list">
+
+          <li class="navbar-item">
+            <a href="#home" class="navbar-link" data-nav-toggler>Home</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#about" class="navbar-link" data-nav-toggler>About</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#course" class="navbar-link" data-nav-toggler>Courses</a>
+          </li>
+
+
+          <li class="navbar-item">
+            <a href="#contact" class="navbar-link" data-nav-toggler>Contact</a>
+          </li>
+
+        </ul>
+
+      </nav>
+
+      <div class="header-actions">
+
+
+
+        <a href="login.php" class="header-action-btn login-btn">
+          <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+
+          <span class="span">Login </span>
+        </a>
         
-<section class="hero">
-  <h1>Find the Right Tutor for You</h1>
-  <p>Connecting VGU students with the best tutors for their success.</p>
-  <div class="d-flex gap-3">
-    <a href="login.php" class="btn btn-orange px-4 py-2">Get Started Today</a>
-    <a href="#about" class="btn btn-outline-orange px-4 py-2">Learn More</a>
-  </div>
-</section>
+                <a href="signup.php" class="header-action-btn login-btn">
+          <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
 
+          <span class="span">Register</span>
+        </a>
 
-    <!-- About Section -->
-    <section id="about" class="bg-white text-dark py-5">
-<div class="container text-center">
-    <h2 class="mb-4 fw-bold">Why Choose VGtUtor?</h2>
-    <p class="text-muted mb-5 ">We deliver better academic outcomes through expert tutors, tailored support, and future-ready tools.</p>
-    <div class="row g-4">
-        <div class="col-md-4">
-            <div class="p-4 shadow rounded bg-white h-100">
-                <img src="img/stragies.png" alt="Innovation" width="100" class="mb-3">
-                <h5>Strategic Innovation</h5>
-                <p class="text-muted fw-semibold">We apply innovative teaching methods and tools to help students overcome challenges and unlock academic success.</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="p-4 shadow rounded bg-white h-100">
-                <img src="img/team.png" alt="Team" width="70" class="mb-3">
-                <h5>About Team</h5>
-                <p class="text-muted fw-semibold">Our tutors are students and experts from VGU who understand your needs and care about your progress.</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="p-4 shadow rounded bg-white h-100">
-                <img src="img/future.png" alt="Potential" width="70" class="mb-3">
-                <h5>Future Potential</h5>
-                <p class="text-muted fw-semibold">We support long-term academic development with personalized learning paths, mentoring, and career preparation.</p>
-            </div>
-        </div>
+        <button class="header-action-btn nav-open-btn" aria-label="Open menu" data-nav-toggler>
+          <ion-icon name="menu-outline"></ion-icon>
+        </button>
+
+      </div>
+
+      <div class="overlay" data-nav-toggler data-overlay></div>
+
     </div>
-</div>
-
-    </section>
-    <section class="py-5 text-center text-light" style="background-color:rgb(247, 125, 54);">
-  <div class="container">
-    <div class="row g-4">
-      <div class="col-md-3">
-        <h2 class="fw-bolder display-6 text-white">Coming..</h2>
-        <p class="mb-0 text-muted">Tutoring Hours Delivered</p>
-      </div>
-      <div class="col-md-3">
-        <h2 class="fw-bolder display-6 text-white">Coming..</h2>
-        <p class="mb-0 text-muted">Student Satisfaction</p>
-      </div>
-      <div class="col-md-3">
-        <h2 class="fw-bolder display-6 text-white">Coming..</h2>
-        <p class="mb-0 text-muted">Registered Tutors</p>
-      </div>
-      <div class="col-md-3">
-        <h2 class="fw-bolder display-6 text-white">Coming...</h2>
-        <p class="mb-0 text-muted">Courses Supported</p>
-      </div>
-    </div>
-  </div>
-</section>
+  </header>
 
 
-  <section id="contact" class="bg-light text-dark py-5">
-  <div class="container">
-    <div class="row g-4 align-items-stretch">
-      <!-- Left: Upcoming Features -->
-<div class="col-md-6">
-  <div class="upcoming-container shadow-lg rounded-4 p-4">
-    <h2 class="upcoming-title">Upcoming <span class="highlight">features</span></h2>
-    <div id="updateCarousel" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="img/test1.jpg" class="d-block w-100 rounded-3 carousel-img" alt="Update 1">
-        </div>
-        <div class="carousel-item">
-          <img src="img/test.jpg" class="d-block w-100 rounded-3 carousel-img" alt="Update 2">
-        </div>
-        <div class="carousel-item">
-          <img src="img/test3.jpg" class="d-block w-100 rounded-3 carousel-img" alt="Update 3">
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#updateCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#updateCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </button>
-    </div>
-  </div>
-</div>
+  <main>
+    <article>
 
-        <!-- Right: Contact Form -->
-        <div class="col-md-6">
-          <div class="p-4 rounded-4 shadow-lg bg-white h-100">
-            <h2 class="fw-bold text-center">Get in Touch</h2>
-            <p class="text-center text-muted">We’d love to hear from you. Fill out the form below and we’ll respond shortly.</p>
-            <form>
-              <div class="mb-3">
-                <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" required>
-              </div>
-              <div class="mb-3">
-                <label for="name" class="form-label">Your Name</label>
-                <input type="text" class="form-control" id="name" required>
-              </div>
-              <div class="mb-3">
-                <label for="message" class="form-label">Message</label>
-                <textarea class="form-control" id="message" rows="4" required></textarea>
-              </div>
-              <button type="submit" class="btn btn-orange px-4 py-2 rounded-pill shadow-sm">Send</button>
-            </form>
+      <!-- 
+        - #HERO
+      -->
+
+      <section class="hero" id="home" aria-label="hero" style="background-image: url('img/hero-bg.jpg')">
+        <div class="container">
+
+          <div class="hero-content">
+
+            <p class="section-subtitle">Better Learning Future With Us</p>
+
+            <h2 class="h1 hero-title">Find the Right Tutor For You</h2>
+
+            <p class="hero-text">
+              Connecting VGU students with the best tutors for their success
+            </p>
+
+            <a href="signup.php" class="btn btn-primary">
+              <span class="span">Get Started Today</span>
+
+              <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+            </a>
+
           </div>
+
+          <figure class="hero-banner">
+
+            <img src="img/hero-banner.png" width="500" height="500" loading="lazy" alt="hero image"
+              class="w-100">
+
+          </figure>
+
         </div>
+      </section>
+
+
+ <!-- 
+        - #ABOUT
+      -->
+
+      <section class="section about" id="about" aria-label="about">
+        <div class="container">
+
+          <figure class="about-banner">
+
+            <img src="img/about-banner.jpg" width="450" height="590" loading="lazy" alt="about banner"
+              class="w-100 about-img">
+
+            <img src="img/about1.jpg" width="188" height="242" loading="lazy" aria-hidden="true"
+              class="abs-img abs-img-1">
+
+          </figure>
+
+          <div class="about-content">
+
+            <p class="section-subtitle">Who We Are ?</p>
+
+            <h2 class="h2 section-title">We deliver better academic outcomes through expert tutors.</h2>
+
+            <ul class="about-list">
+
+              <li class="about-item">
+
+                <div class="item-icon item-icon-1">
+                  <img src="img/about-icon-1.png" width="30" height="30" loading="lazy" aria-hidden="true">
+                </div>
+
+                <div>
+                  <h3 class="h3 item-title">The Expertise Tutors </h3>
+
+                  <p class="item-text">
+                    Our tutors are students and experts from VGU who understand your needs and care about your progress.
+                  </p>
+                </div>
+
+              </li>
+
+              <li class="about-item">
+
+                <div class="item-icon item-icon-2">
+                  <img src="img/about-icon-2.png" width="30" height="30" loading="lazy" aria-hidden="true">
+                </div>
+
+                <div>
+                  <h3 class="h3 item-title">Our Goal</h3>
+
+                  <p class="item-text">
+                    We apply innovative teaching methods and tools to help students overcome challenges and unlock academic success.
+                  </p>
+                </div>
+
+              </li>
+
+              <li class="about-item">
+
+                <div class="item-icon item-icon-3">
+                  <img src="img/about-icon-3.png" width="30" height="30" loading="lazy" aria-hidden="true">
+                </div>
+
+                <div>
+                  <h3 class="h3 item-title">Our Future Potential</h3>
+
+                  <p class="item-text">
+                    We support long-term academic development with personalized learning paths, mentoring, and career preparation.
+                  </p>
+                </div>
+
+              </li>
+
+            </ul>
+
+            <a href="#" class="btn btn-primary">
+              <span class="span">Know About Us</span>
+
+              <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+            </a>
+
+          </div>
+
+        </div>
+      </section>
+
+
+
+      <!-- 
+        - #CATEGORY
+      -->
+
+      <section class="section category" id="course" aria-label="category">
+        <div class="container">
+
+          <p class="section-subtitle">Course Offering till now</p>
+
+          <h2 class="h2 section-title">Differen For you to pick</h2>
+
+          <ul class="grid-list">
+
+ <li>
+              <div class="category-card">
+
+                <div>
+                  <ion-icon name="layers-outline"></ion-icon>
+                </div>
+
+                <div>
+                  <h3 class="h3 card-title">
+                    <a href="#">Statistic</a>
+                  </h3>
+                </div>
+
+              </div>
+            </li>
+ <li>
+              <div class="category-card">
+
+                <div>
+                  <ion-icon name="layers-outline"></ion-icon>
+                </div>
+
+                <div>
+                  <h3 class="h3 card-title">
+                    <a href="#">Discrete Math</a>
+                  </h3>
+                </div>
+
+              </div>
+            </li>
+
+ <li>
+              <div class="category-card">
+
+                <div>
+                  <ion-icon name="layers-outline"></ion-icon>
+                </div>
+
+                <div>
+                  <h3 class="h3 card-title">
+                    <a href="#">Database</a>
+                  </h3>
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="category-card">
+
+                <div>
+                  <ion-icon name="layers-outline"></ion-icon>
+                </div>
+
+                <div>
+                  <h3 class="h3 card-title">
+                    <a href="#">IT-security</a>
+                  </h3>
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="category-card">
+
+                <div>
+                  <ion-icon name="laptop-outline"></ion-icon>
+                </div>
+
+                <div>
+                  <h3 class="h3 card-title">
+                    <a href="#">Algebra</a>
+                  </h3>
+                </div>
+
+              </div>
+            </li>
+
+
+          </ul>
+
+        </div>
+      </section>
+
+      <!-- 
+        - #CTA
+      -->
+
+      <section class="section cta" aria-label="">
+        <div class="container">
+
+          <figure class="cta-banner">
+            <img src="img/cta.jpg" width="580" height="380" loading="lazy" alt="cta banner"
+              class="img-cover">
+          </figure>
+
+          <div class="cta-content">
+
+
+            <h2 class="h2 section-title">Our Mission</h2>
+
+            <p class="section-text">
+              our mission is to empower every learner with the tools, guidance, and support they need to succeed academically 
+              and grow personally. We believe that education should be accessible, personalized, and transformative—built on the 
+              principle that every student has the potential to excel when given the right environment and mentorship.
+            </p>
+
+            <a href="#" class="btn btn-secondary">
+              <span class="span">Join us now</span>
+
+              <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+            </a>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 
+        - #NEWSLETTER
+      -->
+
+      <section class="section newsletter" aria-label="newsletter"
+        style="background-image: url('img/newsletter-bg.jpg')">
+        <div class="container">
+
+          <p class="section-subtitle">Get in Touch</p>
+
+          <h2 class="h2 section-title">Be a part of our community. Fill out the email below to receive news about us.</h2>
+
+          <form action="" class="newsletter-form">
+
+            <div class="input-wrapper">
+              <input type="email" name="email_address" aria-label="email" placeholder="Enter your mail address" required
+                class="email-field">
+
+              <ion-icon name="mail-open-outline" aria-hidden="true"></ion-icon>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+              <span class="span">Subscribe</span>
+
+              <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+            </button>
+
+          </form>
+
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+
+
+
+
+  <!-- 
+    - #FOOTER
+  -->
+
+  <footer class="footer"> 
+    <div class="container">
+
+      <div class="footer-top">
+
+        <div class="footer-brand">
+
+          <a href="#" class="logo">VGTUTOR</a>
+
+          <p class="section-text">
+            Product of VGU's students.
+          </p>
+
+          <ul class="social-list">
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-linkedin"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-pinterest"></ion-icon>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+        <ul class="footer-list" id="contact">
+
+          <li>
+            <p class="footer-list-title">Explore</p>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">
+              <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
+
+              <span class="span">About Us</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">
+              <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
+
+              <span class="span">Upcoming Events</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">
+              <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
+
+              <span class="span">Blog & News</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">
+              <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
+
+              <span class="span">FAQ Question</span>
+            </a>
+          </li>
+
+
+        </ul>
+
+        <ul class="footer-list">
+        
+        <ul class="footer-list">
+
+          <li>
+            <p class="footer-list-title">Contact Info</p>
+          </li>
+
+          <li class="footer-item">
+            <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
+
+            <address class="footer-link">
+              Đ. VĐ 4, Thới Hoà, Bến Cát, Bình Dương 75000
+            </address>
+          </li>
+
+          <li class="footer-item">
+            <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+
+            <a href="mailto:contact@eduhome.com" class="footer-link">10422052@student.vgu.edu.vn</a>
+          </li>
+
+                    <li class="footer-item">
+            <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+
+            <a href="mailto:contact@eduhome.com" class="footer-link">10422044@student.vgu.edu.vn</a>
+            
+                      <li class="footer-item">
+            <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+
+            <a href="mailto:contact@eduhome.com" class="footer-link">10422047@student.vgu.edu.vn</a>
+          </li>          <li class="footer-item">
+            <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+
+            <a href="mailto:contact@eduhome.com" class="footer-link">10422031@student.vgu.edu.vn</a>
+          </li>
+          <li class="footer-item">
+            <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+
+            <a href="mailto:contact@eduhome.com" class="footer-link">10422118@student.vgu.edu.vn</a>
+          </li>
+
+          </li>
+
+        </ul>
+
       </div>
+
+
     </div>
-  </section>
+  </footer>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
