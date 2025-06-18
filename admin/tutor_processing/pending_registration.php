@@ -30,14 +30,12 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
 </head>
 <body class="body-home">
     <?php include "../inc/navbar.php"; ?>
-    <?php include "../inc/navbar.php"; ?>
     <div class="container mt-5">
         <h2 class="mb-4">Pending Tutor Registrations</h2>
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead class="table-dark">
                     <tr>
-                        <th>#</th>
                         <th>#</th>
                         <th>Name</th>
                         <th>Major</th>
@@ -50,9 +48,7 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
                 <tbody>
                     <?php if ($pending_tutors && count($pending_tutors) > 0): ?>
                         <?php foreach ($pending_tutors as $i => $row): ?>
-                        <?php foreach ($pending_tutors as $i => $row): ?>
                             <tr>
-                                <td><?= $i + 1 ?></td>
                                 <td><?= $i + 1 ?></td>
                                 <td><?= htmlspecialchars($row['name']) ?></td>
                                 <td><?= htmlspecialchars($row['major']) ?></td>

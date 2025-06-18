@@ -6,20 +6,6 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
         include "../../DB_connection.php";
         include "../data/courseSelection.php";
 
-<<<<<<< HEAD
-        // Get courseid from URL
-        $courseid = isset($_GET['courseid']) ? $_GET['courseid'] : null;
-        if (!$courseid) {
-            echo "No course selected.";
-            exit;
-        }
-
-        // Fetch course name
-        $course_name = getCourseName($conn, $courseid); 
-
-        // Fetch tutors teaching this course
-        $tutors = tutorFetching($conn, $courseid);
-=======
 // Get course ID from URL
 $courseid = isset($_GET['courseid']) ? $_GET['courseid'] : null;
 if (!$courseid) {
