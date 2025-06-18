@@ -1,91 +1,202 @@
-.body-home, .body-login {
-    background: url(../img/NewCampus.jpg);
-    background-size: cover;
-    background-attachment: fixed;
-}
-.white-fill {
-    background: rgba(255, 255, 255, 0.6);
-}
-#homeNav {
-    background: #ff6600 !important; /* Orange background */
-    color: #ffffff; /* White text */
-}
-.welcome-text {
-    min-height: 80vh;
-    border-radius: 10px;
-}
-.welcome-text img {
-    width: 800px;
-}
-.welcome-text h4 {
-    color: #ff6600; /* Orange text */
-    font-size: 51px;
-}
-.welcome-text p {
-    color: #333; /* Darker text for contrast */
-    /* background: #ffffff !important; White background */
-    padding: 5px;
-    border-radius: 4px;
-}
-#about {
-    min-height: 100vh;
-}
-#contact {
-    min-height: 100vh;
-}
-#contact form {
-    max-width: 600px;
-    width: 90%;
-}
-#contact form h3 {
-    text-align: center;
+.nav-link {
+  transition: all 0.25s ease-in-out;
+  display: inline-block;
 }
 
-textarea {
-    resize: none;
-    width: 100%;
-    height: 150px; /* Increased height for a bigger box */
+.nav-link:hover {
+  transform: scale(1.4);
+  text-shadow: 0 2px 5px rgba(245, 124, 0, 0.4);
 }
 
-.body-login {
-    max-width: 500px;
-    width: 90%;
-    /* padding: 20px; */
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
-    margin: 0 auto;
-    margin-top: 200px;
+.hero .btn {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 1s ease-out forwards;
 }
 
-#table {
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
-    border: #fff;
+.hero .btn:nth-child(1) {
+  animation-delay: 0.4s;
 }
-.br-10 {
-    border-radius: 10px;
+.hero .btn:nth-child(2) {
+  animation-delay: 0.6s;
 }
-.login h3 {
-    text-align: center;
-    font-size: 50px;
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-.w-450 {
-    width: 450px;
+
+.hero h1,
+.hero p,
+.hero .btn {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s ease-out forwards;
 }
-.bg-orange {
-    background: #ff6600 !important; /* Orange background */
-    outline: none;
-    color: #fff;
+
+.shadow:hover {
+  transform: scale(1.07);
+  transition: transform 0.3s ease;
 }
-.n-table {
-    max-width: 800px;
+
+.hero p {
+  animation-delay: 0.3s;
 }
-.cond-col {
-    min-width: 220px;
-    max-width: 350px;
-    max-height: 100px;
-    overflow-y: auto;
-    white-space: pre-line;
-    word-break: break-word;
-    display: block;
+
+.hero .btn {
+  animation-delay: 0.6s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.blur-box {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: 'Times New Roman', Times, serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('/vgtutor/img/NewCampus.jpg') no-repeat center center/cover;
+  filter: blur(4px) brightness(0.7);
+  z-index: -2;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(245, 124, 0, 0.3), rgba(255, 152, 0, 0.3));
+  z-index: -1;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: white;
+}
+
+.btn-orange {
+  background-color: #f57c00;
+  color: white;
+  border: none;
+}
+
+.btn-outline-orange {
+  transition: all 0.25s ease-in-out;
+  transform-origin: center;
+  border: 2px solid #f57c00;
+  color: #f57c00;
+  background: transparent;
+}
+
+.btn-orange:hover,
+.btn-outline-orange:hover {
+  background-color: #e65100;
+  color: white;
+  transform: scale(2);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.navbar {
+  background-color: #fff !important;
+}
+
+.navbar-brand img {
+  width: 150px;
+}
+
+.nav-link {
+  color: #f57c00 !important;
+  font-weight: 500;
+}
+
+.update-box {
+  border-left: 4px solid #f57c00;
+  background: #fff7f0;
+  transition: all 0.3s ease;
+}
+
+.update-box:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.upcoming-container {
+  border: 3px solid black;
+  background-color: #fff;
+  padding: 2rem;
+  position: relative;
+  font-family: 'Times New Roman', Times, serif;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.upcoming-container:hover {
+  transform: scale(1.015);
+  box-shadow: 0 10px 30px rgba(221, 18, 18, 0.15);
+}
+
+.upcoming-title {
+  font-size: 2rem;
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  position: relative;
+  border-bottom: 3px solid rgb(223, 147, 47);
+  padding-bottom: 0.2rem;
+  transition: color 0.3s ease;
+}
+
+.upcoming-title:hover {
+  color: #f57c00;
+}
+
+.carousel-img {
+  transition: transform 0.4s ease;
+}
+
+.carousel-img:hover {
+  transform: scale(1.02);
 }

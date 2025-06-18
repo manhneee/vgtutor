@@ -52,6 +52,7 @@ if (isset($_SESSION['adminid']) &&
                     <i class="fa fa-star fs-1" aria-hidden="true"></i><br>Reviews
                 </a>
                 <a href="course_processing/pending_offerings.php" class="col btn bg-orange m-2 py-3">
+                <a href="course_processing/pending_offerings.php" class="col btn bg-orange m-2 py-3">
                     <i class="fa fa-pencil-square fs-1" aria-hidden="true"></i><br>Pending Offerings
                 </a>
                 <a href="report_processing/getReport.php" class="col btn btn-danger m-2 py-3">

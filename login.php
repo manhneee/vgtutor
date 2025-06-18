@@ -1,57 +1,61 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="img/logo.png">
-</head>
-<body class="body-login"> 
-    <div class="white-fill br-10">
-    <div class="d-flex justify-content-center align-items-center flex-column">
-        <form class="login"
-              method="post"
-              action="req/login.php">
-            <div class="text-center">
-                <a class="navbar-brand" href="index.php">
-                    <img src="img/logo.png" alt="Logo" class="d-inline-block align-text align-items-center justify-content-center" style="width: 350px;">
-                </a>
-            </div>
-            <?php
-            if (isset($_GET['error'])) { ?>
-                <div class="alert alert-danger" role="alert">
-                    <?=$_GET['error']?>
-                </div>
-            <?php } ?>
-            <div class="mb-3">
-                <label class="form-label">User ID</label>
-                <input type="text" class="form-control" name="userid">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Password</label>
-                <input type="password" class="form-control" name="password">
-            </div>
-            <br />
-            <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary" style="background-color: #f47119; border-color: #f47119;">Log In</button>
-            </div>
-        </form>
-        <br/><br/>
-        <!--<div class="text-center"> 
-             <?php
-                $pass = 123;
-                $pass = password_hash($pass, PASSWORD_DEFAULT);
-                echo $pass; 
-                ?>
-        </div> -->
-    </div>
-    </div>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | VGtUtor</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js">
-        
-    </script>
+  <!-- Fonts & Framework -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom Style -->
+  <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+  <div class="login-page">
+    <div class="login-container glass shadow-lg rounded-4 overflow-hidden">
+      
+      <!-- Left Panel -->
+      <div class="login-left d-flex flex-column justify-content-center align-items-center text-center p-4">
+        <img src="img/logo.png" alt="VGtUtor Logo" class="logo mb-3">
+        <p class="description-text">Smarter learning, guided by trusted VGU tutors. Start your journey now.</p>
+      </div>
+
+      <!-- Right Panel -->
+      <div class="login-right p-4">
+        <div class="login-content w-100">
+          <h2 class="fw-bold mb-1 text-orange">Welcome Back </h2>
+          <p class="text-muted mb-4">Sign in to continue to your dashboard</p>
+
+          <?php if (isset($_GET['error'])): ?>
+            <div class="alert alert-danger"><?= htmlspecialchars($_GET['error']) ?></div>
+          <?php endif; ?>
+
+          <form action="req/login.php" method="post">
+            <div class="form-floating mb-3">
+              <input type="text" name="userid" class="form-control" id="userid" placeholder="Username" required>
+              <label for="userid">Username</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+              <label for="password">Password</label>
+            </div>
+
+            <button type="submit" class="btn btn-login w-100 mb-3">Login</button>
+          </form>
+
+          <div class="form-footer text-center mt-3">
+            <a href="#" class="d-block small mb-1">Forgot your password?</a>
+            <span class="small">New to VGtUtor? <a href="signup.php">Create an account</a></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </body>
 </html>
-

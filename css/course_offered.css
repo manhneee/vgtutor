@@ -1,0 +1,99 @@
+:root {
+  --orange-peel: hsl(36, 100%, 55%);
+  --dark-orange: #e65100;
+  --shadow: rgba(0, 0, 0, 0.05);
+  --bg-light: #f9f9f9;
+  --transition: 0.3s ease-in-out;
+  --border-radius: 12px;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-light);
+}
+
+.section {
+  padding: 20px;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: var(--border-radius);
+  box-shadow: 0 8px 24px var(--shadow);
+  padding: 25px;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.card h3 {
+  color: var(--orange-peel);
+  font-weight: 600;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modern-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  margin-top: 10px;
+}
+
+.modern-table th,
+.modern-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.modern-table th {
+  background-color: #f3f3f3;
+  font-weight: 600;
+  color: #555;
+}
+
+.modern-table tr:hover {
+  background-color: #fffbe6;
+}
+
+.text-center {
+  text-align: center;
+  font-style: italic;
+  color: #999;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.status-permitted {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-denied {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.status-pending {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

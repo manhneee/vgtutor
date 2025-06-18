@@ -114,6 +114,9 @@ if (isset($_POST['userid']) &&
                         } else {
                             unset($_SESSION['tutorid']);
                         }
+                            $_SESSION['email'] = $user['email'] ?? '';
+                            $_SESSION['major'] = $user['major'] ?? '';
+                            $_SESSION['intake'] = $user['intake'] ?? '';
                         header("Location: ../student/index.php");
                         exit;
                     }
