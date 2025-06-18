@@ -16,7 +16,6 @@ if (!$courseid) {
 // Fetch course name and tutors
 $course_name = getCourseName($conn, $courseid); 
 $tutors = tutorFetching($conn, $courseid);
->>>>>>> origin/prototype1
 ?>
 
 <!DOCTYPE html>
@@ -72,3 +71,7 @@ $tutors = tutorFetching($conn, $courseid);
 </div>
 </body>
 </html>
+<?php
+    }
+} 
+?>
