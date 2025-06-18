@@ -1,18 +1,20 @@
-<?php
-session_start();
-if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
-    if ($_SESSION['role'] == 'Student') {
-        include "../../DB_connection.php";
-        include "../data/signupTutor.php";
+  <?php
+  session_start();
+  $name = $_SESSION['name'] ?? 'Not Provided';
+  $id = $_SESSION['studentid'] ?? 'Not Provided';
 
-        $success = $error = "";
+  if (isset($_SESSION['studentid']) && isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
+      include "../../DB_connection.php";
+      include "../data/signupTutor.php";
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $studentid = $_SESSION['studentid'];
-            $gpa = $_POST['gpa'];
-            $bank_name = $_POST['bank_name'];
-            $bank_acc_no = $_POST['bank_account'];
-            $self_description = $_POST['self_intro'];
+      $success = $error = "";
+
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+          $studentid = $_SESSION['studentid'];
+          $gpa = $_POST['gpa'];
+          $bank_name = $_POST['bank_name'];
+          $bank_acc_no = $_POST['bank_account'];
+          $self_description = $_POST['self_intro'];
 
             // Handle transcript upload
             $transcript_path = null;
@@ -145,32 +147,15 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                 </div>
             </div>
         </div>
+      </form>
     </div>
-    <script>
-        // Character count limit (1000 characters)
-        const textarea = document.getElementById('self_intro');
-        const charsLeft = document.getElementById('charsLeft');
-        textarea.addEventListener('input', function() {
-            const left = 1000 - this.value.length;
-            charsLeft.textContent = left >= 0 ? left : 0;
-            if (this.value.length > 1000) {
-                this.value = this.value.substring(0, 1000);
-            }
-        });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $("#navLinks li:nth-child(1) a").addClass('active');
-        });
-    </script>
-</body>
-</html>
-<?php
-    } else {
-        echo "<div class='alert alert-danger text-center mt-5'>You are not authorized to access this page.</div>";
-    }
-} else {
-    echo "<div class='alert alert-danger text-center mt-5'>You are not logged in.</div>";
-}
-?>
+  </div>
+
+  </body>
+  </html>
+  <?php
+      } else {
+          echo "<div class='alert alert-danger text-center mt-5'>You are not authorized to access this page.</div>";
+      }
+
+  ?>

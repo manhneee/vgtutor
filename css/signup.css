@@ -1,0 +1,135 @@
+:root {
+  --orange-peel: hsl(36, 100%, 55%);
+  --dark-orange: #e65100;
+  --soft-bg: rgba(255, 255, 255, 0.85);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease-in-out;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #fdfdfd;
+}
+
+.signup-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: url('../img/background.jpg') no-repeat center center/cover;
+  backdrop-filter: blur(3px);
+  padding: 1rem;
+}
+
+.signup-container {
+  max-width: 600px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px var(--shadow-color);
+  padding: 2rem;
+  animation: fadeInUp 0.8s ease-out forwards;
+  transform: translateY(30px);
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+h2 {
+  font-size: 1.8rem;
+  color: var(--orange-peel);
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #333;
+}
+
+.form-control {
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  transition: var(--transition);
+}
+
+.form-control:focus {
+  border-color: var(--orange-peel);
+  box-shadow: 0 0 0 0.2rem rgba(255, 152, 0, 0.25);
+}
+
+.btn-signup {
+  background-color: var(--orange-peel);
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  border-radius: 12px;
+  border: none;
+  transition: var(--transition);
+}
+
+.btn-signup:hover {
+  background-color: var(--dark-orange);
+  transform: scale(1.03);
+}
+
+.alert {
+  border-radius: 12px;
+  font-size: 0.95rem;
+}
+
+.text-center a {
+  color: var(--orange-peel);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.text-center a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .signup-container {
+    padding: 1.5rem;
+  }
+}
+
+.logo {
+  max-width: 190px;
+  transition: transform 0.3s ease;
+}
+.logo:hover {
+  transform: scale(1.1);
+}
+
+.description-text {
+  font-size: 1rem;
+  color: #333;
+  max-width: 260px;
+  margin-top: 1rem;
+}
+
+.login-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-content {
+  width: 100%;
+  max-width: 340px;
+}

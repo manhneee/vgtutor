@@ -31,6 +31,31 @@ function getStudentSessions($conn, $studentid) {
             $stmt->execute([$studentid]);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
+function getAllStudentSessionNotifications($conn, $studentid) {
+    $sql = "SELECT s.*, 
+                   accountid AS tutor_name, 
+                   c.course_name  AS course_name
+            FROM session s
+            JOIN tutor_account t ON s.tutorid = t.accountid 
+            JOIN course c ON s.courseid = c.courseid
+            WHERE s.studentid = ? AND s.consensus = 'accepted'
+            ORDER BY s.date_and_time DESC";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$studentid]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
+
+            
+function markStudentSessionNotified($conn, $studentid, $tutorid, $courseid, $datetime) {
+    $sql = "UPDATE session SET notified = 1 
+            WHERE studentid = ? AND tutorid = ? AND courseid = ? AND date_and_time = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$studentid, $tutorid, $courseid, $datetime]);
+}
+
 
 
 

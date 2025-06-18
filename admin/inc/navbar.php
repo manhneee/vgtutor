@@ -10,8 +10,10 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="navLinks">
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="../index.php">Dashboard</a>
+                <a class="nav-link" aria-current="page" href="../index.php">Dashboard</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/vgtutor/admin/tutor_processing/tutor.php">Tutors</a>
                 <a class="nav-link" href="/vgtutor/admin/tutor_processing/tutor.php">Tutors</a>
             </li>
             <li class="nav-item">
@@ -30,6 +32,7 @@
                 <a class="nav-link" href="/vgtutor/admin/tutor_processing/pending_registration.php">Tutor Registration</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/vgtutor/admin/course_processing/pending_offerings.php">Pending Offerings</a>
                 <a class="nav-link" href="/vgtutor/admin/course_processing/pending_offerings.php">Pending Offerings</a>
             </li>
             <li class="nav-item">
