@@ -1,6 +1,7 @@
 
 <?php
-function insertSession($conn, $studentid, $tutorid, $courseid, $date_and_time, $duration, $paid = 0, $place) {
+function insertSession($conn, $studentid, $tutorid, $courseid, $date_and_time, $duration, $place, $paid = 0)
+ {
     $stmt = $conn->prepare(
         "INSERT INTO session (studentid, tutorid, courseid, date_and_time, duration, paid, place)
          VALUES (?, ?, ?, ?, ?, ?, ?)"
