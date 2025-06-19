@@ -16,20 +16,24 @@ $intake = $_SESSION['intake'] ?? 'Not Provided';
 
 if ($_SESSION['role'] === 'Student') {
     $id = $_SESSION['studentid'];
+    include_once __DIR__ . '/data/fetchStudentInfo.php';
+    $studentInfo = fetchStudentInfo($conn, $id);
+    $name = $studentInfo['name'] ?? 'Unknown';
+    $email = $studentInfo['email'] ?? 'Not Provided';
+    $major = $studentInfo['major'] ?? 'Not Provided';
+    $intake = $studentInfo['intake'] ?? 'Not Provided';
 } elseif ($_SESSION['role'] === 'Tutor') {
     $id = $_SESSION['tutorid'];
-$stmt = $conn->prepare("SELECT gpa, bank_name, bank_acc_no, self_description 
-                        FROM tutor_registration 
-                        WHERE studentid = ? 
-                        ORDER BY denied_at DESC LIMIT 1");
-
-    $stmt->execute([$id]);
-    $tutorInfo = $stmt->fetch(PDO::FETCH_ASSOC);
-
+    include_once __DIR__ . '/data/fetchTutorInfo.php';
+    $tutorInfo = fetchTutorInfo($conn, $id);
+    $name = $tutorInfo['name'] ?? 'Unknown';
+    $email = $tutorInfo['email'] ?? 'Not Provided';
+    $major = $tutorInfo['major'] ?? 'Not Provided';
+    $intake = $tutorInfo['intake'] ?? 'Not Provided';
     $gpa = $tutorInfo['gpa'] ?? 'Not Provided';
     $bankName = $tutorInfo['bank_name'] ?? 'Not Provided';
     $bankAcc = $tutorInfo['bank_acc_no'] ?? 'Not Provided';
-    $description = $tutorInfo['self_description'] ?? 'Not Provided';    
+    $description = $tutorInfo['description'] ?? 'Not Provided';    
 } else {
     header("Location: ../login.php?error=Unauthorized");
     exit;
@@ -55,7 +59,7 @@ $stmt = $conn->prepare("SELECT gpa, bank_name, bank_acc_no, self_description
     <div class="head bg-white p-15 between-flex">
         <div>
             <a href="/vgtutor/<?= $_SESSION['role'] === 'Tutor' ? 'tutor' : 'student' ?>/index.php"
-               class="visit d-block fs-14 bg-black c-white w-fit btn-shape">Back</a>
+               class=" d-block fs-14 bg-orange c-white w-fit btn-shape">Back</a>
         </div>
         <div class="icons d-flex align-center">
             <div class="d-flex align-items-center gap-2">
@@ -70,11 +74,12 @@ $stmt = $conn->prepare("SELECT gpa, bank_name, bank_acc_no, self_description
         </div>
     </div>
 
-    <h1 class="p-relative">Profile</h1>
+    <h1 class="p-relative c-orange">Profile</h1>
     <div class="profile-page m-20">
         <div class="overview bg-white rad-10 d-flex align-center">
             <div class="avatar-box txt-c p-20">
-                <img class="rad-half mb-10" src="imgs/avatar.png" alt="" />
+                <a href="#" class="d-block fs-14 bg-orange c-white w-fit btn-shape edit-profile-btn">Edit Profile</a>
+                <img class="rad-half mb-10" src="img/avatar.png" alt="" />
                 <h3 class="m-0"><?= htmlspecialchars($name) ?></h3>
                 <p class="c-grey mt-10"><?= htmlspecialchars($major) ?></p>
                 <div class="level rad-6 bg-eee p-relative">

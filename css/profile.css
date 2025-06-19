@@ -52,6 +52,7 @@
   width: 300px;
   text-align: center;
   padding: 20px;
+  position: relative;
 }
 
 @media (min-width: 768px) {
@@ -82,7 +83,7 @@
   top: 0;
   height: 100%;
   width: 70%;
-  background-color: var(--blue-color);
+  background-color: var(--orange-color);
 }
 
 .profile-page .info-box .box {
@@ -273,4 +274,11 @@
 
 .bg-black:hover {
   background-color: #333; /* optional darker hover */
+}
+
+.edit-profile-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
 }
