@@ -45,13 +45,6 @@ if (isset($_SESSION['studentid'])) {
             }
         }
 
-        // Payment denied notification
-        if (isset($_POST['notif_seen'])) {
-            $_SESSION['student_notif_seen'] = true;
-            // Prevent form resubmission
-            header("Location: " . $_SERVER['REQUEST_URI']);
-            exit;
-        }
         $stmt = $conn->prepare("
             SELECT pc.*, sa.name AS tutor_name 
             FROM payment_confirmation pc
@@ -103,7 +96,7 @@ if (isset($_SESSION['studentid'])) {
                     <a class="nav-link" href="#">Schedule</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/vgtutor/student/course_process/course.php">Course</a>
+                    <a class="nav-link" href="/vgtutor/student/course_process/courseSelection.php">Course</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/vgtutor/student/chat_process/chat.php">Message</a>
@@ -132,13 +125,11 @@ if (isset($_SESSION['studentid'])) {
                     <a class="btn me-2 dropdown-toggle position-relative" href="#" id="notifDropdown" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-bell"></i>
-                        <?php if (empty($_SESSION['student_notif_seen'])): ?>
                             <?php if (count($notifications) > 0): ?>
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                     <?= count($notifications) ?>
                                 </span>
                             <?php endif; ?>
-                        <?php endif; ?>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notifDropdown" style="min-width: 350px;">
                         <?php foreach ($notifications as $notif): ?>
@@ -169,7 +160,7 @@ if (isset($_SESSION['studentid'])) {
     </div>
     <!-- Report Error / Contact Admin Floating Button -->
     <button type="button" id="contactAdminBtn" class="btn btn-danger rounded-circle"
-            style="position: fixed; bottom: 30px; right: 30px; z-index: 1050; width:60px; height:60px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);"
+            style="position: fixed; bottom: 30px; left: 30px; z-index: 1050; width:60px; height:60px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);"
             data-bs-toggle="modal" data-bs-target="#contactAdminModal" title="Report Error / Contact Admin">
         <i class="fa fa-exclamation-triangle"></i>
     </button>

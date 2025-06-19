@@ -1,4 +1,5 @@
 <?php
+if (!isset($notifications)) $notifications = [];
 if (isset($_POST['submit_error'])) {
     $subject = trim($_POST['error_subject']);
     $message = trim($_POST['error_message']);
@@ -10,6 +11,25 @@ if (isset($_POST['submit_error'])) {
     // Optional: Show a success message (JS alert)
     echo "<script>alert('Your message has been sent to the admin.');</script>";
 }
+// Payment confirmation notification (pending payments)
+$stmt = $conn->prepare("
+    SELECT pc.*, sa.name AS student_name, c.course_name
+    FROM payment_confirmation pc
+    JOIN student_account sa ON pc.studentid = sa.accountid
+    JOIN course c ON pc.courseid = c.courseid
+    WHERE pc.tutorid = ? AND pc.status = 'pending'
+    ORDER BY pc.date_and_time DESC
+");
+
+$stmt->execute([$_SESSION['tutorid']]);
+$pendingPayments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+foreach ($pendingPayments as $pay) {
+    $notifications[] = [
+        'type' => 'info',
+        'msg' => "Payment confirmation from <strong>" . htmlspecialchars($pay['student_name']) . "</strong> for <strong>" . htmlspecialchars($pay['course_name']) . "</strong> is pending. <a href='/vgtutor/tutor/session_process/session.php' class='alert-link'>Check now</a>."
+    ];
+}
+
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
@@ -42,19 +62,22 @@ if (isset($_POST['submit_error'])) {
                 <li class="nav-item">
                     <a class="btn btn-outline-primary me-2" href="/vgtutor/tutor/switch_to_student.php">Switch to Student Mode</a>
                 </li>
-               
+                
+                
+                
+                <form method="post" id="notifSeenForm" style="display:none;">
+                    <input type="hidden" name="notif_seen" value="1">
+                </form>
+                
                 <li class="nav-item dropdown">
-                    <a class="btn me-2 dropdown-toggle position-relative" href="#" id="notifDropdown" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="btn btn me-2 dropdown-toggle position-relative" href="#" id="notifDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-bell"></i>
-                        <?php if (empty($_SESSION['tutor_notif_seen'])): ?>
-                            <?php if (count($notifications) > 0): ?>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    <?= count($notifications) ?>
-                                </span>
-                            <?php endif; ?>
+                        <?php if (count($notifications) > 0): ?>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                <?= count($notifications) ?>
+                            </span>
                         <?php endif; ?>
-                    </a>
+                    </a>    
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notifDropdown" style="min-width: 350px;">
                         <?php foreach ($notifications as $notif): ?>
                             <li>
@@ -73,7 +96,7 @@ if (isset($_POST['submit_error'])) {
     </div>
     <!-- Report Error / Contact Admin Floating Button -->
     <button type="button" id="contactAdminBtn" class="btn btn-danger rounded-circle"
-            style="position: fixed; bottom: 30px; right: 30px; z-index: 1050; width:60px; height:60px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);"
+            style="position: fixed; bottom: 30px; left: 30px; z-index: 1050; width:60px; height:60px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);"
             data-bs-toggle="modal" data-bs-target="#contactAdminModal" title="Report Error / Contact Admin">
         <i class="fa fa-exclamation-triangle"></i>
     </button>
