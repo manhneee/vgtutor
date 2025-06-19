@@ -1,11 +1,12 @@
 <?php
 session_start();
+// Notification logic
+$notifications = [];
 if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
     if ($_SESSION['role'] == 'Tutor') {
         include "../DB_connection.php";
         include "data/session.php";
-        // Notification logic
-        $notifications = [];
+        
         // New session notification
         $row = getNewSessionNotification($conn, $_SESSION['tutorid']);
         if ($row) {
@@ -13,23 +14,6 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
             $notifications[] = [
                 'type' => 'warning',
                 'msg' => htmlspecialchars($row['student_name']) . " has registered your " . htmlspecialchars($row['course_name']) . " course, please check your session for more information."
-            ];
-        }
-        // Payment confirmation notification (pending payments)
-        $stmt = $conn->prepare("
-            SELECT pc.*, sa.name AS student_name, c.course_name
-            FROM payment_confirmation pc
-            JOIN student_account sa ON pc.studentid = sa.accountid
-            JOIN course c ON pc.courseid = c.courseid
-            WHERE pc.tutorid = ? AND pc.status = 'pending'
-            ORDER BY pc.date_and_time DESC
-        ");
-        $stmt->execute([$_SESSION['tutorid']]);
-        $pendingPayments = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        foreach ($pendingPayments as $pay) {
-            $notifications[] = [
-                'type' => 'info',
-                'msg' => "Payment confirmation from <strong>" . htmlspecialchars($pay['student_name']) . "</strong> for <strong>" . htmlspecialchars($pay['course_name']) . "</strong> is pending. <a href='session_process/session.php' class='alert-link'>Check now</a>."
             ];
         }
 ?>
