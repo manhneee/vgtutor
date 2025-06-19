@@ -57,7 +57,7 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
     <link rel="icon" href="../../img/logo.png">
 </head>
 <body class="body-home">
-    <?php include "navbar.php"; ?>
+    <?php include "../inc/navbar.php"; ?>
     <div class="container mt-5" style="max-width:600px;">
         <div class="card shadow">
             <div class="card-body">
@@ -91,7 +91,7 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                     </div>
                     
                     <button type="submit" class="btn btn-primary">Request Session</button>
-                    <a href="tutorSelection.php?courseid=<?= urlencode($courseid) ?>" class="btn btn-secondary ms-2">Back</a>
+                    <a href="../course_process/courseSelection.php" class="btn btn-secondary ms-2">Back</a>
                 </form>
             </div>
         </div>
