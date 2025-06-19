@@ -52,6 +52,7 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
     <meta charset="UTF-8">
     <title>Your Tutor Sessions</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="icon" href="../../img/logo.png">
 </head>
@@ -135,8 +136,9 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
                                     echo '<span class="badge bg-success">Paid</span>';
                                 } elseif ($pay) {
                                     // Show image and accept/deny buttons if status is pending
-                                    echo '<a href="../../student/payment_process/' . htmlspecialchars($pay['img_path']) . '" target="_blank"><img src="../../student/payment_process/' . htmlspecialchars($pay['img_path']) . '" alt="Payment" style="max-width:80px;"></a><br>';
+                                    
                                     if ($pay['status'] == 'pending') {
+                                        echo '<a href="../../student/payment_process/' . htmlspecialchars($pay['img_path']) . '" target="_blank"><img src="../../student/payment_process/' . htmlspecialchars($pay['img_path']) . '" alt="Payment" style="max-width:80px;"></a><br>';
                                         ?>
                                         <form method="post" style="display:inline;">
                                             <input type="hidden" name="confirm_id" value="<?= $pay['id'] ?>">
@@ -177,7 +179,7 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
                             ?>
                             </td>
                             <td>
-                            <a href="../chat/chat.php?studentid=<?= urlencode($session['studentid']) ?>" class="btn btn-primary">Chat</a>
+                            <a href="../chat_process/chat.php?studentid=<?= urlencode($session['studentid']) ?>" class="btn btn-primary">Chat</a>
                         </td>
                         </tr>
                     <?php endforeach; ?>

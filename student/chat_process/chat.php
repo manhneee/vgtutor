@@ -22,6 +22,7 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/chatForTutor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 <?php include "../inc/navbar.php"; ?>
@@ -113,6 +114,7 @@ if (currentTutorId) {
     }
 }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script> 
 </body>
 </html>
 <?php
