@@ -29,7 +29,8 @@ if (isset($_SESSION['studentid']) && $_SESSION['role'] === 'Student') {
         if ($_SESSION['studentid'] == $tutorid) {
             $error = "You cannot set up a session with yourself as the tutor.";
         } else {
-            $inserted = insertSession($conn, $_SESSION['studentid'], $tutorid, $courseid, $date_and_time, $duration, 0, $place);
+            // Correct order: ...duration, place, paid (default 0)
+            $inserted = insertSession($conn, $_SESSION['studentid'], $tutorid, $courseid, $date_and_time, $duration, $place, 0);
             $success = $inserted ? "Session request sent!" : "Failed to set up session. Please try again.";
         }
     }

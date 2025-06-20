@@ -1,0 +1,152 @@
+/* Modal Overlay */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Show the modal */
+.modal-overlay:not(.d-none) {
+  display: flex;
+}
+
+/* Modal Container */
+.modal-content.modern-modal {
+    color: orange;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 28px 24px;
+  width: 480px;
+  max-width: 95%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Modal Title */
+.modal-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* Close Button (X) */
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 24px;
+  color: #333;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.payment-image-wrapper {
+  margin-bottom: 16px;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+
+.payment-image-wrapper img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+}
+
+/* Form Elements */
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-label {
+  font-weight: 600;
+}
+
+.modal-textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 14px;
+  min-height: 90px;
+  resize: vertical;
+}
+
+/* Action Buttons */
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Reuse modal-overlay if already exists */
+#noPaymentModal.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+/* Box inside the modal */
+#noPaymentModal .modal-box {
+  background: #fff8e1;
+  padding: 24px 32px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+  min-width: 300px;
+  max-width: 90%;
+  text-align: center;
+}
+
+/* Message style */
+.modal-message {
+  color: orange;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Close button */
+#noPaymentModal .modal-close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: orange;
+  cursor: pointer;
+}
+
+
+

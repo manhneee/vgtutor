@@ -1,12 +1,11 @@
-
 <?php
 function insertSession($conn, $studentid, $tutorid, $courseid, $date_and_time, $duration, $place, $paid = 0)
  {
     $stmt = $conn->prepare(
-        "INSERT INTO session (studentid, tutorid, courseid, date_and_time, duration, paid, place)
+        "INSERT INTO session (studentid, tutorid, courseid, date_and_time, duration, place, paid)
          VALUES (?, ?, ?, ?, ?, ?, ?)"
     );
-    return $stmt->execute([$studentid, $tutorid, $courseid, $date_and_time, $duration, $paid, $place]);
+    return $stmt->execute([$studentid, $tutorid, $courseid, $date_and_time, $duration, $place, $paid]);
 }
 
 function getStudentSessions($conn, $studentid) {

@@ -53,11 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_submit'])) {
 }
 
 
-        function checkReviewExists($conn, $studentid, $tutorid, $courseid) {
-            $stmt = $conn->prepare("SELECT 1 FROM review WHERE studentid = ? AND tutorid = ? AND courseid = ?");
-            $stmt->execute([$studentid, $tutorid, $courseid]);
-            return $stmt->fetchColumn() !== false;
-        }
 
         $tutorIds = array_unique(array_column($sessions, 'tutorid'));
         $tutorBankInfo = [];
@@ -113,7 +108,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_submit'])) {
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($sessions as $i => $session): ?>
+<?php foreach ($sessions as $i => $session): ?>
+
+<?php
+    // 🔀 Fetch payment status first so it's usable below
+    $stmtPay = $conn->prepare("
+        SELECT status 
+        FROM payment_confirmation 
+        WHERE studentid = ? AND tutorid = ? AND courseid = ? AND date_and_time = ?
+        ORDER BY id DESC LIMIT 1
+    ");
+    $stmtPay->execute([
+        $_SESSION['studentid'],
+        $session['tutorid'],
+        $session['courseid'],
+        $session['date_and_time']
+    ]);
+    $paymentStatus = $stmtPay->fetch(PDO::FETCH_ASSOC);
+?>
+
         <tr>
             <td><?= $i + 1 ?></td>
             <td><?= htmlspecialchars($session['course_name']) ?></td>
@@ -122,49 +135,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_submit'])) {
             <td><?= htmlspecialchars($session['place']) ?></td>
             <td><?= htmlspecialchars($session['duration']) ?></td>
             <td><?= number_format(floatval($session['duration']) * floatval($session['price_per_hour']), 2) ?></td>
-            <?php
-$stmtPay = $conn->prepare("
-    SELECT status 
-    FROM payment_confirmation 
-    WHERE studentid = ? AND tutorid = ? AND courseid = ? AND date_and_time = ?
-    ORDER BY id DESC LIMIT 1
-");
-$stmtPay->execute([
-    $_SESSION['studentid'],
-    $session['tutorid'],
-    $session['courseid'],
-    $session['date_and_time']
-]);
-$pay = $stmtPay->fetch(PDO::FETCH_ASSOC);
-?>
-
+          
 <td>
 <?php
-    if ($session['paid']) {
-        echo '<span class="status-badge status-permitted">Paid</span>';
-    } elseif ($pay && $pay['status'] === 'pending') {
-        echo '<span class="status-badge status-pending">Pending</span>';
-    } else {
-        echo '<span class="status-badge status-pending">Unpaid</span>';
-    }
+if ($paymentStatus && $paymentStatus['status'] === 'denied') {
+    echo '<span class="status-badge status-denied">Denied</span>';
+} elseif ($paymentStatus && $paymentStatus['status'] === 'pending') {
+    echo '<span class="status-badge status-pending">Pending</span>';
+} elseif ($session['paid']) {
+    echo '<span class="status-badge status-permitted">accepted</span>';
+} else {
+    echo '<span class="status-badge status-pending">Unpaid</span>';
+}
+
 ?>
 </td>
-            <?php
-// Fetch the latest payment status for this session
-$stmtPay = $conn->prepare("
-    SELECT status 
-    FROM payment_confirmation 
-    WHERE studentid = ? AND tutorid = ? AND courseid = ? AND date_and_time = ?
-    ORDER BY id DESC LIMIT 1
-");
-$stmtPay->execute([
-    $_SESSION['studentid'],
-    $session['tutorid'],
-    $session['courseid'],
-    $session['date_and_time']
-]);
-$paymentStatus = $stmtPay->fetch(PDO::FETCH_ASSOC);
-?>
+
+
+
+</td>
 
             <td>
                 <?php
@@ -181,11 +170,23 @@ $paymentStatus = $stmtPay->fetch(PDO::FETCH_ASSOC);
             </td>
 <td>
   <?php
-    if ($session['paid']) {
+    // Payment action logic
+    if ($paymentStatus && $paymentStatus['status'] === 'denied') {
+      // Payment denied: allow student to pay again
+      echo '<a class="btn-shape bg-orange c-white"
+        data-studentid="' . $_SESSION['studentid'] . '"
+        data-tutorid="' . $session['tutorid'] . '"
+        data-courseid="' . $session['courseid'] . '"
+        data-date_and_time="' . $session['date_and_time'] . '"
+        onclick="openPayModal(this)">Pay Now</a>';
+    } elseif ($session['paid']) {
+      // Payment accepted
       echo '<span class="status-badge status-permitted">Paid</span>';
     } elseif ($paymentStatus && $paymentStatus['status'] === 'pending') {
+      // Payment is pending tutor review
       echo '<span class="status-badge status-pending">Pending</span>';
     } elseif ($session['consensus'] === "accepted") {
+      // Session accepted, allow payment
       echo '<a class="btn-shape bg-orange c-white"
         data-studentid="' . $_SESSION['studentid'] . '"
         data-tutorid="' . $session['tutorid'] . '"
@@ -203,7 +204,7 @@ $paymentStatus = $stmtPay->fetch(PDO::FETCH_ASSOC);
                     $sessionStartTime = strtotime($session['date_and_time']);
                     $sessionEndTime = $sessionStartTime + ($session['duration'] * 3600);
                     $now = time();
-                    $hasReview = checkReviewExists($conn, $_SESSION['studentid'], $session['tutorid'], $session['courseid']);
+$hasReview = checkReviewExists($conn, $_SESSION['studentid'], $session['tutorid'], $session['courseid']);
                     if ($session['consensus'] === "accepted" && $sessionEndTime < $now && !$hasReview) {
                         echo '<a class="btn-shape bg-orange c-white" data-tutorid="'.$session['tutorid'].'" data-courseid="'.$session['courseid'].'" onclick="openReviewModal(this)">Leave Review</a>';
                     } elseif ($hasReview) {
@@ -315,4 +316,12 @@ function closeModal(id) {
     header("Location: ../login.php?error=$em");
     exit;
 }
+
+function checkReviewExists($conn, $studentid, $tutorid, $courseid) {
+    $stmt = $conn->prepare("SELECT 1 FROM review WHERE studentid = ? AND tutorid = ? AND courseid = ?");
+    $stmt->execute([$studentid, $tutorid, $courseid]);
+    return $stmt->fetchColumn() !== false;
+}
+
+
 ?>

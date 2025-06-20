@@ -73,8 +73,8 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
   </div>
 <?php endif; ?>
 <!-- Offer Button at bottom-right -->
-  <div class="d-flex justify-content-end mt-3">
-    <a href="offering.php?courseid=<?= urlencode($courseid) ?>" class="btn-shape bg-orange c-white w-fit">
+  <div style="display: flex; justify-content: flex-end; width: 100%; margin-top: 1.5rem;">
+    <a href="offering.php?courseid=<?= urlencode($courseid) ?>" class="btn-shape bg-orange c-white w-fit" style="margin-left: auto;">
       <i class="fa fa-plus me-1"></i> Offer Course
     </a>
   </div>
