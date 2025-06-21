@@ -1,0 +1,68 @@
+:root {
+  --primary: #ff7900;
+  --primary-dark: #e06e00;
+  --bg-light: #f5f5f5;
+  --card-bg: #ffffff;
+  --text-success: #28a745;
+  --text-error: #dc3545;
+}
+
+/* Base styles */
+body {
+  background-color: var(--bg-light);
+  font-family: 'Inter', sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.message {
+  display: inline-block;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* Success message styling */
+.message.success {
+  background-color: rgba(40, 167, 69, 0.15);
+  border: 1px solid var(--text-success);
+  color: var(--text-success);
+}
+
+/* Error message styling */
+.message.error {
+  background-color: rgba(220, 53, 69, 0.15);
+  border: 1px solid var(--text-error);
+  color: var(--text-error);
+}
+
+/* Button-like back link */
+a.btn-back {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+a.btn-back:hover,
+a.btn-back:focus {
+  background-color: var(--primary-dark);
+}

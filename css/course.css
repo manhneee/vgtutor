@@ -1,0 +1,62 @@
+ body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f9fa;
+    }
+
+    .section {
+      padding: 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-bottom: 2rem;
+      padding: 20px;
+    }
+
+    .card h3 {
+      color: #f57c00;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .modern-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .modern-table th,
+    .modern-table td {
+      padding: 12px 10px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    .modern-table tr:hover {
+      background-color: #fdf5ed;
+      cursor: pointer;
+    }
+
+    .status-badge {
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    .status-permitted { background: #d4edda; color: #155724; }
+    .status-denied { background: #f8d7da; color: #721c24; }
+    .status-pending { background: #fff3cd; color: #856404; }
+
+    @media (max-width: 768px) {
+      .section {
+        padding: 10px;
+      }
+
+      .modern-table th,
+      .modern-table td {
+        font-size: 0.9rem;
+      }
+    }

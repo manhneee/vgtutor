@@ -1,0 +1,61 @@
+.visit {
+  font-family: 'Times New Roman', Times, serif; /* Serif font */
+  font-size: 14px;
+  color: white;
+  background-color: black;
+  padding: 10px 20px;
+  border-radius: 10px;
+  display: inline-block;
+  width: fit-content;
+  cursor: pointer;
+  transition: 0.3s;
+  text-align: center;
+}
+
+
+.btn-shape {
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      backdrop-filter: blur(6px);
+      background: rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .modal-box {
+      background-color: #fff3cd;
+      color: #856404;
+      padding: 30px 40px;
+      border-radius: 10px;
+      border: 1px solid #ffeeba;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .modal-box button {
+      margin-top: 20px;
+      padding: 10px 25px;
+      background-color: var(--orange-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .modal-box button:hover {
+      background-color: #d97706;
+    }

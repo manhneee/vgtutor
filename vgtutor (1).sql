@@ -308,6 +308,40 @@ CREATE TABLE `tutor_registration` (
 INSERT INTO `tutor_registration` (`studentid`, `status`, `gpa`, `bank_name`, `bank_acc_no`, `self_description`, `denied_at`, `transcript_path`) VALUES
 (10223011, 'permitted', '1', '12312312312', '123123', 'coin card', NULL, 'uploads/transcript_10223011_1750143620.pdf');
 
+CREATE TABLE `error_report_images` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `report_id` INT NOT NULL,
+  `image_path` VARCHAR(255) NOT NULL,
+  `uploaded_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`report_id`) REFERENCES `error_reports`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
+CREATE TABLE `notifications` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `title` VARCHAR(255) DEFAULT NULL,
+  `user_id` INT NOT NULL,
+  `message` TEXT NOT NULL,
+  `is_read` TINYINT(1) DEFAULT 0,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
+CREATE TABLE `password_resets` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `email` VARCHAR(255) NOT NULL,
+  `token` VARCHAR(255) NOT NULL,
+  `expires_at` DATETIME NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
+
+
+
 --
 -- Indexes for dumped tables
 --

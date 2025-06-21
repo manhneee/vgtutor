@@ -24,25 +24,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Signup</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="img/logo.png">
+    <link rel="stylesheet" href="css/signup.css">
     <script>
-    function checkPasswordMatch() {
-        const password = document.querySelector('input[name="password"]');
-        const confirm = document.querySelector('input[name="confirm_password"]');
-        if (password.value !== confirm.value) {
-            confirm.classList.add('is-invalid');
-        } else {
-            confirm.classList.remove('is-invalid');
+        function checkPasswordMatch() {
+            const password = document.querySelector('input[name="password"]');
+            const confirm = document.querySelector('input[name="confirm_password"]');
+            if (password.value !== confirm.value) {
+                confirm.classList.add('is-invalid');
+            } else {
+                confirm.classList.remove('is-invalid');
+            }
         }
-    }
     </script>
 </head>
+
 <body class="body-login">
     <div class="white-fill br-10">
         <div class="d-flex justify-content-center align-items-center flex-column">
@@ -99,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <button type="submit" class="btn btn-primary" style="background-color: #f47119; border-color: #f47119;">Sign Up</button>
                 </div>
             </form>
-            <br/>
+            <br />
             <div class="text-center">
                 Already have an account? <a href="login.php">Login here</a>
             </div>
@@ -107,4 +109,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
