@@ -1,0 +1,233 @@
+:root {
+  --orange-peel: hsl(36, 100%, 55%);
+  --dark-orange: #e65100;
+  --shadow: rgba(0, 0, 0, 0.05);
+  --bg-light: #f9f9f9;
+  --transition: 0.3s ease-in-out;
+  --border-radius: 12px;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-light);
+}
+
+.section {
+  padding: 20px;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: var(--border-radius);
+  box-shadow: 0 8px 24px var(--shadow);
+  padding: 25px;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.card h3 {
+  color: var(--orange-peel);
+  font-weight: 600;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modern-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  margin-top: 10px;
+}
+
+.modern-table th,
+.modern-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.modern-table th {
+  background-color: #f3f3f3;
+  font-weight: 600;
+  color: #555;
+}
+
+.modern-table tr:hover {
+  background-color: #fffbe6;
+}
+
+.text-center {
+  text-align: center;
+  font-style: italic;
+  color: #999;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.status-permitted {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-denied {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.status-pending {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Modal form layout */
+.popup-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Labels inside modal */
+.popup-content label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+/* Input and textarea fields */
+.popup-content .input {
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  width: 100%;
+}
+
+.popup-content .input:focus {
+  border-color: var(--orange-peel);
+  box-shadow: 0 0 0 3px rgba(255, 138, 0, 0.1);
+}
+
+/* Button container */
+.popup-content .buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* Generic modal button styling */
+.popup-content .buttons .btn-shape {
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* Submit (orange) button */
+.popup-content .buttons .btn-shape.bg-orange {
+  background-color: var(--orange-peel);
+  color: #fff;
+}
+
+.popup-content .buttons .btn-shape.bg-orange:hover {
+  background-color: var(--dark-orange);
+}
+
+/* Cancel button */
+.popup-content .buttons .btn-shape.cancel-btn {
+  background-color: #eee;
+  color: #333;
+}
+
+.popup-content .buttons .btn-shape.cancel-btn:hover {
+  background-color: #ddd;
+}
+
+/* Modal box itself */
+.popup-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+/* Modal title */
+.popup-content h3 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+
+.btn-shape {
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  transition: background-color var(--transition);
+  text-decoration: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Orange background */
+.bg-orange {
+  background-color: var(--orange-peel);
+}
+
+/* White text */
+.c-white {
+  color: white;
+}
+
+.btn-shape:hover {
+  background-color: var(--dark-orange);
+  color: white;
+}
+
+.status-info {
+  background-color: var(--orange-peel);  /* same orange as your buttons */
+  color: white;
+}
+
+

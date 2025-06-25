@@ -40,6 +40,41 @@ function getTutorSessions($conn, $tutorid) {
     $stmt->execute([$tutorid]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+//tu add
+function getTutorPendingSessions($conn, $tutorid) {
+    $sql = "SELECT 
+                sa.name AS student_name, 
+                c.course_name, 
+                s.date_and_time 
+            FROM 
+                session s
+            INNER JOIN student_account sa ON sa.accountid = s.studentid
+            INNER JOIN course c ON c.courseid = s.courseid
+            WHERE 
+                s.tutorid = ?
+            ORDER BY 
+                s.date_and_time DESC";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$tutorid]);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getAllTutorSessionNotifications($conn, $tutorid) {
+    $sql = "SELECT s.*, 
+                   sa.name AS student_name, 
+                   c.course_name AS course_name
+            FROM session s
+            JOIN student_account sa ON s.studentid = sa.accountid
+            JOIN course c ON s.courseid = c.courseid
+            WHERE s.tutorid = ?
+            ORDER BY s.date_and_time DESC";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$tutorid]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
 /**
  * Get pending sessions for a tutor and a student.

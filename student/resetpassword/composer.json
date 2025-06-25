@@ -1,0 +1,17 @@
+{
+    "name": "anh-toan/resetpassword",
+    "require": {
+        "phpmailer/phpmailer": "^6.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "AnhToan\\Resetpassword\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "tranngocanhtoan-afk",
+            "email": "anhtoan03nh@gmail.com"
+        }
+    ]
+}

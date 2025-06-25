@@ -1,5 +1,6 @@
 <?php
-function searchCourse($conn, $search_name = '', $search_major = '', $search_semester = '') {
+function searchCourse($conn, $search_name = '', $search_major = '', $search_semester = '')
+{
     $sql = "SELECT courseid, course_name, major, semester FROM course WHERE 1";
     $params = [];
 
@@ -22,14 +23,16 @@ function searchCourse($conn, $search_name = '', $search_major = '', $search_seme
 }
 
 
-function getCourseName($conn, $courseid) {
+function getCourseName($conn, $courseid)
+{
     $course_stmt = $conn->prepare("SELECT course_name FROM course WHERE courseid = ?");
     $course_stmt->execute([$courseid]);
     $course_row = $course_stmt->fetch(PDO::FETCH_ASSOC);
     return $course_row ? $course_row['course_name'] : '';
 }
 
-function tutorFetching($conn, $courseid) {
+function tutorFetching($conn, $courseid)
+{
     $stmt = $conn->prepare("
         SELECT 
             ta.accountid AS tutorid,
@@ -51,7 +54,8 @@ function tutorFetching($conn, $courseid) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getTutorName($conn, $tutorid) {
+function getTutorName($conn, $tutorid)
+{
     $stmt = $conn->prepare("SELECT name FROM student_account WHERE accountid = ?");
     $stmt->execute([$tutorid]);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -59,11 +63,9 @@ function getTutorName($conn, $tutorid) {
 }
 
 
-function getTutorReviews($conn, $tutorid) {
+function getTutorReviews($conn, $tutorid)
+{
     $stmt = $conn->prepare("SELECT rating, review FROM review WHERE tutorid = ?");
     $stmt->execute([$tutorid]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-
-
-?>

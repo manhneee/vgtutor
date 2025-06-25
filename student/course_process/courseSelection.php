@@ -5,6 +5,8 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
         include "../../DB_connection.php";
         include "../data/courseSelection.php";
 
+    $courses = searchCourse($conn, '', '', '');;
+
         // Handle search
         $search_name = isset($_GET['search_name']) ? trim($_GET['search_name']) : '';
         $search_major = isset($_GET['search_major']) ? trim($_GET['search_major']) : '';
@@ -15,74 +17,77 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student - Courses</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../../css/style.css">
-    <link rel="icon" href="../../img/logo.png">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Courses</title>
+    <link rel="stylesheet" href="../../css/style1.css" />
+    <link rel="stylesheet" href="../../css/framework.css" />
+    <link rel="stylesheet" href="../../css/master.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500&display=swap" rel="stylesheet" />
 </head>
 <body class="body-home">
-    <?php include "../inc/navbar.php"; ?>
+    <div class="page d-flex">
+        <?php include_once '../inc/navbar.php'; ?> <!-- LEFT SIDEBAR -->
 
-    <div class="container mt-5">
-        <h2 class="mb-4">Available Courses</h2>
-        <!-- Search Bar -->
-        <form class="row g-3 mb-4" method="get" action="">
-            <div class="col-md-4">
-                <input type="text" name="search_name" class="form-control" placeholder="Search by course name" value="<?= htmlspecialchars($search_name) ?>">
-            </div>
-            <div class="col-md-3">
-                <input type="text" name="search_major" class="form-control" placeholder="Search by major" value="<?= htmlspecialchars($search_major) ?>">
-            </div>
-            <div class="col-md-3">
-                <input type="number" name="search_semester" class="form-control" placeholder="Search by semester" value="<?= htmlspecialchars($search_semester) ?>">
-            </div>
-            <div class="col-md-2">
-                <button type="submit" class="btn btn-primary w-100">Search</button>
-            </div>
-        </form>
-        <div class="table-responsive">
-            <table class="table table-bordered table-striped align-middle">
-                <thead class="table-dark">
-                    <tr>
-                        <th>#</th>
-                        <th>Course ID</th>
-                        <th>Course Name</th>
-                        <th>Major</th>
-                        <th>Semester</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php if (count($courses) > 0): ?>
-                    <?php foreach ($courses as $i => $course): ?>
-                        <tr style="cursor:pointer;" onclick="window.location='tutorSelection.php?courseid=<?= urlencode($course['courseid']) ?>'">
-                            <td><?= $i + 1 ?></td>
-                            <td><?= htmlspecialchars($course['courseid'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($course['course_name'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($course['major'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($course['semester'] ?? '') ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="5" class="text-center">No courses found.</td>
-                    </tr>
-                <?php endif; ?>
-                </tbody>
-            </table>
+        <div class="content w-full">
+      <?php include_once '../inc/upbar.php'; ?> 
+                        <!-- Search bar -->
+
+             <h1 class="c-orange ">Courses</h1>
+<form method="GET" class="d-flex gap-20 m-20">
+  <input type="text" name="search_name" placeholder="Course name" class="p-10 rad-6 fs-14" value="<?= htmlspecialchars($_GET['search_name'] ?? '') ?>">
+  <input type="text" name="search_major" placeholder="Major" class="p-10 rad-6 fs-14" value="<?= htmlspecialchars($_GET['search_major'] ?? '') ?>">
+  <input type="number" name="search_semester" placeholder="Semester" class="p-10 rad-6 fs-14" value="<?= htmlspecialchars($_GET['search_semester'] ?? '') ?>">
+  <button type="submit" class="bg-orange c-white btn-shape fs-14">Search</button>
+</form>
+                        <!-- end Search bar -->
+
+<?php if (!empty($courses)): ?>
+  <?php
+    $course_images = [
+      'course-01.jpg',
+      'course-02.jpg',
+      'course-03.jpg',
+      'course-04.jpg',
+      'course-05.jpg'
+    ];
+  ?>
+  <div class="courses-page d-grid m-20 gap-20">
+    <?php foreach ($courses as $course): ?>
+      <?php $randomImage = $course_images[array_rand($course_images)]; ?>
+      <div class="course bg-white rad-6 p-relative" style="cursor: pointer;" onclick="window.location.href='tutorSelection.php?courseid=<?= urlencode($course['courseid']) ?>'">
+        <!-- Randomized Course Image -->
+        <img class="cover" src="../../img/<?= $randomImage ?>" alt="Course Cover" />
+
+        <!-- Course Info -->
+        <div class="p-20">
+          <h4 class="m-0 c-orange"><?= htmlspecialchars($course['course_name']) ?></h4>
+          <p class="description c-grey mt-15 fs-14">
+            <?= htmlspecialchars($course['cond'] ?? 'No description available.') ?>
+          </p>
         </div>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $("#navLinks li:nth-child(1) a").addClass('active');
-        });
-    </script>
+        <div class="info p-15 p-relative between-flex">
+          <span class="title bg-orange c-white btn-shape">Course Info</span>
+          <span class="c-grey fs-13">Major: <?= htmlspecialchars($course['major']) ?></span>
+          <span class="c-grey fs-13">Semester: <?= htmlspecialchars($course['semester']) ?></span>
+        </div>
+      </div>
+    <?php endforeach; ?>
+  </div>
+<?php else: ?>
+  <p class="c-grey">No courses available.</p>
+<?php endif; ?>
+
+
+
+
 </body>
+
+</html>
 </html>
 <?php
     } else {

@@ -1,9 +1,10 @@
-<?php 
+<?php
 
 session_start();
-if (isset($_POST['userid']) && 
-    isset($_POST['password']))
-{
+if (
+    isset($_POST['userid']) &&
+    isset($_POST['password'])
+) {
     include "../DB_connection.php";
 
     $userid = trim($_POST['userid']); // Trim to avoid whitespace issues
@@ -43,13 +44,13 @@ if (isset($_POST['userid']) &&
             $stmt->execute([$userid]);
 
             if ($stmt->rowCount() == 1) {
-            $role = 'Tutor';
-            $sqltutor = "SELECT * FROM `account`
+                $role = 'Tutor';
+                $sqltutor = "SELECT * FROM `account`
                     INNER JOIN `tutor_account` ON account.userid = tutor_account.accountid
                     INNER JOIN `student_account` ON tutor_account.accountid = student_account.accountid
                     WHERE account.userid = ?";
-            $stmt = $conn->prepare($sqltutor);
-            $stmt->execute([$userid]);
+                $stmt = $conn->prepare($sqltutor);
+                $stmt->execute([$userid]);
             } else {
                 // Check if user is Student
                 $sqlstudentcheck = "SELECT userid FROM `account`
@@ -65,7 +66,7 @@ if (isset($_POST['userid']) &&
                             WHERE account.userid = ?";
                     $stmt = $conn->prepare($sqlstudent);
                     $stmt->execute([$userid]);
-                    
+
                     // Check if Student is Tutor
                     $sqlIsTutor = "SELECT * FROM tutor_account WHERE accountid = ?";
                     $stmtIsTutor = $conn->prepare($sqlIsTutor);
@@ -77,7 +78,6 @@ if (isset($_POST['userid']) &&
                         $_SESSION['is_tutor'] = false;
                         unset($_SESSION['tutorid']);
                     }
-                
                 }
             }
         }
@@ -98,8 +98,7 @@ if (isset($_POST['userid']) &&
                         $_SESSION['adminid'] = $admid;
                         header("Location: ../admin/index.php");
                         exit;
-                    }
-                    else if ($role === 'Tutor') {
+                    } else if ($role === 'Tutor') {
                         $tutorid = $user['accountid'];
                         $_SESSION['tutorid'] = $tutorid;
                         $_SESSION['studentid'] = $tutorid;
@@ -114,6 +113,9 @@ if (isset($_POST['userid']) &&
                         } else {
                             unset($_SESSION['tutorid']);
                         }
+                        $_SESSION['email'] = $user['email'] ?? '';
+                        $_SESSION['major'] = $user['major'] ?? '';
+                        $_SESSION['intake'] = $user['intake'] ?? '';
                         header("Location: ../student/index.php");
                         exit;
                     }
@@ -133,5 +135,3 @@ if (isset($_POST['userid']) &&
     header("Location: ../login.php?error=$em");
     exit;
 }
-
-

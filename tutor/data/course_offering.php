@@ -1,7 +1,8 @@
 <?php
 include_once "../../DB_connection.php";
 
-function insertPendingOffering($tutorid, $courseid, $grade, $price, $self_description) {
+function insertPendingOffering($tutorid, $courseid, $grade, $price, $self_description)
+{
     global $conn;
     $status = 'pending';
     try {
@@ -15,7 +16,8 @@ function insertPendingOffering($tutorid, $courseid, $grade, $price, $self_descri
     }
 }
 
-function getTutorPendingOfferings($conn, $tutorid) {
+function getTutorPendingOfferings($conn, $tutorid)
+{
     $sql = "
         SELECT 
             po.tutorid,
@@ -35,4 +37,3 @@ function getTutorPendingOfferings($conn, $tutorid) {
     $stmt->execute([$tutorid]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-?>
