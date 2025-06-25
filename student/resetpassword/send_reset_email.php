@@ -3,7 +3,7 @@
 
 require __DIR__ . '/../../DB_connection.php';
 // Load Composer autoloader from resetpassword/vendor
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . './verifyEmail/vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
