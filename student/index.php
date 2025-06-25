@@ -10,20 +10,20 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
     $sessions = getStudentSessions($conn, $_SESSION['studentid']);
     $courses = searchCourse($conn, '', '', '');
 
-    // 1. Thông báo payment denied (có thể dismiss)
-    if (isset($_POST['hide_payment_denied'])) {
-      $_SESSION['hide_payment_denied'] = true;
-      header("Location: " . $_SERVER['PHP_SELF']);
-      exit;
-    }
-    $paymentDenied = [];
-    $stmt = $conn->prepare("SELECT pc.*, sa.name AS tutor_name 
-            FROM payment_confirmation pc
-            JOIN student_account sa ON pc.tutorid = sa.accountid
-            WHERE pc.studentid = ? AND pc.status = 'denied'
-            ORDER BY pc.date_and_time DESC");
-    $stmt->execute([$_SESSION['studentid']]);
-    $paymentDenied = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // // 1. Thông báo payment denied (có thể dismiss)
+    // if (isset($_POST['hide_payment_denied'])) {
+    //   $_SESSION['hide_payment_denied'] = true;
+    //   header("Location: " . $_SERVER['PHP_SELF']);
+    //   exit;
+    // }
+    // $paymentDenied = [];
+    // $stmt = $conn->prepare("SELECT pc.*, sa.name AS tutor_name 
+    //         FROM payment_confirmation pc
+    //         JOIN student_account sa ON pc.tutorid = sa.accountid
+    //         WHERE pc.studentid = ? AND pc.status = 'denied'
+    //         ORDER BY pc.date_and_time DESC");
+    // $stmt->execute([$_SESSION['studentid']]);
+    // $paymentDenied = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // 2. Kiểm tra xem người dùng có phải là tutor không
     $isTutor = false;

@@ -351,20 +351,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
       modal.show();
     });
 
-    $(document).on('click', '.accept-session-btn, .deny-session-btn', function() {
-      const $btn = $(this);
-      const payload = {
-        action: $btn.data('action'),
-        tutorid: $btn.data('tutorid'),
-        studentid: $btn.data('studentid'),
-        courseid: $btn.data('courseid'),
-        date_and_time: $btn.data('date_and_time')
-      };
+    // $(document).on('click', '.accept-session-btn, .deny-session-btn', function() {
+    //   const $btn = $(this);
+    //   const payload = {
+    //     action: $btn.data('action'),
+    //     tutorid: $btn.data('tutorid'),
+    //     studentid: $btn.data('studentid'),
+    //     courseid: $btn.data('courseid'),
+    //     date_and_time: $btn.data('date_and_time')
+    //   };
 
-      $.post('chat.php', payload, function() {
-        fetchPendingSessions(); // Reload session list on modal after update
-      });
-    });
+    //   $.post('chat.php', payload, function() {
+    //     fetchPendingSessions(); // Reload session list on modal after update
+    //   });
+    // });
   </script>
 </body>
 

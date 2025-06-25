@@ -297,29 +297,29 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                         </div>
                     </form>
                 </div>
+            </div>
+            <!-- Review Modal -->
+            <div class="popup" id="reviewModal" style="display: none;">Add commentMore actions
+                <div style="max-width:500px;margin:60px auto;padding:28px 26px;position:relative;">
+                    <form action="../review_process/submit_review.php" method="post" class="popup-content">
+                        <h3>Leave a Review</h3>
+                        <input type="hidden" name="studentid" value="<?= $_SESSION['studentid'] ?>">
+                        <input type="hidden" name="tutorid" id="reviewTutorId">
+                        <input type="hidden" name="courseid" id="reviewCourseId">
 
-                <!-- Review Modal -->
-                <div class="popup" id="reviewModal" style="display: none;">Add commentMore actions
-                    <div style="max-width:500px;margin:60px auto;padding:28px 26px;position:relative;">
-                        <form action="../review_process/submit_review.php" method="post" class="popup-content">
-                            <h3>Leave a Review</h3>
-                            <input type="hidden" name="studentid" value="<?= $_SESSION['studentid'] ?>">
-                            <input type="hidden" name="tutorid" id="reviewTutorId">
-                            <input type="hidden" name="courseid" id="reviewCourseId">
+                        <label>Your Review</label>
+                        <textarea name="reviewText" class="input" rows="4" required></textarea>
 
-                            <label>Your Review</label>
-                            <textarea name="reviewText" class="input" rows="4" required></textarea>
+                        <label>Rating (1-5)</label>
+                        <input type="number" name="rating" min="1" max="5" class="input" required>
 
-                            <label>Rating (1-5)</label>
-                            <input type="number" name="rating" min="1" max="5" class="input" required>
-
-                            <div class="buttons">
-                                <button type="submit" class="btn-shape bg-orange c-white">Submit</button>
-                                <button type="button" onclick="closeModal('reviewModal')" class="btn-shape">Cancel</button>
-                            </div>
-                        </form>
-                    </div>
+                        <div class="buttons">
+                            <button type="submit" class="btn-shape bg-orange c-white">Submit</button>
+                            <button type="button" onclick="closeModal('reviewModal')" class="btn-shape">Cancel</button>
+                        </div>
+                    </form>
                 </div>
+            </div>
 
         </body>
 
