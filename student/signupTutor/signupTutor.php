@@ -146,7 +146,7 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role']) && $_SESSION['role
                     <input type="file" name="transcript" class="input-box mt-10 w-full" accept="application/pdf" required>
                   </div>
                   <div class="img-area">
-                    <img src="../../img/pdf_icon.png" alt="Transcript PDF" class="widget-img" />
+                    <img src="../../img/pdf_icon.jpg" alt="Transcript PDF" class="widget-img" />
                   </div>
                 </div>
                 <!-- Self Introduction Widget -->

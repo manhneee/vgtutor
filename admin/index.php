@@ -19,14 +19,14 @@ if (isset($_SESSION['adminid']) &&
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 </head>
-<body class="body-home" style="background-color:rgb(255, 103, 32);"> 
+<body class="body-home"> 
     <?php include "inc/navbar.php"; ?>
 
     <div class="container mt-5">
         <div class="text-center">
             <div class="col btn bg-orange m-2 py-3">
-                <h1 style="color: white">Welcome, <?= $_SESSION['name']?> - <?=$_SESSION['adminid'] ?></h1>
-                <p style="color: white">You are logged in as an <?= $_SESSION['role'] ?>.</p>
+                <h1 style="color: black">Welcome, <?= $_SESSION['name']?> - <?=$_SESSION['adminid'] ?></h1>
+                <p style="color: black">You are logged in as an <?= $_SESSION['role'] ?>.</p>
             </div>
         </div>
         

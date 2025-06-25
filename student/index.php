@@ -128,11 +128,11 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                 <div class="body txt-c d-flex p-20 mt-20 mb-20 block-mobile">
                   <div>
                     <span class="d-block fs-14 fw-bold c-orange">∞</span>
-                    <span class="d-block c-grey fs-14 mt-10">Current tutors</span>
+                    <span class="d-block c-grey fs-14 mt-10">Current Tutors</span>
                   </div>
                   <div>
                     <span class="d-block fs-14 fw-bold c-orange">∞</span>
-                    <span class="d-block c-grey fs-14 mt-10">Courses </span>
+                    <span class="d-block c-grey fs-14 mt-10">Current Students </span>
                   </div>
                   <div>
                     <span class="d-block fs-14 fw-bold c-orange">∞</span>
@@ -205,33 +205,8 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
             </div>
 
 
-            <!-- Start Rate tutor Widget -->
-            <div class="welcome bg-white rad-10 txt-c-mobile block-mobile">
-
-              <!-- Intro Section -->
-              <div class="intro p-20 d-flex space-between bg-orange">
-                <div>
-                  <h2 class="m-0 c-white">Enjoy? Rate our Tutors</h2>
-                  <p class="c-white fs-14 mt-10">
-                    Rate our tutor to share your experience and help improve future lessons.
-                  </p>
-                </div>
-                <img class="hide-mobile" src="../img/rateTutor.png" />
-              </div>
-
-              <!-- Body Section -->
-              <div class="body txt-c d-flex block-mobile" style="padding: 0;"></div>
-              <a href="/vgtutor/student/course_process/tutorReviews.php"
-                class="visit d-block fs-14 bg-orange c-white w-fit btn-shape"
-                style="margin-top: 3rem;">
-                ⭐ Rate Now
-              </a>
 
 
-            </div>
-            <!-- End rate tutor Widget -->
-
-            <!-- begin add reminder func Widget -->
 
             <script>
               // Reminder Function

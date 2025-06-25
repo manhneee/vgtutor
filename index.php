@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>tittle</title>
+  <title>VGtUtor</title>
 
   <!-- 
     - favicon
@@ -65,12 +65,6 @@
           <li class="navbar-item">
             <a href="#about" class="navbar-link" data-nav-toggler>About</a>
           </li>
-
-          <li class="navbar-item">
-            <a href="#course" class="navbar-link" data-nav-toggler>Courses</a>
-          </li>
-
-
           <li class="navbar-item">
             <a href="#contact" class="navbar-link" data-nav-toggler>Contact</a>
           </li>
@@ -234,103 +228,7 @@
 
 
 
-      <!-- 
-        - #CATEGORY
-      -->
-
-      <section class="section category" id="course" aria-label="category">
-        <div class="container">
-
-          <p class="section-subtitle">Course Offering till now</p>
-
-          <h2 class="h2 section-title">Differen For you to pick</h2>
-
-          <ul class="grid-list">
-
- <li>
-              <div class="category-card">
-
-                <div>
-                  <ion-icon name="layers-outline"></ion-icon>
-                </div>
-
-                <div>
-                  <h3 class="h3 card-title">
-                    <a href="#">Statistic</a>
-                  </h3>
-                </div>
-
-              </div>
-            </li>
- <li>
-              <div class="category-card">
-
-                <div>
-                  <ion-icon name="layers-outline"></ion-icon>
-                </div>
-
-                <div>
-                  <h3 class="h3 card-title">
-                    <a href="#">Discrete Math</a>
-                  </h3>
-                </div>
-
-              </div>
-            </li>
-
- <li>
-              <div class="category-card">
-
-                <div>
-                  <ion-icon name="layers-outline"></ion-icon>
-                </div>
-
-                <div>
-                  <h3 class="h3 card-title">
-                    <a href="#">Database</a>
-                  </h3>
-                </div>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="category-card">
-
-                <div>
-                  <ion-icon name="layers-outline"></ion-icon>
-                </div>
-
-                <div>
-                  <h3 class="h3 card-title">
-                    <a href="#">IT-security</a>
-                  </h3>
-                </div>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="category-card">
-
-                <div>
-                  <ion-icon name="laptop-outline"></ion-icon>
-                </div>
-
-                <div>
-                  <h3 class="h3 card-title">
-                    <a href="#">Algebra</a>
-                  </h3>
-                </div>
-
-              </div>
-            </li>
-
-
-          </ul>
-
-        </div>
-      </section>
+     
 
       <!-- 
         - #CTA
@@ -350,7 +248,7 @@
             <h2 class="h2 section-title">Our Mission</h2>
 
             <p class="section-text">
-              our mission is to empower every learner with the tools, guidance, and support they need to succeed academically 
+              Our mission is to empower every learner with the tools, guidance, and support they need to succeed academically 
               and grow personally. We believe that education should be accessible, personalized, and transformative—built on the 
               principle that every student has the potential to excel when given the right environment and mentorship.
             </p>

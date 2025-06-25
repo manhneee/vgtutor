@@ -18,3 +18,4 @@
 2025-06-25T19:38:19+02:00 - Signup POST: {"studentid":"10422031","password":"12345","confirm_password":"12345","fullname":"Nguyen Thanh Bao Hung","email":"10422031@student.vgu.edu.vn","major":"CSE","intake":"2022","signup_btn":""}
 2025-06-25T19:45:15+02:00 - Signup POST: {"studentid":"10422031","password":"12345","confirm_password":"12345","fullname":"Nguyen Thanh Bao Hung","email":"10422031@student.vgu.edu.vn","major":"CSE","intake":"2022","signup_btn":""}
 2025-06-25T19:45:20+02:00 - Signup POST: {"studentid":"10422031","password":"12345","confirm_password":"12345","fullname":"Nguyen Thanh Bao Hung","email":"10422031@student.vgu.edu.vn","major":"CSE","intake":"2022","signup_btn":""}
+2025-06-25T21:07:21+02:00 - Signup POST: {"studentid":"10422047","password":"123456","confirm_password":"123456","fullname":"Pham Duc Manh","email":"10422047@student.vgu.edu.vn","major":"CSE","intake":"2022","signup_btn":""}

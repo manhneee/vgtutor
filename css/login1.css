@@ -50,14 +50,14 @@ body{
 .container button{
     background-color: #FC8235;
     color: #fff;
-    font-size: 12px;
-    padding: 10px 45px;
+    font-size: 11px;         /* Slightly smaller font */
+    padding: 8px 30px;       /* Reduce button padding */
     border: 1px solid transparent;
-    border-radius: 8px;
+    border-radius: 7px;
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    margin-top: 10px;
+    margin-top: 6px;         /* Less margin above button */
     cursor: pointer;
     transition: background 0.2s, color 0.2s;
 }
@@ -80,7 +80,7 @@ body{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding: 0 40px;
+    padding: 0 20px;         /* Reduce horizontal padding */
     height: 100%;
     width: 100%;
 }
@@ -88,10 +88,10 @@ body{
 .container input{
     background-color: #eee;
     border: none;
-    margin: 12px 0;
-    padding: 18px 18px;   /* rộng và cao hơn */
-    font-size: 1.15em;    /* to hơn chữ trong input */
-    border-radius: 10px;
+    margin: 8px 0;           /* Reduce vertical margin */
+    padding: 12px 14px;      /* Reduce padding */
+    font-size: 1em;          /* Slightly smaller font */
+    border-radius: 8px;      /* Slightly smaller radius */
     width: 100%;
     outline: none;
     transition: background 0.2s, border 0.2s;
@@ -107,12 +107,14 @@ body{
     height: 100%;
     transition: all 0.6s ease-in-out;
     width: 50%;
-    min-width: 520px;   /* tăng width form bên trong */
+    min-width: 340px;        /* Reduce min-width for smaller screens */
     z-index: 2;
-    padding: 0 50px;    /* thêm padding */
+    padding: 0 18px;         /* Reduce side padding */
     display: flex;
     flex-direction: column;
     justify-content: center;
+    overflow-y: auto;      /* <-- Add this line */
+    max-height: 100%;      /* <-- Add this line */
 }
 
 .sign-in{
@@ -246,4 +248,25 @@ body{
 
 .container.active .toggle-right{
     transform: translateX(200%);
+}
+
+.alert {
+    font-size: 0.95rem;
+    padding: 0.5rem 0.7rem;
+    border-radius: 7px;
+}
+
+@media (max-width: 600px) {
+    .form-container {
+        min-width: 0;
+        width: 100%;
+        padding: 0 6px;
+    }
+    .container form {
+        padding: 0 4px;
+    }
+    .container input {
+        padding: 10px 8px;
+        font-size: 0.98em;
+    }
 }
