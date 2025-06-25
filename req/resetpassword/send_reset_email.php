@@ -48,7 +48,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
                 $mail->Password   = 'psxp ijkl mlsr lmrw';
                 $mail->SMTPSecure = 'tls';
                 $mail->Port       = 587;
-
+                $mail->SMTPOptions = [
+                    'ssl' => [
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                        'allow_self_signed' => true,
+                    ],
+                ];
                 $mail->setFrom('no.reply.vgtutor@gmail.com', 'VGtUtor');
                 $mail->addAddress($email);
                 $mail->isHTML(true);

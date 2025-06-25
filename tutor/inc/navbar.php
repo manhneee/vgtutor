@@ -139,7 +139,7 @@ if (isset($_SESSION['studentid'])) {
 <div id="sidebar1-spacer" style="width:240px;min-width:240px;height:1px;display:block;float:left;"></div>
 <!-- End Sidebar1 -->
 
-<!-- Modal form liên lạc với admin -->
+<!-- Modal form contact to admin -->
 <div id="contactAdminModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:10000;background:rgba(0,0,0,0.35);">
     <div style="max-width:400px;margin:60px auto;background:#fff;border-radius:14px;box-shadow:0 6px 32px #0003;padding:28px 26px;position:relative;">
         <h2 style="margin-top:0;font-size:22px;font-weight:600;color:#205cb2;">Contact with admin</h2>
@@ -159,12 +159,12 @@ if (isset($_SESSION['studentid'])) {
 </div>
 
 <script>
-    // Mở modal
+    // Open modal
     document.getElementById('contactAdminBtn').onclick = function() {
         document.getElementById('contactAdminModal').style.display = 'block';
         document.getElementById('contactAdminMsg').textContent = '';
     }
-    // Đóng modal
+    // Close modal
     document.getElementById('closeContactAdmin').onclick = function(e) {
         e.preventDefault();
         document.getElementById('contactAdminModal').style.display = 'none';
@@ -172,13 +172,13 @@ if (isset($_SESSION['studentid'])) {
         document.getElementById('imagesPreview').innerHTML = '';
     }
 
-    // Preview ảnh
+    // Preview image
     document.getElementById('imagesInput').addEventListener('change', function(e) {
         const preview = document.getElementById('imagesPreview');
         preview.innerHTML = '';
         const files = Array.from(e.target.files);
         if (files.length > 5) {
-            preview.innerHTML = '<span style="color:red;">Chỉ được chọn tối đa 5 ảnh!</span>';
+            preview.innerHTML = '<span style="color:red;">Only choose max 5 images</span>';
             e.target.value = ''; // reset input
             return;
         }
@@ -200,33 +200,33 @@ if (isset($_SESSION['studentid'])) {
         fetch('/vgtutor/req/report_error/handle_ajax.php', {
                 method: 'POST',
                 body: formData,
-                credentials: 'include' // Để gửi cookie session
+                credentials: 'include' // To send session cookie
             })
             .then(async res => {
                 const text = await res.text();
                 try {
                     const data = JSON.parse(text);
                     if (data.status === 'ok') {
-                        document.getElementById('contactAdminMsg').innerHTML = "<span style='color:green'>Gửi thành công!</span>";
+                        document.getElementById('contactAdminMsg').innerHTML = "<span style='color:green'>Successfully!</span>";
                         setTimeout(() => {
                             document.getElementById('contactAdminModal').style.display = 'none';
                             this.reset();
                             document.getElementById('imagesPreview').innerHTML = '';
                         }, 1200);
                     } else {
-                        document.getElementById('contactAdminMsg').innerHTML = "<span style='color:red'>" + (data.message || "Có lỗi xảy ra") + "</span>";
+                        document.getElementById('contactAdminMsg').innerHTML = "<span style='color:red'>" + (data.message || "Error!") + "</span>";
                     }
                 } catch (e) {
                     document.getElementById('contactAdminMsg').innerHTML =
-                        "<span style='color:red'>Server trả về lỗi hoặc không phải JSON:<br><pre>" + text + "</pre></span>";
+                        "<span style='color:red'>Server returned an error or not JSON:<br><pre>" + text + "</pre></span>";
                 }
             })
             .catch(err => {
-                document.getElementById('contactAdminMsg').innerHTML = "<span style='color:red'>Có lỗi mạng (fetch): " + err + "</span>";
+                document.getElementById('contactAdminMsg').innerHTML = "<span style='color:red'>Network Error (fetch): " + err + "</span>";
             });
     };
 
-    // AJAX cho nút X trên bell (ẩn thông báo không reload)
+    // AJAX for the X button on bell (hide notification without reload)
     document.querySelectorAll('.notif-close-form').forEach(function(form) {
         form.onsubmit = function(e) {
             e.preventDefault();

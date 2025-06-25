@@ -27,9 +27,9 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
                 addNotification($conn, $studentid, $_SESSION['tutorid'], "Payment Accepted", "Your payment for the session has been accepted by the tutor. Your session is now confirmed.", "Payment");
             }
 
-            // If denied, log reason to chat
-            if ($status === 'denied' && !empty($_POST['deny_reason'])) {
-                $deny_reason = trim($_POST['deny_reason']);
+            // If denied, log reason to chat and send notification
+            if ($status === 'denied') {
+                $deny_reason = trim($_POST['deny_reason'] ?? '');
                 $file = $_SERVER['DOCUMENT_ROOT'] . "/vgtutor/chatlog.json";
                 if (!file_exists($file)) file_put_contents($file, '[]');
                 $messages = json_decode(file_get_contents($file), true);
@@ -42,7 +42,10 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
                     'time' => date('H:i')
                 ];
                 file_put_contents($file, json_encode($messages));
-                addNotification($conn, $studentid, $_SESSION['tutorid'], "Payment Denied", "Your payment for the session was <strong>denied</strong> by the tutor. Reason: " . htmlspecialchars($deny_reason), "Payment");
+                // Always send notification with the reason (even if empty)
+                $notifyMsg = "Your payment for the session was denied by the tutor."
+                    . ($deny_reason ? " Reason: " . htmlspecialchars($deny_reason) : "");
+                addNotification($conn, $studentid, $_SESSION['tutorid'], "Payment Denied", $notifyMsg, "Payment");
             }
 
             header("Location: session.php?success=Payment $status.");
@@ -328,3 +331,26 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
     exit;
 }
 ?>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const paymentForm = document.querySelector('#paymentPopup form');
+    const acceptBtn = paymentForm.querySelector('button[name="action"][value="accept"]');
+    const denyBtn = paymentForm.querySelector('button[name="action"][value="deny"]');
+    const reasonField = document.getElementById("deny_reason");
+
+    // Remove required on accept
+    acceptBtn.addEventListener('click', function() {
+        reasonField.removeAttribute("required");
+    });
+
+    // Require reason on deny and check before submit
+    denyBtn.addEventListener('click', function(e) {
+        if (!reasonField.value.trim()) {
+            e.preventDefault();
+            reasonField.setAttribute("required", "true");
+            reasonField.focus();
+            alert("Please enter a reason for denial.");
+        }
+    });
+});
+</script>
