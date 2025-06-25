@@ -188,11 +188,11 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                                                 if ($paymentStatus && $paymentStatus['status'] === 'denied') {
                                                     // Payment denied: allow student to pay again
                                                     echo '<a class="btn-shape bg-orange c-white"
-        data-studentid="' . $_SESSION['studentid'] . '"
-        data-tutorid="' . $session['tutorid'] . '"
-        data-courseid="' . $session['courseid'] . '"
-        data-date_and_time="' . $session['date_and_time'] . '"
-        onclick="openPayModal(this)">Pay Now</a>';
+                                                            data-studentid="' . $_SESSION['studentid'] . '"
+                                                            data-tutorid="' . $session['tutorid'] . '"
+                                                            data-courseid="' . $session['courseid'] . '"
+                                                            data-date_and_time="' . $session['date_and_time'] . '"
+                                                            onclick="openPayModal(this)">Pay Now</a>';
                                                 } elseif ($session['paid']) {
                                                     // Payment accepted
                                                     echo '<span class="status-badge status-permitted">Paid</span>';
@@ -202,11 +202,11 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                                                 } elseif ($session['consensus'] === "accepted") {
                                                     // Session accepted, allow payment
                                                     echo '<a class="btn-shape bg-orange c-white"
-        data-studentid="' . $_SESSION['studentid'] . '"
-        data-tutorid="' . $session['tutorid'] . '"
-        data-courseid="' . $session['courseid'] . '"
-        data-date_and_time="' . $session['date_and_time'] . '"
-        onclick="openPayModal(this)">Pay Now</a>';
+                                                            data-studentid="' . $_SESSION['studentid'] . '"
+                                                            data-tutorid="' . $session['tutorid'] . '"
+                                                            data-courseid="' . $session['courseid'] . '"
+                                                            data-date_and_time="' . $session['date_and_time'] . '"
+                                                            onclick="openPayModal(this)">Pay Now</a>';
                                                 } else {
                                                     echo '-';
                                                 }
@@ -269,53 +269,57 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
             </script>
 
             <!-- Payment Modal -->
-            <div class="popup1" id="payModal" style="display: none;">
-                <form method="post" enctype="multipart/form-data" class="popup1-content">
-                    <h3>Payment Confirmation</h3>
-                    <input type="hidden" name="pay_studentid" id="payStudentId">
-                    <input type="hidden" name="pay_tutorid" id="payTutorId">
-                    <input type="hidden" name="pay_courseid" id="payCourseId">
-                    <input type="hidden" name="pay_date_and_time" id="payDateTime">
+            <div class="popup" id="payModal" style="display: none;">
+                <div style="max-width:500px;margin:60px auto;padding:28px 26px;position:relative;">
+                    <form method="post" enctype="multipart/form-data" class="popup-content">
+                        <h3>Payment Confirmation</h3>
+                        <input type="hidden" name="pay_studentid" id="payStudentId">
+                        <input type="hidden" name="pay_tutorid" id="payTutorId">
+                        <input type="hidden" name="pay_courseid" id="payCourseId">
+                        <input type="hidden" name="pay_date_and_time" id="payDateTime">
 
-                    <label>Bank Owner</label>
-                    <input type="text" id="payOwner" class="input" readonly>
+                        <label>Bank Owner</label>
+                        <input type="text" id="payOwner" class="input" readonly>
 
-                    <label>Bank Name</label>
-                    <input type="text" id="payBank" class="input" readonly>
+                        <label>Bank Name</label>
+                        <input type="text" id="payBank" class="input" readonly>
 
-                    <label>Bank Account</label>
-                    <input type="text" id="payAccNo" class="input" readonly>
+                        <label>Bank Account</label>
+                        <input type="text" id="payAccNo" class="input" readonly>
 
-                    <label>Upload Screenshot</label>
-                    <input type="file" name="payment_img" class="input" required>
+                        <label>Upload Screenshot</label>
+                        <input type="file" name="payment_img" class="input" required>
 
-                    <div class="buttons">
-                        <button type="submit" name="pay_submit" class="btn-shape bg-orange">Submit</button>
-                        <button type="button" class="btn-shape cancel-btn" onclick="closeModal('payModal')">Cancel</button>
+                        <div class="buttons">
+                            <button type="submit" name="pay_submit" class="btn-shape bg-orange">Submit</button>
+                            <button type="button" class="btn-shape cancel-btn" onclick="closeModal('payModal')">Cancel</button>
 
-                    </div>
-                </form>
+                        </div>
+                    </form>
+                </div>
             </div>
 
             <!-- Review Modal -->
-            <div class="popup1" id="reviewModal" style="display: none;">
-                <form action="../review_process/submit_review.php" method="post" class="popup1-content">
-                    <h3>Leave a Review</h3>
-                    <input type="hidden" name="studentid" value="<?= $_SESSION['studentid'] ?>">
-                    <input type="hidden" name="tutorid" id="reviewTutorId">
-                    <input type="hidden" name="courseid" id="reviewCourseId">
+            <div class="popup" id="reviewModal" style="display: none;">
+                <div style="max-width:500px;margin:60px auto;padding:28px 26px;position:relative;">
+                    <form action="../review_process/submit_review.php" method="post" class="popup-content">
+                        <h3>Leave a Review</h3>
+                        <input type="hidden" name="studentid" value="<?= $_SESSION['studentid'] ?>">
+                        <input type="hidden" name="tutorid" id="reviewTutorId">
+                        <input type="hidden" name="courseid" id="reviewCourseId">
 
-                    <label>Your Review</label>
-                    <textarea name="reviewText" class="input" rows="4" required></textarea>
+                        <label>Your Review</label>
+                        <textarea name="reviewText" class="input" rows="4" required></textarea>
 
-                    <label>Rating (1-5)</label>
-                    <input type="number" name="rating" min="1" max="5" class="input" required>
+                        <label>Rating (1-5)</label>
+                        <input type="number" name="rating" min="1" max="5" class="input" required>
 
-                    <div class="buttons">
-                        <button type="submit" class="btn-shape bg-orange c-white">Submit</button>
-                        <button type="button" onclick="closeModal('reviewModal')" class="btn-shape">Cancel</button>
-                    </div>
-                </form>
+                        <div class="buttons">
+                            <button type="submit" class="btn-shape bg-orange c-white">Submit</button>
+                            <button type="button" onclick="closeModal('reviewModal')" class="btn-shape">Cancel</button>
+                        </div>
+                    </form>
+            </div>
             </div>
 
         </body>
