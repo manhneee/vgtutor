@@ -136,7 +136,7 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
                                                         ?>
                                                     </span>
                                                 </div>
-                                                <div>
+                                                <div class="mb-10">
                                                     <i class="fa-solid fa-check-double fa-fw"></i>
                                                     <span>
                                                         <?php
@@ -150,20 +150,37 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
                                                         ?>
                                                     </span>
                                                 </div>
+                                                <div class="mb-10">
+                                                    <i class="fa-solid fa-credit-card fa-fw"></i>
+                                                    <span>
+                                                        <?php
+                                                        $stmtPay = $conn->prepare("SELECT * FROM payment_confirmation WHERE studentid = ? AND tutorid = ? AND courseid = ? AND date_and_time = ? ORDER BY id DESC LIMIT 1");
+                                                        $stmtPay->execute([
+                                                            $session['studentid'],
+                                                            $_SESSION['tutorid'],
+                                                            $session['courseid'],
+                                                            $session['date_and_time']
+                                                        ]);
+                                                        $pay = $stmtPay->fetch(PDO::FETCH_ASSOC);
+                                                        if ($session['consensus'] === 'accepted') {
+                                                            if ($pay && $pay['status'] === 'accepted') {
+                                                                echo '<span class="c-green">Payment: Accepted</span>';
+                                                            } else {
+                                                                echo '<span class="c-orange">Payment: Pending</span>';
+                                                            }
+                                                        } else {
+                                                            echo '<span class="c-grey"> Not Yet</span>';
+                                                        }
+                                                        ?>
+                                                    </span>
+                                                </div>
                                             </div>
                                             <div class="info between-flex fs-13 mt-10">
                                                 <span class="c-grey">Student ID: <?= htmlspecialchars($session['studentid']) ?></span>
                                                 <div>
                                                     <a class="bg-orange c-white btn-shape" href="../chat/chat.php?studentid=<?= urlencode($session['studentid']) ?>">Chat</a>
                                                     <?php
-                                                    $stmtPay = $conn->prepare("SELECT * FROM payment_confirmation WHERE studentid = ? AND tutorid = ? AND courseid = ? AND date_and_time = ? ORDER BY id DESC LIMIT 1");
-                                                    $stmtPay->execute([
-                                                        $session['studentid'],
-                                                        $_SESSION['tutorid'],
-                                                        $session['courseid'],
-                                                        $session['date_and_time']
-                                                    ]);
-                                                    $pay = $stmtPay->fetch(PDO::FETCH_ASSOC);
+                                                    
 
                                                     $sessionStatus = $session['consensus'];
                                                     $imgPath = ($pay && !empty($pay['img_path']))
