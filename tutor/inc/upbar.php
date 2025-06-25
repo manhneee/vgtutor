@@ -62,6 +62,14 @@ if ($user_id_receive) {
   <!-- Start Head -->
   <div class="head bg-white p-15 between-flex">
     <div class="d-flex align-items-center" style="margin-left:auto;">
+      <!-- Mode Switch Button -->
+      <div style="margin-right: 18px; display: flex; align-items: center;">
+        <button id="switchModeBtn" style="background: none; border: 1.5px solid #FF951F; color: #FF951F; padding: 4px 14px; border-radius: 7px; font-size: 1em; font-weight: 600; cursor: pointer; transition: background 0.2s, color 0.2s;"
+          onmouseover="this.style.background='#FFF5E6'; this.style.color='#FF951F';"
+          onmouseout="this.style.background='none'; this.style.color='#FF951F';">
+          Switch to Student Mode
+        </button>
+      </div>
       <!-- User Info -->
       <div class="text-end" style="font-family: 'Open Sans', sans-serif; margin-right:10px;">
         <div class="fw-semibold text-dark"><?= htmlspecialchars($name) ?></div>
@@ -196,6 +204,14 @@ if ($user_id_receive) {
           panel.style.display = "none";
         }
       });
+    }
+
+    // Mode switch button
+    var switchBtn = document.getElementById('switchModeBtn');
+    if (switchBtn) {
+      switchBtn.onclick = function() {
+        window.location.href = '/vgtutor/tutor/switch_to_student.php';
+      };
     }
   });
 </script>

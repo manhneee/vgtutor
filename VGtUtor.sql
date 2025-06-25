@@ -27,11 +27,14 @@ SET time_zone = "+00:00";
 -- Table structure for table `account`
 --
 
-CREATE TABLE `account` (
-  `userid` int(11) NOT NULL,
-  `password` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
+CREATE TABLE account (
+  userid INT(11) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  password VARCHAR(255) DEFAULT NULL,
+  is_verified TINYINT(1) DEFAULT 0,
+  verify_token VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY (userid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 --
 -- Dumping data for table `account`
 --
@@ -195,18 +198,18 @@ INSERT INTO `review` (`studentid`, `tutorid`, `courseid`, `rating`, `review`, `d
 -- Table structure for table `session`
 --
 
-CREATE TABLE `session` (
-  `studentid` int(11) NOT NULL,
-  `tutorid` int(11) NOT NULL,
-  `courseid` int(11) NOT NULL,
-  `date_and_time` datetime NOT NULL,
-  `duration` float DEFAULT NULL,
-  `paid` tinyint(1) DEFAULT NULL,
-  `consensus` varchar(20) NOT NULL DEFAULT 'pending',
-  `notified` tinyint(1) DEFAULT 0,
-  `place` varchar(50) NOT NULL DEFAULT 'online'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
+CREATE TABLE session (
+  studentid INT(11) NOT NULL,
+  tutorid INT(11) NOT NULL,
+  courseid INT(11) NOT NULL,
+  date_and_time DATETIME NOT NULL,
+  duration FLOAT DEFAULT NULL,
+  paid TINYINT(1) DEFAULT NULL,
+  consensus VARCHAR(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'pending',
+  notified TINYINT(1) DEFAULT 0,
+  place VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'online',
+  PRIMARY KEY (studentid, tutorid, courseid, date_and_time)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 --
 -- Dumping data for table `session`
 --

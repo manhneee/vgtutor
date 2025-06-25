@@ -18,15 +18,28 @@ function sendVerificationEmail($email, $token)
         $mail->Password = 'psxp ijkl mlsr lmrw';
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
-
+        $mail->SMTPOptions = [
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true,
+            ],
+        ];
         $mail->setFrom('no.reply.vgtutor@gmail.com', 'VGtUtor');
         $mail->addAddress($email);
+
+        // Build dynamic base URL
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
+        $host = $_SERVER['HTTP_HOST'];
+        $baseUrl = $protocol . $host;
+
+        $verifyLink = $baseUrl . "/vgtutor/verifyEmail/verify.php?email=" . urlencode($email) . "&token=" . $token;
 
         $mail->isHTML(true);
         $mail->Subject = 'Email Verification - VGtUtor';
         $mail->Body =  'Hello,<br>
                         Please click the link below to verify your account:<br>
-                        <a href="http://localhost/vgtutor/verifyEmail/verify.php?email=' . urlencode($email) . '&token=' . $token . '">
+                        <a href="' . $verifyLink . '">
                         Verify Account
                         </a>
                         <br>Best regards,<br>VGtUtor Team';

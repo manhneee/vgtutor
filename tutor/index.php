@@ -35,7 +35,7 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
           <?php include_once '../tutor/inc/upbar.php'; ?> <!-- upbar -->
 
 
-          <h1 class="c-orange p-relative">Dashboard</h1>
+          <h1 class="c-orange p-relative">Tutor's Dashboard</h1>
           <div class="wrapper d-grid gap-20">
             <!-- Start Welcome Widget -->
             <div class="welcome bg-white rad-10 txt-c-mobile block-mobile">
@@ -55,7 +55,7 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
                   </span>
                 </div>
                 <div>
-                  <span class="d-block fs-14 fw-bold c-orange">3</span>
+                  <span class="d-block fs-14 fw-bold c-orange">∞</span>
                   <span class="d-block c-grey fs-14 mt-10"> Curent offered Courses</span>
                 </div>
 
@@ -78,15 +78,15 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
               <!-- Body Section -->
               <div class="body txt-c d-flex p-20 mt-20 mb-20 block-mobile">
                 <div>
-                  <span class="d-block fs-14 fw-bold c-orange">80</span>
+                  <span class="d-block fs-14 fw-bold c-orange">∞</span>
                   <span class="d-block c-grey fs-14 mt-10">Current tutors</span>
                 </div>
                 <div>
-                  <span class="d-block fs-14 fw-bold c-orange">80</span>
-                  <span class="d-block c-grey fs-14 mt-10">Courses</span>
+                  <span class="d-block fs-14 fw-bold c-orange">∞</span>
+                  <span class="d-block c-grey fs-14 mt-10">Current students</span>
                 </div>
                 <div>
-                  <span class="d-block fs-14 fw-bold c-orange">80</span>
+                  <span class="d-block fs-14 fw-bold c-orange">∞</span>
                   <span class="d-block c-grey fs-14 mt-10">Courses</span>
                 </div>
               </div>

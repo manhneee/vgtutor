@@ -42,21 +42,21 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role']) && $_SESSION['role']
                         <?php foreach ($offerings as $i => $row): ?>
                         <tr>
                             <th scope="row"><?= $i + 1 ?></th>
-                            <td><?= htmlspecialchars($row['tutorid'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($row['tutor_name'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($row['courseid'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($row['course_name'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($row['tutor_grade'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($row['rating'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($row['price'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['tutorid']) ?></td>
+                            <td><?= htmlspecialchars($row['tutor_name']) ?></td>
+                            <td><?= htmlspecialchars($row['courseid']) ?></td>
+                            <td><?= htmlspecialchars($row['course_name']) ?></td>
+                            <td><?= htmlspecialchars($row['tutor_grade']) ?></td>
+                            <td><?= htmlspecialchars($row['rating']) ?></td>
+                            <td><?= htmlspecialchars($row['price']) ?></td>
                             <td>
-                                <a href="editOffering.php?tutorid=<?= urlencode($row['tutorid'] ?? '') ?>&courseid=<?= urlencode($row['courseid'] ?? '') ?>" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="editOffering.php?tutorid=<?= urlencode($row['tutorid']) ?>&courseid=<?= urlencode($row['courseid']) ?>" class="btn btn-warning btn-sm">Edit</a>
                                 <button type="button"
                                         class="btn btn-danger btn-sm"
                                         data-bs-toggle="modal"
                                         data-bs-target="#deleteOfferingModal"
-                                        data-tutorid="<?= htmlspecialchars($row['tutorid'] ?? '') ?>"
-                                        data-courseid="<?= htmlspecialchars($row['courseid'] ?? '') ?>">
+                                        data-tutorid="<?= htmlspecialchars($row['tutorid']) ?>"
+                                        data-courseid="<?= htmlspecialchars($row['courseid']) ?>">
                                     Delete
                                 </button>
                             </td>

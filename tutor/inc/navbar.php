@@ -32,7 +32,7 @@ if (isset($_SESSION['studentid'])) {
         z-index: 1001;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-start;
     }
 
     .sidebar1-header {
@@ -111,17 +111,16 @@ if (isset($_SESSION['studentid'])) {
 
 
 <!-- Begin Sidebar1 -->
-<div class="sidebar1">
+<div class="sidebar1 bg-white p-20 p-relative" style="display: flex; flex-direction: column; height: 100vh;">
     <!-- Header -->
     <div class="sidebar1-header">
         <h3 class="txt-c c-orange mt-0" style="margin-bottom: 10px;">Vgtutor</h3>
     </div>
     <!-- Menu -->
-    <div class="sidebar1-menu">
+    <div class="sidebar1-menu" style="flex: 1 1 auto;">
         <ul>
             <li><a class="d-flex align-center fs-14 c-orange rad-6 p-10" href="/vgtutor/tutor/index.php"><i class="fa-regular fa-chart-bar fa-fw"></i><span>Dashboard</span></a></li>
             <li><a class="d-flex align-center fs-14 c-orange rad-6 p-10" href="/vgtutor/tutor/chat/chat.php"><i class="fa-solid fa-message fa-fw"></i><span>Messages</span></a></li>
-            <li><a class="d-flex align-center fs-14 c-orange rad-6 p-10" href="/vgtutor/tutor/switch_to_student.php"><i class="fa-solid fa-user fa-fw"></i><span>Student Mode</span></a></li>
             <li><a class="d-flex align-center fs-14 c-orange rad-6 p-10" href="/vgtutor/tutor/session/session.php"><i class="fa-solid fa-calendar-days fa-fw"></i><span>Session</span></a></li>
             <li><a class="d-flex align-center fs-14 c-orange rad-6 p-10" href="/vgtutor/tutor/course/course_offered.php"><i class="fa-solid fa-book fa-fw"></i><span>Offered course</span></a></li>
             <li><a class="d-flex align-center fs-14 c-orange rad-6 p-10" href="/vgtutor/tutor/course/course.php"><i class="fa-solid fa-book fa-fw"></i><span>Available Course</span></a></li>
@@ -130,7 +129,7 @@ if (isset($_SESSION['studentid'])) {
         </ul>
     </div>
     <!-- Bottom Button -->
-    <div class="sidebar1-bottom">
+    <div class="sidebar1-bottom" style="margin-top:auto;">
         <button id="contactAdminBtn"
             onmouseover="this.style.background='#FF5757'"
             onmouseout="this.style.background='#FF8D8D'">Contact with Admin</button>
