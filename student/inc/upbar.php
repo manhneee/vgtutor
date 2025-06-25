@@ -70,25 +70,24 @@ if ($user_id_receive) {
       <!-- Notification Bell -->
       <div class="notif-wrapper position-relative" style="position: relative;">
         <div style="position: relative; display: inline-block;">
-          <i id="notifBell"
-            class="fa fa-bell"
-            style="cursor: pointer; color: #FF951F; font-size: 2.2rem;"></i>
+          <i id="notifBell" class="fa-solid fa-bell" style="margin-right: 10px;"></i>
           <?php if ($unread_count > 0): ?>
             <span id="notifDot"
-              style="
+                style="
                   position: absolute;
-                  top: 0;
-                  right: 0;
-                  width: 16px;
-                  height: 16px;
+                  top: 0px;
+                  right: -3px;
+                  width: 8px;
+                  height: 8px;
                   background-color: red;
                   border-radius: 50%;
                   display: inline-block;
                   color: #fff;
-                  font-size: 11px;
+                  font-size: 8px;
                   font-weight: 600;
                   text-align: center;
-                  line-height: 16px;
+                  line-height: 11px;
+                  margin-right: 10px;
                 "><?= $unread_count > 1 ? $unread_count : '' ?></span>
           <?php endif; ?>
         </div>
