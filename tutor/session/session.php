@@ -24,7 +24,7 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
             if ($status === 'accepted') {
                 $stmt2 = $conn->prepare("UPDATE session SET paid = 1 WHERE studentid = ? AND tutorid = ? AND courseid = ? AND date_and_time = ?");
                 $stmt2->execute([$studentid, $_SESSION['tutorid'], $courseid, $date_and_time]);
-                addNotification($conn, $studentid, $_SESSION['tutorid'], "Payment Accepted", "Your payment for the session has been <strong>accepted</strong> by the tutor. Your session is now confirmed.", "Payment");
+                addNotification($conn, $studentid, $_SESSION['tutorid'], "Payment Accepted", "Your payment for the session has been accepted by the tutor. Your session is now confirmed.", "Payment");
             }
 
             // If denied, log reason to chat
@@ -103,10 +103,7 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
                                 <?php if (count($sessions) > 0): ?>
                                     <?php foreach ($sessions as $session): ?>
                                         <div class="friend bg-white rad-6 p-20 p-relative">
-                                            <div class="contact">
-                                                <i class="fa-solid fa-phone"></i>
-                                                <i class="fa-regular fa-envelope"></i>
-                                            </div>
+
                                             <div class="txt-c">
                                                 <img class="rad-half mt-10 mb-10 w-100 h-100" src="../../img/avatar.png" alt="Student Avatar" />
                                                 <h4 class="m-0">
