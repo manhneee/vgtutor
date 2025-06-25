@@ -20,7 +20,7 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
                     $_SESSION['adminid'],          // user_id_send
                     "Successful Tutor Registration",          // title
                     "Your request to become a Tutor has been approved by admin.", // message
-                    "Tutor registration"           // type
+                    "Registration"           // type
                 );
             } elseif ($action === 'deny') {
                 addNotification(
@@ -29,7 +29,7 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
                     $_SESSION['adminid'],          // user_id_send
                     "Failed Tutor Registration",          // title
                     "Your request to become a Tutor has been denied by admin.", // message
-                    "Tutor_registration"           // type
+                    "Registration"           // type
                 );
             }
             // Refresh data after action

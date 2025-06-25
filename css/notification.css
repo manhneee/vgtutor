@@ -1,49 +1,68 @@
-  .notifications {
-    max-width: 800px;
-    margin: 30px auto;
-    font-family: 'Open Sans', sans-serif;
-  }
+.notifications {
+  max-width: 600px;
+  margin: 40px auto 0 auto;
+  font-family: 'Open Sans', 'Inter', Arial, sans-serif;
+  padding-bottom: 60px;
+}
 
-  .notification-list {
-    list-style: none;
-    padding: 0;
-  }
+.notification-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-  .notification-item {
-    border-radius: 10px;
-    padding: 15px 20px;
-    margin-bottom: 15px;
-    background-color: #fff8f2;
-    border-left: 4px solid #ffa94d;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    transition: background 0.2s ease;
-  }
+.notification-item {
+  border-radius: 12px;
+  padding: 20px 24px 14px 24px;
+  margin-bottom: 20px;
+  background-color: #fff8f2;
+  border-left: 5px solid #ffa94d;
+  box-shadow: 0 2px 16px rgba(255, 167, 77, 0.09), 0 1.5px 4px rgba(0,0,0,0.06);
+  transition: background 0.18s;
+  position: relative;
+}
 
-  .notification-item:hover {
-    background-color: #fff0e6;
-  }
+.notification-item:hover {
+  background-color: #fff2e0;
+}
 
-  .notification-item strong {
-    color: #f57c00;
-  }
+.notification-title {
+  color: #e65100;
+  font-size: 1.07rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
 
-  .notification-item em {
-    font-style: normal;
-    font-weight: 500;
-    color: #333;
-  }
+.notification-message {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 4px;
+}
 
-  .notification-item span {
-    font-size: 13px;
-    color: #888;
-  }
+.notification-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-size: 13px;
+  color: #888;
+  margin-top: 8px;
+  gap: 18px;
+}
 
-  .notifications h2 {
-    color: #f57c00;
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
+.notification-meta .sender {
+  color: #888;
+  font-style: italic;
+  font-size: 12px;
+}
 
-  .c-grey {
-    color: #777 !important;
-  }
+.notifications h2 {
+  color: #f57c00;
+  font-size: 1.4rem;
+  margin-bottom: 22px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.c-grey {
+  color: #777 !important;
+}

@@ -109,34 +109,8 @@ INSERT INTO `course_offering` (`tutorid`, `courseid`, `tutor_grade`, `rating`, `
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `error_reports`
---
-
-CREATE TABLE `error_reports` (
-  `id` int(11) NOT NULL,
-  `datetime` datetime DEFAULT NULL,
-  `user` varchar(100) DEFAULT NULL,
-  `subject` varchar(255) DEFAULT NULL,
-  `message` text DEFAULT NULL,
-  `status` tinyint(1) DEFAULT 0,
-  `source` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `error_reports`
---
-
-INSERT INTO `error_reports` (`id`, `datetime`, `user`, `subject`, `message`, `status`, `source`) VALUES
-(2, '2025-06-17 23:51:42', '10422047', 'taskbar error', 'cannot press dashboard button on taskbar in sessions page', 0, 'tutor');
 
 -- --------------------------------------------------------
-CREATE TABLE error_report_images (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    report_id INT,
-    image_path VARCHAR(255),
-    uploaded_at DATETIME
-);
 
 --
 -- Table structure for table `payment_confirmation`
@@ -213,27 +187,11 @@ INSERT INTO `review` (`studentid`, `tutorid`, `courseid`, `rating`, `review`, `d
 (10422047, 10822002, 1229, '4', 'good', '2025-06-17 19:57:16');
 
 -- --------------------------------------------------------
-CREATE TABLE notifications (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255),
-    user_id_send BIGINT,
-    user_id_receive BIGINT,
-    type VARCHAR(50),
-    message TEXT,
-    is_read TINYINT(1),
-    created_at DATETIME
-);
 
 
-CREATE TABLE password_resets (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255),
-    token VARCHAR(255),
-    expires_at DATETIME,
-    created_at DATETIME
-);
 
---
+
+-
 -- Table structure for table `session`
 --
 
@@ -363,10 +321,53 @@ ALTER TABLE `course_offering`
   ADD KEY `courseid` (`courseid`);
 
 --
--- Indexes for table `error_reports`
+CREATE TABLE `error_reports` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `datetime` datetime DEFAULT NULL,
+  `user` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `subject` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `message` text COLLATE utf8mb4_general_ci,
+  `status` varchar(20) COLLATE utf8mb4_general_ci DEFAULT 'not yet',
+  `source` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+CREATE TABLE `error_report_images` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `report_id` int(11) NOT NULL,
+  `image_path` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `uploaded_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `report_id` (`report_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+CREATE TABLE `password_resets` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
+  `expires_at` datetime NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `token` (`token`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+CREATE TABLE `notifications` (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    title VARCHAR(255) DEFAULT NULL,
+    user_id_send INT(11) DEFAULT NULL,
+    user_id_receive INT(11) NOT NULL,
+    type VARCHAR(50) DEFAULT NULL,
+    message VARCHAR(255) NOT NULL,
+    is_read TINYINT(1) DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 --
-ALTER TABLE `error_reports`
-  ADD PRIMARY KEY (`id`);
+
 
 --
 -- Indexes for table `payment_confirmation`
@@ -418,10 +419,7 @@ ALTER TABLE `tutor_registration`
 --
 
 --
--- AUTO_INCREMENT for table `error_reports`
---
-ALTER TABLE `error_reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 
 --
 -- AUTO_INCREMENT for table `payment_confirmation`

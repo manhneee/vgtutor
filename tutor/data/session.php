@@ -1,6 +1,7 @@
 <?php
 // Get new (unnotified) session for this tutor
-function getNewSessionNotification($conn, $tutorid) {
+function getNewSessionNotification($conn, $tutorid)
+{
     $stmt = $conn->prepare(
         "SELECT s.*, st.name AS student_name, c.course_name
          FROM session s
@@ -15,15 +16,25 @@ function getNewSessionNotification($conn, $tutorid) {
 
 
 // Mark session as notified
-function markSessionNotified($conn, $studentid, $tutorid, $courseid, $date_and_time) {
+function markSessionNotified($conn, $studentid, $tutorid, $courseid, $date_and_time)
+{
     $stmt = $conn->prepare(
         "UPDATE session SET notified = 1 WHERE studentid = ? AND tutorid = ? AND courseid = ? AND date_and_time = ?"
     );
     return $stmt->execute([$studentid, $tutorid, $courseid, $date_and_time]);
 }
 
+function getCourseName($conn, $courseid)
+{
+    $course_stmt = $conn->prepare("SELECT course_name FROM course WHERE courseid = ?");
+    $course_stmt->execute([$courseid]);
+    $course_row = $course_stmt->fetch(PDO::FETCH_ASSOC);
+    return $course_row ? $course_row['course_name'] : '';
+}
+
 //Get tutor sessions
-function getTutorSessions($conn, $tutorid) {
+function getTutorSessions($conn, $tutorid)
+{
     $stmt = $conn->prepare(
         "SELECT s.*, 
                 sa.name AS student_name, 
@@ -41,7 +52,8 @@ function getTutorSessions($conn, $tutorid) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 //tu add
-function getTutorPendingSessions($conn, $tutorid) {
+function getTutorPendingSessions($conn, $tutorid)
+{
     $sql = "SELECT 
                 sa.name AS student_name, 
                 c.course_name, 
@@ -61,7 +73,8 @@ function getTutorPendingSessions($conn, $tutorid) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getAllTutorSessionNotifications($conn, $tutorid) {
+function getAllTutorSessionNotifications($conn, $tutorid)
+{
     $sql = "SELECT s.*, 
                    sa.name AS student_name, 
                    c.course_name AS course_name
@@ -80,7 +93,8 @@ function getAllTutorSessionNotifications($conn, $tutorid) {
  * Get pending sessions for a tutor and a student.
  * Joins session with course table to obtain course_name.
  */
-function getPendingSessions($conn, $tutorid, $studentid) {
+function getPendingSessions($conn, $tutorid, $studentid)
+{
     $query = "SELECT s.tutorid as tutorid, s.studentid as studentid, s.consensus as consensus, s.courseid as courseid, c.course_name as course_name, s.duration as duration, s.place as place, s.date_and_time as date_and_time
               FROM session s
               JOIN course c ON s.courseid = c.courseid
@@ -94,12 +108,12 @@ function getPendingSessions($conn, $tutorid, $studentid) {
 /**
  * Update the consensus for a session identified by tutorid, studentid, courseid, and date_and_time.
  */
-function updateConsensus($conn, $action, $tutorid, $studentid, $courseid, $date_and_time) {
-    if($action == "accept") {
+function updateConsensus($conn, $action, $tutorid, $studentid, $courseid, $date_and_time)
+{
+    if ($action == "accept") {
         $query = "UPDATE session SET consensus = 'accepted' 
                   WHERE tutorid = ? AND studentid = ? AND courseid = ? AND date_and_time = ?";
-    }
-    else if($action == "deny") {
+    } else if ($action == "deny") {
         $query = "UPDATE session SET consensus = 'denied' 
                   WHERE tutorid = ? AND studentid = ? AND courseid = ? AND date_and_time = ?";
     }
@@ -108,11 +122,10 @@ function updateConsensus($conn, $action, $tutorid, $studentid, $courseid, $date_
     return $stmt->rowCount();
 }
 
-function updateSessionDetails($conn, $tutorid, $studentid, $courseid, $originalDateTime, $newPlace, $newDateTime, $newDuration) {
+function updateSessionDetails($conn, $tutorid, $studentid, $courseid, $originalDateTime, $newPlace, $newDateTime, $newDuration)
+{
     $query = "UPDATE session SET place = ?, date_and_time = ?, duration = ?
               WHERE tutorid = ? AND studentid = ? AND courseid = ? AND date_and_time = ?";
     $stmt = $conn->prepare($query);
     return $stmt->execute([$newPlace, $newDateTime, $newDuration, $tutorid, $studentid, $courseid, $originalDateTime]);
 }
-
-?>

@@ -158,7 +158,7 @@ if ($user_id_receive) {
               border-top: 1px solid #FFD59A;
               background: transparent;
            ">
-            <a href="/vgtutor/student/notification_student.php"
+            <a href="/vgtutor/tutor/notification_tutor.php"
               style="
                 color:#FF951F;
                 font-weight:700;

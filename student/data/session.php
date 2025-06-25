@@ -34,10 +34,6 @@ function getStudentSessions($conn, $studentid)
 }
 
 
-
-
-
-
 function getAllStudentSessionNotifications($conn, $studentid)
 {
     $sql = "SELECT s.*, 

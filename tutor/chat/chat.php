@@ -11,7 +11,6 @@ $username = $_SESSION['name'];
 include "../../DB_connection.php";
 include "../data/chatHandle.php";
 include "../data/session.php";
-include "../data/courseSelection.php";
 include_once dirname(__DIR__, 2) . '/student/data/notifications.php';
 
 

@@ -10,21 +10,7 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
     $sessions = getStudentSessions($conn, $_SESSION['studentid']);
     $courses = searchCourse($conn, '', '', '');
 
-    // 1. Thông báo bị từ chối trở thành tutor
-    $showDeniedMsg = false;
-    $deniedAt = null;
-    $stmt = $conn->prepare("SELECT status, denied_at FROM tutor_registration WHERE studentid = ? ORDER BY denied_at DESC LIMIT 1");
-    $stmt->execute([$_SESSION['studentid']]);
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    if ($row && $row['status'] === 'denied' && $row['denied_at']) {
-      $deniedAt = strtotime($row['denied_at']);
-      // Show alert only if this is the first page load after denial (within 10 seconds)
-      if (time() - $deniedAt < 10) {
-        $showDeniedMsg = true;
-      }
-    }
-
-    // 2. Thông báo payment denied (có thể dismiss)
+    // 1. Thông báo payment denied (có thể dismiss)
     if (isset($_POST['hide_payment_denied'])) {
       $_SESSION['hide_payment_denied'] = true;
       header("Location: " . $_SERVER['PHP_SELF']);
@@ -39,7 +25,7 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
     $stmt->execute([$_SESSION['studentid']]);
     $paymentDenied = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // 3. Kiểm tra xem người dùng có phải là tutor không
+    // 2. Kiểm tra xem người dùng có phải là tutor không
     $isTutor = false;
     $stmt = $conn->prepare("SELECT 1 FROM tutor_account WHERE accountid = ?");
     $stmt->execute([$_SESSION['studentid']]);
@@ -73,17 +59,6 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
     <body>
       <div class="page d-flex">
         <?php include_once 'inc/navbar.php'; ?> <!-- LEFT SIDEBAR -->
-        <?php if ($showDeniedMsg): ?>
-          <div class="alert alert-danger text-center" id="denied-alert" style="margin-top:16px;">
-            Your application to become a Tutor has been <strong>denied</strong>. Please register again after 3 days.
-          </div>
-          <script>
-            setTimeout(function() {
-              var alertBox = document.getElementById('denied-alert');
-              if (alertBox) alertBox.style.display = 'none';
-            }, 30000); // 30 seconds
-          </script>
-        <?php endif; ?>
 
         <?php if (!empty($paymentDenied) && empty($_SESSION['hide_payment_denied'])): ?>
           <div class="alert alert-danger text-center" id="payment-denied-alert" style="margin-top:16px;">
