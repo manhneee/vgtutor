@@ -3,8 +3,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$sName = "192.168.1.46";
-$uName = "dynamichost";
+$sName = "localhost";
+$uName = "root"; // Change this to your MySQL username
 $pass = "";
 $db_name = "vgtutor";
 $port = 3306; // or 3306 if that's your MySQL port
