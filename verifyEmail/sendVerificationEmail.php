@@ -12,6 +12,7 @@ function sendVerificationEmail($email, $token)
     try {
         // Cấu hình SMTP (điền info gmail của bạn)
         $mail->isSMTP();
+        $mail->SMTPKeepAlive = true;
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'no.reply.vgtutor@gmail.com';

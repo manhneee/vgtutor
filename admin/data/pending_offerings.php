@@ -1,7 +1,8 @@
 <?php
 include "../../DB_connection.php";
 
-function getAllPendingOfferings($conn) {
+function getAllPendingOfferings($conn)
+{
     $sql = "
         SELECT 
             po.tutorid,
@@ -24,7 +25,17 @@ function getAllPendingOfferings($conn) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function processPendingOfferingAction($conn, $action, $tutorid, $courseid, $grade = null, $price = null) {
+
+function addNotification($conn, $user_id_receive, $user_id_send, $title, $message, $type = 'system')
+{
+    $stmt = $conn->prepare("INSERT INTO notifications 
+        (user_id_receive, user_id_send, title, message, type, is_read, created_at) 
+        VALUES (?, ?, ?, ?, ?, 0, NOW())");
+    $stmt->execute([$user_id_receive, $user_id_send, $title, $message, $type]);
+}
+
+function processPendingOfferingAction($conn, $action, $tutorid, $courseid, $grade = null, $price = null)
+{
     if ($action === 'permit') {
         // Insert into offering table
         $insertSql = "INSERT INTO course_offering (tutorid, courseid, tutor_grade, rating, price) VALUES (?, ?, ?, NULL, ?)";
@@ -43,11 +54,11 @@ function processPendingOfferingAction($conn, $action, $tutorid, $courseid, $grad
     }
 }
 
-function getPendingOfferingStatus($conn, $tutorid, $courseid) {
+function getPendingOfferingStatus($conn, $tutorid, $courseid)
+{
     $sql = "SELECT status FROM pending_offering WHERE tutorid = ? AND courseid = ?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$tutorid, $courseid]);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     return $row ? $row['status'] : null;
 }
-?>
