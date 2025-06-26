@@ -57,6 +57,9 @@ if (isset($_SESSION['adminid']) &&
                 <a href="report_processing/getReport.php" class="col btn btn-danger m-2 py-3">
                     <i class="fa fa-comments fs-1" aria-hidden="true"></i><br>Reports
                 </a>
+                <a href="../logout.php" class="col btn btn-warning m-2 py-3 col-5 text-white">
+                    <i class="fa fa-sign-out fs-1" aria-hidden="true"></i><br>Logout
+                </a>
             </div>
         </div>
     </div>

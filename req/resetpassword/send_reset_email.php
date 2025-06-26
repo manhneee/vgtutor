@@ -41,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
                 // Send the reset email
                 $mail = new PHPMailer(true);
+                $mail->SMTPKeepAlive = true; // Keep connection alive
                 $mail->isSMTP();
                 $mail->Host       = 'smtp.gmail.com';
                 $mail->SMTPAuth   = true;
