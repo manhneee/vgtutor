@@ -1,29 +1,30 @@
 <?php
 session_start();
 if (!isset($_SESSION['tutorid']) || $_SESSION['role'] !== 'Tutor') {
-    header("Location: ../login.php?error=Unauthorized access");
-    exit;
+  header("Location: ../login.php?error=Unauthorized access");
+  exit;
 }
 
 include_once "../DB_connection.php";
-include_once "data/session.php";
+include_once "../student/data/notifications.php";
+
+
 
 $tutorid = $_SESSION['tutorid'];
-$allNotifications = getAllTutorSessionNotifications($conn, $tutorid);
+$allNotifications = getAllNotifications($conn, $tutorid, 100, 'tutor');
 
-// Optionally mark them as seen if not already
+// Optionally mark as read (is_read = 1)
 foreach ($allNotifications as $noti) {
-    if (!$noti['notified']) {
-        markSessionNotified($conn, $noti['studentid'], $noti['tutorid'], $noti['courseid'], $noti['date_and_time']);
-    }
+  if (isset($noti['is_read']) && !$noti['is_read']) {
+    $stmt = $conn->prepare("UPDATE notifications SET is_read = 1 WHERE id = ?");
+    $stmt->execute([$noti['id']]);
+  }
 }
 ?>
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>All Notifications</title>
@@ -32,32 +33,39 @@ foreach ($allNotifications as $noti) {
   <link rel="stylesheet" href="../css/master.css">
   <link rel="stylesheet" href="../css/notification.css">
 </head>
+
 <body>
- <div class="page d-flex">
-        <?php include_once '../tutor/inc/navbar.php'; ?> <!-- LEFT BAR -->
+  <div class="page d-flex">
+    <?php include_once 'inc/navbar.php'; ?> <!-- LEFT BAR -->
 
-        <div class="content w-full">
-        <?php include_once '../tutor/inc/upbar.php'; ?> <!-- upbar -->
+    <div class="content w-full">
+      <?php include_once 'inc/upbar.php'; ?> <!-- UPBAR -->
 
-    <div class="notifications p-20">
-      <h2 class="mb-4 c-orange">All Notifications</h2>
+      <div class="notifications p-20">
+        <h2 class="mb-4 c-orange">All Notifications</h2>
 
-      <?php if (!empty($allNotifications)): ?>
-        <ul class="notification-list">
-          <?php foreach ($allNotifications as $n): ?>
-            <li class="notification-item bg-white p-15 rad-6 mb-10 shadow-sm">
-              <div>
-                <strong><?= htmlspecialchars($n['student_name']) ?></strong> registered for 
-                <em><?= htmlspecialchars($n['course_name']) ?></em> on 
-                <span class="c-grey"><?= htmlspecialchars($n['date_and_time']) ?></span>.
-              </div>
-            </li>
-          <?php endforeach; ?>
-        </ul>
-      <?php else: ?>
-        <p class="c-grey">You have no notifications yet.</p>
-      <?php endif; ?>
+        <?php if (!empty($allNotifications)): ?>
+          <ul class="notification-list">
+            <?php foreach ($allNotifications as $n): ?>
+              <li class="notification-item bg-white p-15 rad-6 mb-10 shadow-sm">
+                <div>
+                  <span class="c-grey fs-13"><?= htmlspecialchars($n['created_at']) ?></span>
+                  <div class="fw-bold mb-6"><?= htmlspecialchars($n['title']) ?></div>
+                  <div><?= htmlspecialchars($n['message']) ?></div>
+                  <?php if (!empty($n['sender_name'])): ?>
+                    <div class="fs-13 c-grey mt-5">From: <?= htmlspecialchars($n['sender_name']) ?></div>
+                  <?php endif; ?>
+                </div>
+              </li>
+            <?php endforeach; ?>
+          </ul>
+        <?php else: ?>
+          <p class="c-grey">You have no notifications yet.</p>
+        <?php endif; ?>
+
+      </div>
     </div>
   </div>
 </body>
+
 </html>

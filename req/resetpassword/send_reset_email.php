@@ -48,12 +48,24 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
                 $mail->Password   = 'psxp ijkl mlsr lmrw';
                 $mail->SMTPSecure = 'tls';
                 $mail->Port       = 587;
-
+                $mail->SMTPOptions = [
+                    'ssl' => [
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                        'allow_self_signed' => true,
+                    ],
+                ];
                 $mail->setFrom('no.reply.vgtutor@gmail.com', 'VGtUtor');
                 $mail->addAddress($email);
                 $mail->isHTML(true);
                 $mail->Subject = 'VGtUtor Password Reset Request';
-                $resetLink    = "http://localhost/vgtutor/student/resetpassword/reset_password.php?token={$token}";
+
+                // Build dynamic base URL
+                $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
+                $host = $_SERVER['HTTP_HOST'];
+                $baseUrl = $protocol . $host;
+
+                $resetLink = $baseUrl . "/vgtutor/student/resetpassword/reset_password.php?token={$token}";
                 $mail->Body    = "
                     <p>Dear VGtUtor user,</p>
                     <p>We received a request to reset your password. Please click the link below to proceed:</p>

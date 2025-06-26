@@ -269,7 +269,7 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
             </script>
 
             <!-- Payment Modal -->
-            <div class="popup" id="payModal" style="display: none;">
+            <div class="popup" id="payModal" style="display: none;">Add commentMore actions
                 <div style="max-width:500px;margin:60px auto;padding:28px 26px;position:relative;">
                     <form method="post" enctype="multipart/form-data" class="popup-content">
                         <h3>Payment Confirmation</h3>
@@ -298,9 +298,8 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                     </form>
                 </div>
             </div>
-
             <!-- Review Modal -->
-            <div class="popup" id="reviewModal" style="display: none;">
+            <div class="popup" id="reviewModal" style="display: none;">Add commentMore actions
                 <div style="max-width:500px;margin:60px auto;padding:28px 26px;position:relative;">
                     <form action="../review_process/submit_review.php" method="post" class="popup-content">
                         <h3>Leave a Review</h3>
@@ -319,6 +318,7 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                             <button type="button" onclick="closeModal('reviewModal')" class="btn-shape">Cancel</button>
                         </div>
                     </form>
+                </div>
             </div>
             </div>
 

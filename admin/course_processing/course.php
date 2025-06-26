@@ -16,12 +16,12 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role']) && $_SESSION['role']
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="icon" href="../../img/logo.png">
 </head>
-<body class="body-home">
+<body class="body-home" >
     <?php include "../inc/navbar.php"; ?>
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="mb-0">Courses</h2>
-            <a href="addCourse.php" class="btn bg-orange text-white">
+            <a href="addCourse.php" class="btn bg-orange text-black border border-dark">
                 <i class="fa fa-plus"></i> Add New Course
             </a>
         </div>

@@ -62,6 +62,17 @@ if ($user_id_receive) {
   <!-- Start Head -->
   <div class="head bg-white p-15 between-flex">
     <div class="d-flex align-items-center" style="margin-left:auto;">
+      <!-- Mode Switch Button -->
+        <?php if ($isTutor): ?>
+          <div style="margin-right: 18px; display: flex; align-items: center;">
+            <button id="switchModeBtn" style="background: none; border: 1.5px solid #FF951F; color: #FF951F; padding: 4px 14px; border-radius: 7px; font-size: 1em; font-weight: 600; cursor: pointer; transition: background 0.2s, color 0.2s;"
+              onmouseover="this.style.background='#FFF5E6'; this.style.color='#FF951F';"
+              onmouseout="this.style.background='none'; this.style.color='#FF951F';">
+              Switch to Tutor Mode
+            </button>
+          </div>
+        <?php endif; ?>
+        
       <!-- User Info -->
       <div class="text-end" style="font-family: 'Open Sans', sans-serif; margin-right:10px;">
         <div class="fw-semibold text-dark"><?= htmlspecialchars($name) ?></div>
@@ -70,111 +81,109 @@ if ($user_id_receive) {
       <!-- Notification Bell -->
       <div class="notif-wrapper position-relative" style="position: relative;">
         <div style="position: relative; display: inline-block;">
-          <i id="notifBell"
-            class="fa fa-bell"
-            style="cursor: pointer; color: #FF951F; font-size: 2.2rem;"></i>
+          <i id="notifBell" class="fa-solid fa-bell" style="margin-right: 10px;"></i>
           <?php if ($unread_count > 0): ?>
             <span id="notifDot"
-              style="
+                style="
                   position: absolute;
-                  top: 0;
-                  right: 0;
-                  width: 16px;
-                  height: 16px;
+                  top: 0px;
+                  right: -3px;
+                  width: 8px;
+                  height: 8px;
                   background-color: red;
                   border-radius: 50%;
                   display: inline-block;
                   color: #fff;
-                  font-size: 11px;
+                  font-size: 8px;
                   font-weight: 600;
                   text-align: center;
-                  line-height: 16px;
+                  line-height: 11px;
+                  margin-right: 10px;
                 "><?= $unread_count > 1 ? $unread_count : '' ?></span>
           <?php endif; ?>
         </div>
-        <!-- Dropdown Panel -->
-        <div id="notifPanel"
-          class="notification-dropdown"
+      </div>
+      <!-- Dropdown Panel -->
+      <div id="notifPanel"
+        class="notification-dropdown"
+        style="
+           display: none;
+           position: absolute;
+           top: 120%;
+           right: 0;
+           background-color: white;
+           border: 1px solid #ddd;
+           box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+           z-index: 999;
+           width: 320px;
+           border-radius:8px;
+         ">
+        <div class="dropdown-header"
           style="
-             display: none;
-             position: absolute;
-             top: 120%;
-             right: 0;
-             background-color: white;
-             border: 1px solid #ddd;
-             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-             z-index: 999;
-             width: 320px;
-             border-radius:8px;
-           ">
-          <div class="dropdown-header"
-            style="
-              text-align:center;
-              font-size:1.18em;
-              font-weight:800;
-              color:#FF951F;
-              padding: 14px 0 10px 0;
-              border-bottom: 1px solid #FFD59A;
-              background: transparent;
-              letter-spacing: 0.5px;
-           ">
-            Notifications
-          </div>
-          <div class="dropdown-body" style="max-height: 300px; overflow-y: auto;">
-            <?php if (empty($notifications)): ?>
-              <div class="dropdown-item p-2">
-                <span>No notifications.</span>
-              </div>
-            <?php else: ?>
-              <?php foreach ($notifications as $notif): ?>
-                <div
-                  class="dropdown-item"
-                  style="
-                    background: #fff;
-                    border: 2px solid #FFD59A;             /* Viền cam nhạt */
-                    border-radius: 12px;                   /* Bo góc mềm hơn */
-                    margin: 16px 12px;                     /* Cách các cạnh trái phải trên dưới */
-                    box-shadow: 0 2px 10px 0 rgba(255,149,31,0.10); /* Đổ bóng cam nhạt */
-                    padding: 12px 16px;
-                    position: relative;
-                  ">
-                  <div style="font-weight:700; color:#FF951F; font-size: 1.09em; margin-bottom: 2px;">
-                    <?= htmlspecialchars($notif['title']) ?>
-                  </div>
-                  <div style="font-size:15px; color:#222; margin-bottom:3px;">
-                    <?= nl2br(htmlspecialchars($notif['message'])) ?>
-                  </div>
-                  <div style="font-size:12px;color:#888">
-                    <?= date('d/m/Y H:i', strtotime($notif['created_at'])) ?>
-                  </div>
+            text-align:center;
+            font-size:1.18em;
+            font-weight:800;
+            color:#FF951F;
+            padding: 14px 0 10px 0;
+            border-bottom: 1px solid #FFD59A;
+            background: transparent;
+            letter-spacing: 0.5px;
+         ">
+          Notifications
+        </div>
+        <div class="dropdown-body" style="max-height: 300px; overflow-y: auto;">
+          <?php if (empty($notifications)): ?>
+            <div class="dropdown-item p-2">
+              <span>No notifications.</span>
+            </div>
+          <?php else: ?>
+            <?php foreach ($notifications as $notif): ?>
+              <div
+                class="dropdown-item"
+                style="
+                  background: #fff;
+                  border: 2px solid #FFD59A;             /* Viền cam nhạt */
+                  border-radius: 12px;                   /* Bo góc mềm hơn */
+                  margin: 16px 12px;                     /* Cách các cạnh trái phải trên dưới */
+                  box-shadow: 0 2px 10px 0 rgba(255,149,31,0.10); /* Đổ bóng cam nhạt */
+                  padding: 12px 16px;
+                  position: relative;
+                ">
+                <div style="font-weight:700; color:#FF951F; font-size: 1.09em; margin-bottom: 2px;">
+                  <?= htmlspecialchars($notif['title']) ?>
                 </div>
-              <?php endforeach; ?>
-            <?php endif; ?>
-          </div>
-          <div class="dropdown-footer"
+                <div style="font-size:15px; color:#222; margin-bottom:3px;">
+                  <?= nl2br(htmlspecialchars($notif['message'])) ?>
+                </div>
+                <div style="font-size:12px;color:#888">
+                  <?= date('d/m/Y H:i', strtotime($notif['created_at'])) ?>
+                </div>
+              </div>
+            <?php endforeach; ?>
+          <?php endif; ?>
+        </div>
+        <div class="dropdown-footer"
+          style="
+            text-align:center;
+            padding: 12px 0 6px 0;
+            border-top: 1px solid #FFD59A;
+            background: transparent;
+         ">
+          <a href="/vgtutor/student/notification_student.php"
             style="
-              text-align:center;
-              padding: 12px 0 6px 0;
-              border-top: 1px solid #FFD59A;
-              background: transparent;
-           ">
-            <a href="/vgtutor/student/notification_student.php"
-              style="
-                color:#FF951F;
-                font-weight:700;
-                font-size:1.09em;
-                text-decoration: none;
-                border-radius: 8px;
-                padding: 4px 18px;
-                transition: background 0.2s;
-                display: inline-block;
-             "
-              onmouseover="this.style.background='#FFF5E6'"
-              onmouseout="this.style.background='transparent'">See all</a>
-          </div>
+              color:#FF951F;
+              font-weight:700;
+              font-size:1.09em;
+              text-decoration: none;
+              border-radius: 8px;
+              padding: 4px 18px;
+              transition: background 0.2s;
+              display: inline-block;
+           "
+            onmouseover="this.style.background='#FFF5E6'"
+            onmouseout="this.style.background='transparent'">See all</a>
         </div>
       </div>
-      <!-- End Notification Bell -->
     </div>
   </div>
   <!-- End Head -->
@@ -197,6 +206,14 @@ if ($user_id_receive) {
           panel.style.display = "none";
         }
       });
+    }
+
+    // Mode switch button
+    var switchBtn = document.getElementById('switchModeBtn');
+    if (switchBtn) {
+      switchBtn.onclick = function() {
+        window.location.href = '/vgtutor/student/switch_to_tutor.php';
+      };
     }
   });
 </script>

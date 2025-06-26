@@ -1,10 +1,18 @@
 <?php
 session_start();
 include "DB_connection.php";
-// Xử lý đăng ký
+require_once 'req/signup.php';
 $success = $error = "";
+
+// Đăng ký (Signup)
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['signup_btn'])) {
-    include "req/signup.php";
+    file_put_contents("debug.txt", date("c") . " - Signup POST: " . json_encode($_POST) . "\n", FILE_APPEND);
     $result = registerStudent(
         $conn,
         $_POST['studentid'],
@@ -15,12 +23,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['signup_btn'])) {
         $_POST['intake']
     );
     if ($result === true) {
-        $success = "Sign up successfully!";
+        $success = "Sign up successfully! Please check your email to verify your account.";
     } else {
         $error = $result;
     }
 }
-// Xử lý đăng nhập (chuyển sang req/login.php, nên chỉ hiển thị lỗi nếu có)
+
+
+
+// Đăng nhập (Signin) - Chỉ hiện lỗi nếu có
 $login_error = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : "";
 ?>
 <!DOCTYPE html>
@@ -32,10 +43,99 @@ $login_error = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : "";
     <title>VGtUtor</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <link rel="stylesheet" href="css/login1.css" />
+    <style>
+        .popupsignup {
+            position: fixed;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            min-width: 350px;
+            max-width: 90vw;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 32px rgba(0, 0, 0, 0.18);
+            border: 2px solid #53c9b4;
+            z-index: 9999;
+            padding: 32px 30px 24px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: popupfade 0.35s;
+        }
+
+        @keyframes popupfade {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -24px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        .popupsignup .close-btn {
+            position: absolute;
+            top: 8px;
+            right: 16px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #888;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .popupsignup .close-btn:hover {
+            color: #3bc8a3;
+        }
+
+        .popupsignup .popup-content {
+            text-align: center;
+        }
+
+        .popupsignup h2 {
+            margin-top: 0;
+            color: #34b6a8;
+            font-size: 1.4em;
+            margin-bottom: 12px;
+        }
+
+        .popupsignup p {
+            color: #333;
+            margin: 0;
+            font-size: 1.08em;
+        }
+
+
+        input[type="email"]:invalid {
+            border: 2px solid #e34b4b !important;
+            background: #fff7f7 !important;
+        }
+
+        input[type="email"]:focus:invalid {
+            outline: 2px solid #e34b4b !important;
+        }
+    </style>
+
 
 </head>
 
 <body>
+    <?php if ($success): ?>
+        <div class="popupsignup" id="popupsignup">
+            <span class="close-btn" onclick="document.getElementById('popupsignup').style.display='none';">&times;</span>
+            <div class="popup-content">
+                <h2>Registration Received!</h2>
+                <p>
+                    Thank you for registering.<br>
+                    Please <strong>check the email which you used to sign up</strong> and click the verification link to activate your account.
+                </p>
+            </div>
+        </div>
+    <?php endif; ?>
+
+
     <div class="container" id="container">
         <!-- SIGN UP FORM -->
         <div class="form-container sign-up">
@@ -51,11 +151,15 @@ $login_error = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : "";
                 <input type="password" name="password" placeholder="Password" required oninput="checkPasswordMatch()" />
                 <input type="password" name="confirm_password" placeholder="Confirm Password" required oninput="checkPasswordMatch()" />
                 <input type="text" name="fullname" placeholder="Full Name" required />
-                <input type="email" name="email" placeholder="Student Email" required />
+                <label for="email" style="font-size: 0.6em; color: #444; margin-bottom: 3px;">
+                    Student email must be in the format: <strong>...@student.vgu.edu.vn</strong>
+                </label>
+                <input type="email" id="email" name="email" placeholder="Student Email" required
+                    pattern="^[a-zA-Z0-9._%+-]+@student\.vgu\.edu\.vn$"
+                    title="Email must be in the format ...@student.vgu.edu.vn" />
                 <input type="text" name="major" placeholder="Major" required />
                 <input type="text" name="intake" placeholder="Intake" required />
                 <button type="submit" name="signup_btn">Sign Up</button>
-
             </form>
         </div>
         <!-- SIGN IN FORM -->
@@ -67,10 +171,8 @@ $login_error = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : "";
                 <?php endif; ?>
                 <input type="text" name="userid" placeholder="Student ID / Username" required />
                 <input type="password" name="password" placeholder="Password" required />
-
                 <a href="req/resetpassword/forgot_password.php" class="d-block small mb-1">🔒 Forgot your password?</a>
                 <button type="submit" name="signin_btn">Sign In</button>
-
             </form>
         </div>
         <!-- TOGGLE PANEL -->

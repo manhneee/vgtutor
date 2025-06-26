@@ -32,7 +32,7 @@ if (isset($_SESSION['studentid'])) {
         z-index: 1001;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-start;
     }
 
     .sidebar1-header {
@@ -111,17 +111,16 @@ if (isset($_SESSION['studentid'])) {
 
 
 <!-- Begin Sidebar1 -->
-<div class="sidebar1">
+<div class="sidebar1 bg-white p-20 p-relative" style="display: flex; flex-direction: column; height: 100vh;">
     <!-- Header -->
     <div class="sidebar1-header">
         <h3 class="txt-c c-orange mt-0" style="margin-bottom: 10px;">Vgtutor</h3>
     </div>
     <!-- Menu -->
-    <div class="sidebar1-menu">
+    <div class="sidebar1-menu" style="flex: 1 1 auto;">
         <ul>
             <li><a class="d-flex align-center fs-14 c-orange rad-6 p-10" href="/vgtutor/tutor/index.php"><i class="fa-regular fa-chart-bar fa-fw"></i><span>Dashboard</span></a></li>
             <li><a class="d-flex align-center fs-14 c-orange rad-6 p-10" href="/vgtutor/tutor/chat/chat.php"><i class="fa-solid fa-message fa-fw"></i><span>Messages</span></a></li>
-            <li><a class="d-flex align-center fs-14 c-orange rad-6 p-10" href="/vgtutor/tutor/switch_to_student.php"><i class="fa-solid fa-user fa-fw"></i><span>Student Mode</span></a></li>
             <li><a class="d-flex align-center fs-14 c-orange rad-6 p-10" href="/vgtutor/tutor/session/session.php"><i class="fa-solid fa-calendar-days fa-fw"></i><span>Session</span></a></li>
             <li><a class="d-flex align-center fs-14 c-orange rad-6 p-10" href="/vgtutor/tutor/course/course_offered.php"><i class="fa-solid fa-book fa-fw"></i><span>Offered course</span></a></li>
             <li><a class="d-flex align-center fs-14 c-orange rad-6 p-10" href="/vgtutor/tutor/course/course.php"><i class="fa-solid fa-book fa-fw"></i><span>Available Course</span></a></li>
@@ -130,7 +129,7 @@ if (isset($_SESSION['studentid'])) {
         </ul>
     </div>
     <!-- Bottom Button -->
-    <div class="sidebar1-bottom">
+    <div class="sidebar1-bottom" style="margin-top:auto;">
         <button id="contactAdminBtn"
             onmouseover="this.style.background='#FF5757'"
             onmouseout="this.style.background='#FF8D8D'">Contact with Admin</button>
@@ -139,7 +138,7 @@ if (isset($_SESSION['studentid'])) {
 <div id="sidebar1-spacer" style="width:240px;min-width:240px;height:1px;display:block;float:left;"></div>
 <!-- End Sidebar1 -->
 
-<!-- Modal form liên lạc với admin -->
+<!-- Modal form contact to admin -->
 <div id="contactAdminModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:10000;background:rgba(0,0,0,0.35);">
     <div style="max-width:400px;margin:60px auto;background:#fff;border-radius:14px;box-shadow:0 6px 32px #0003;padding:28px 26px;position:relative;">
         <h2 style="margin-top:0;font-size:22px;font-weight:600;color:#205cb2;">Contact with admin</h2>
@@ -159,12 +158,12 @@ if (isset($_SESSION['studentid'])) {
 </div>
 
 <script>
-    // Mở modal
+    // Open modal
     document.getElementById('contactAdminBtn').onclick = function() {
         document.getElementById('contactAdminModal').style.display = 'block';
         document.getElementById('contactAdminMsg').textContent = '';
     }
-    // Đóng modal
+    // Close modal
     document.getElementById('closeContactAdmin').onclick = function(e) {
         e.preventDefault();
         document.getElementById('contactAdminModal').style.display = 'none';
@@ -172,13 +171,13 @@ if (isset($_SESSION['studentid'])) {
         document.getElementById('imagesPreview').innerHTML = '';
     }
 
-    // Preview ảnh
+    // Preview image
     document.getElementById('imagesInput').addEventListener('change', function(e) {
         const preview = document.getElementById('imagesPreview');
         preview.innerHTML = '';
         const files = Array.from(e.target.files);
         if (files.length > 5) {
-            preview.innerHTML = '<span style="color:red;">Chỉ được chọn tối đa 5 ảnh!</span>';
+            preview.innerHTML = '<span style="color:red;">Only choose max 5 images</span>';
             e.target.value = ''; // reset input
             return;
         }
@@ -200,33 +199,33 @@ if (isset($_SESSION['studentid'])) {
         fetch('/vgtutor/req/report_error/handle_ajax.php', {
                 method: 'POST',
                 body: formData,
-                credentials: 'include' // Để gửi cookie session
+                credentials: 'include' // To send session cookie
             })
             .then(async res => {
                 const text = await res.text();
                 try {
                     const data = JSON.parse(text);
                     if (data.status === 'ok') {
-                        document.getElementById('contactAdminMsg').innerHTML = "<span style='color:green'>Gửi thành công!</span>";
+                        document.getElementById('contactAdminMsg').innerHTML = "<span style='color:green'>Successfully!</span>";
                         setTimeout(() => {
                             document.getElementById('contactAdminModal').style.display = 'none';
                             this.reset();
                             document.getElementById('imagesPreview').innerHTML = '';
                         }, 1200);
                     } else {
-                        document.getElementById('contactAdminMsg').innerHTML = "<span style='color:red'>" + (data.message || "Có lỗi xảy ra") + "</span>";
+                        document.getElementById('contactAdminMsg').innerHTML = "<span style='color:red'>" + (data.message || "Error!") + "</span>";
                     }
                 } catch (e) {
                     document.getElementById('contactAdminMsg').innerHTML =
-                        "<span style='color:red'>Server trả về lỗi hoặc không phải JSON:<br><pre>" + text + "</pre></span>";
+                        "<span style='color:red'>Server returned an error or not JSON:<br><pre>" + text + "</pre></span>";
                 }
             })
             .catch(err => {
-                document.getElementById('contactAdminMsg').innerHTML = "<span style='color:red'>Có lỗi mạng (fetch): " + err + "</span>";
+                document.getElementById('contactAdminMsg').innerHTML = "<span style='color:red'>Network Error (fetch): " + err + "</span>";
             });
     };
 
-    // AJAX cho nút X trên bell (ẩn thông báo không reload)
+    // AJAX for the X button on bell (hide notification without reload)
     document.querySelectorAll('.notif-close-form').forEach(function(form) {
         form.onsubmit = function(e) {
             e.preventDefault();

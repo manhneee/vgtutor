@@ -10,36 +10,22 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
     $sessions = getStudentSessions($conn, $_SESSION['studentid']);
     $courses = searchCourse($conn, '', '', '');
 
-    // 1. Thông báo bị từ chối trở thành tutor
-    $showDeniedMsg = false;
-    $deniedAt = null;
-    $stmt = $conn->prepare("SELECT status, denied_at FROM tutor_registration WHERE studentid = ? ORDER BY denied_at DESC LIMIT 1");
-    $stmt->execute([$_SESSION['studentid']]);
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    if ($row && $row['status'] === 'denied' && $row['denied_at']) {
-      $deniedAt = strtotime($row['denied_at']);
-      // Show alert only if this is the first page load after denial (within 10 seconds)
-      if (time() - $deniedAt < 10) {
-        $showDeniedMsg = true;
-      }
-    }
+    // // 1. Thông báo payment denied (có thể dismiss)
+    // if (isset($_POST['hide_payment_denied'])) {
+    //   $_SESSION['hide_payment_denied'] = true;
+    //   header("Location: " . $_SERVER['PHP_SELF']);
+    //   exit;
+    // }
+    // $paymentDenied = [];
+    // $stmt = $conn->prepare("SELECT pc.*, sa.name AS tutor_name 
+    //         FROM payment_confirmation pc
+    //         JOIN student_account sa ON pc.tutorid = sa.accountid
+    //         WHERE pc.studentid = ? AND pc.status = 'denied'
+    //         ORDER BY pc.date_and_time DESC");
+    // $stmt->execute([$_SESSION['studentid']]);
+    // $paymentDenied = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // 2. Thông báo payment denied (có thể dismiss)
-    if (isset($_POST['hide_payment_denied'])) {
-      $_SESSION['hide_payment_denied'] = true;
-      header("Location: " . $_SERVER['PHP_SELF']);
-      exit;
-    }
-    $paymentDenied = [];
-    $stmt = $conn->prepare("SELECT pc.*, sa.name AS tutor_name 
-            FROM payment_confirmation pc
-            JOIN student_account sa ON pc.tutorid = sa.accountid
-            WHERE pc.studentid = ? AND pc.status = 'denied'
-            ORDER BY pc.date_and_time DESC");
-    $stmt->execute([$_SESSION['studentid']]);
-    $paymentDenied = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // 3. Kiểm tra xem người dùng có phải là tutor không
+    // 2. Kiểm tra xem người dùng có phải là tutor không
     $isTutor = false;
     $stmt = $conn->prepare("SELECT 1 FROM tutor_account WHERE accountid = ?");
     $stmt->execute([$_SESSION['studentid']]);
@@ -73,17 +59,6 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
     <body>
       <div class="page d-flex">
         <?php include_once 'inc/navbar.php'; ?> <!-- LEFT SIDEBAR -->
-        <?php if ($showDeniedMsg): ?>
-          <div class="alert alert-danger text-center" id="denied-alert" style="margin-top:16px;">
-            Your application to become a Tutor has been <strong>denied</strong>. Please register again after 3 days.
-          </div>
-          <script>
-            setTimeout(function() {
-              var alertBox = document.getElementById('denied-alert');
-              if (alertBox) alertBox.style.display = 'none';
-            }, 30000); // 30 seconds
-          </script>
-        <?php endif; ?>
 
         <?php if (!empty($paymentDenied) && empty($_SESSION['hide_payment_denied'])): ?>
           <div class="alert alert-danger text-center" id="payment-denied-alert" style="margin-top:16px;">
@@ -107,7 +82,7 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
           <?php include_once 'inc/upbar.php'; ?> <!-- upbar -->
 
 
-          <h1 class="p-relative c-orange">Dashboard</h1>
+          <h1 class="p-relative c-orange">Student's Dashboard</h1>
           <div class="wrapper d-grid gap-20">
             <!-- Start Welcome Widget -->
             <div class="welcome bg-white rad-10 txt-c-mobile block-mobile">
@@ -128,7 +103,7 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                   </span>
                 </div>
                 <div>
-                  <span class="d-block fs-14 fw-bold c-orange">80</span>
+                  <span class="d-block fs-14 fw-bold c-orange">∞</span>
                   <span class="d-block c-grey fs-14 mt-10">Current join Courses</span>
                 </div>
               </div>
@@ -152,15 +127,15 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                 <!-- Body Section -->
                 <div class="body txt-c d-flex p-20 mt-20 mb-20 block-mobile">
                   <div>
-                    <span class="d-block fs-14 fw-bold c-orange">80</span>
-                    <span class="d-block c-grey fs-14 mt-10">Current tutors</span>
+                    <span class="d-block fs-14 fw-bold c-orange">∞</span>
+                    <span class="d-block c-grey fs-14 mt-10">Current Tutors</span>
                   </div>
                   <div>
-                    <span class="d-block fs-14 fw-bold c-orange">80</span>
-                    <span class="d-block c-grey fs-14 mt-10">Courses </span>
+                    <span class="d-block fs-14 fw-bold c-orange">∞</span>
+                    <span class="d-block c-grey fs-14 mt-10">Current Students </span>
                   </div>
                   <div>
-                    <span class="d-block fs-14 fw-bold c-orange">80</span>
+                    <span class="d-block fs-14 fw-bold c-orange">∞</span>
                     <span class="d-block c-grey fs-14 mt-10">Courses</span>
                   </div>
                 </div>
@@ -230,33 +205,8 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
             </div>
 
 
-            <!-- Start Rate tutor Widget -->
-            <div class="welcome bg-white rad-10 txt-c-mobile block-mobile">
-
-              <!-- Intro Section -->
-              <div class="intro p-20 d-flex space-between bg-orange">
-                <div>
-                  <h2 class="m-0 c-white">Enjoy? Rate our Tutors</h2>
-                  <p class="c-white fs-14 mt-10">
-                    Rate our tutor to share your experience and help improve future lessons.
-                  </p>
-                </div>
-                <img class="hide-mobile" src="../img/rateTutor.png" />
-              </div>
-
-              <!-- Body Section -->
-              <div class="body txt-c d-flex block-mobile" style="padding: 0;"></div>
-              <a href="/vgtutor/student/course_process/tutorReviews.php"
-                class="visit d-block fs-14 bg-orange c-white w-fit btn-shape"
-                style="margin-top: 3rem;">
-                ⭐ Rate Now
-              </a>
 
 
-            </div>
-            <!-- End rate tutor Widget -->
-
-            <!-- begin add reminder func Widget -->
 
             <script>
               // Reminder Function

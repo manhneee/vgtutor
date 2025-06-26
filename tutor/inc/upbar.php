@@ -62,6 +62,14 @@ if ($user_id_receive) {
   <!-- Start Head -->
   <div class="head bg-white p-15 between-flex">
     <div class="d-flex align-items-center" style="margin-left:auto;">
+      <!-- Mode Switch Button -->
+      <div style="margin-right: 18px; display: flex; align-items: center;">
+        <button id="switchModeBtn" style="background: none; border: 1.5px solid #FF951F; color: #FF951F; padding: 4px 14px; border-radius: 7px; font-size: 1em; font-weight: 600; cursor: pointer; transition: background 0.2s, color 0.2s;"
+          onmouseover="this.style.background='#FFF5E6'; this.style.color='#FF951F';"
+          onmouseout="this.style.background='none'; this.style.color='#FF951F';">
+          Switch to Student Mode
+        </button>
+      </div>
       <!-- User Info -->
       <div class="text-end" style="font-family: 'Open Sans', sans-serif; margin-right:10px;">
         <div class="fw-semibold text-dark"><?= htmlspecialchars($name) ?></div>
@@ -70,25 +78,24 @@ if ($user_id_receive) {
       <!-- Notification Bell -->
       <div class="notif-wrapper position-relative" style="position: relative;">
         <div style="position: relative; display: inline-block;">
-          <i id="notifBell"
-            class="fa fa-bell"
-            style="cursor: pointer; color: #FF951F; font-size: 2.2rem;"></i>
+          <i id="notifBell" class="fa-solid fa-bell" style="margin-right: 10px;"></i>
           <?php if ($unread_count > 0): ?>
             <span id="notifDot"
-              style="
+                style="
                   position: absolute;
-                  top: 0;
-                  right: 0;
-                  width: 16px;
-                  height: 16px;
+                  top: 0px;
+                  right: -3px;
+                  width: 8px;
+                  height: 8px;
                   background-color: red;
                   border-radius: 50%;
                   display: inline-block;
                   color: #fff;
-                  font-size: 11px;
+                  font-size: 8px;
                   font-weight: 600;
                   text-align: center;
-                  line-height: 16px;
+                  line-height: 11px;
+                  margin-right: 10px;
                 "><?= $unread_count > 1 ? $unread_count : '' ?></span>
           <?php endif; ?>
         </div>
@@ -158,7 +165,7 @@ if ($user_id_receive) {
               border-top: 1px solid #FFD59A;
               background: transparent;
            ">
-            <a href="/vgtutor/student/notification_student.php"
+            <a href="/vgtutor/tutor/notification_tutor.php"
               style="
                 color:#FF951F;
                 font-weight:700;
@@ -197,6 +204,14 @@ if ($user_id_receive) {
           panel.style.display = "none";
         }
       });
+    }
+
+    // Mode switch button
+    var switchBtn = document.getElementById('switchModeBtn');
+    if (switchBtn) {
+      switchBtn.onclick = function() {
+        window.location.href = '/vgtutor/tutor/switch_to_student.php';
+      };
     }
   });
 </script>

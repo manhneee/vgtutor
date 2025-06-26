@@ -19,13 +19,13 @@ body{
 
 .container{
     background-color: #fff;
-    border-radius: 30px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    border-radius: 36px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.20);
     position: relative;
     overflow: hidden;
-    width: 768px;
-    max-width: 100%;
-    min-height: 480px;
+    width: 1120px;      /* tăng từ 768px lên 1120px */
+    max-width: 98vw;
+    min-height: 620px;  /* tăng từ 480px lên 620px */
 }
 
 .container p{
@@ -50,14 +50,14 @@ body{
 .container button{
     background-color: #FC8235;
     color: #fff;
-    font-size: 12px;
-    padding: 10px 45px;
+    font-size: 11px;         /* Slightly smaller font */
+    padding: 8px 30px;       /* Reduce button padding */
     border: 1px solid transparent;
-    border-radius: 8px;
+    border-radius: 7px;
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    margin-top: 10px;
+    margin-top: 6px;         /* Less margin above button */
     cursor: pointer;
     transition: background 0.2s, color 0.2s;
 }
@@ -80,20 +80,21 @@ body{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding: 0 40px;
+    padding: 0 20px;         /* Reduce horizontal padding */
     height: 100%;
+    width: 100%;
 }
 
 .container input{
     background-color: #eee;
     border: none;
-    margin: 8px 0;
-    padding: 10px 15px;
-    font-size: 13px;
-    border-radius: 8px;
+    margin: 8px 0;           /* Reduce vertical margin */
+    padding: 12px 14px;      /* Reduce padding */
+    font-size: 1em;          /* Slightly smaller font */
+    border-radius: 8px;      /* Slightly smaller radius */
     width: 100%;
     outline: none;
-    transition: background 0.2s;
+    transition: background 0.2s, border 0.2s;
 }
 
 .container input:focus {
@@ -106,7 +107,14 @@ body{
     height: 100%;
     transition: all 0.6s ease-in-out;
     width: 50%;
+    min-width: 340px;        /* Reduce min-width for smaller screens */
     z-index: 2;
+    padding: 0 18px;         /* Reduce side padding */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;      /* <-- Add this line */
+    max-height: 100%;      /* <-- Add this line */
 }
 
 .sign-in{
@@ -240,4 +248,25 @@ body{
 
 .container.active .toggle-right{
     transform: translateX(200%);
+}
+
+.alert {
+    font-size: 0.95rem;
+    padding: 0.5rem 0.7rem;
+    border-radius: 7px;
+}
+
+@media (max-width: 600px) {
+    .form-container {
+        min-width: 0;
+        width: 100%;
+        padding: 0 6px;
+    }
+    .container form {
+        padding: 0 4px;
+    }
+    .container input {
+        padding: 10px 8px;
+        font-size: 0.98em;
+    }
 }

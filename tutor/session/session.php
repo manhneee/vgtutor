@@ -24,12 +24,12 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
             if ($status === 'accepted') {
                 $stmt2 = $conn->prepare("UPDATE session SET paid = 1 WHERE studentid = ? AND tutorid = ? AND courseid = ? AND date_and_time = ?");
                 $stmt2->execute([$studentid, $_SESSION['tutorid'], $courseid, $date_and_time]);
-                addNotification($conn, $studentid, $_SESSION['tutorid'], "Payment Accepted", "Your payment for the session has been <strong>accepted</strong> by the tutor. Your session is now confirmed.", "Payment");
+                addNotification($conn, $studentid, $_SESSION['tutorid'], "Payment Accepted", "Your payment for the session has been accepted by the tutor. Your session is now confirmed.", "Payment");
             }
 
-            // If denied, log reason to chat
-            if ($status === 'denied' && !empty($_POST['deny_reason'])) {
-                $deny_reason = trim($_POST['deny_reason']);
+            // If denied, log reason to chat and send notification
+            if ($status === 'denied') {
+                $deny_reason = trim($_POST['deny_reason'] ?? '');
                 $file = $_SERVER['DOCUMENT_ROOT'] . "/vgtutor/chatlog.json";
                 if (!file_exists($file)) file_put_contents($file, '[]');
                 $messages = json_decode(file_get_contents($file), true);
@@ -42,7 +42,10 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
                     'time' => date('H:i')
                 ];
                 file_put_contents($file, json_encode($messages));
-                addNotification($conn, $studentid, $_SESSION['tutorid'], "Payment Denied", "Your payment for the session was <strong>denied</strong> by the tutor. Reason: " . htmlspecialchars($deny_reason), "Payment");
+                // Always send notification with the reason (even if empty)
+                $notifyMsg = "Your payment for the session was denied by the tutor."
+                    . ($deny_reason ? " Reason: " . htmlspecialchars($deny_reason) : "");
+                addNotification($conn, $studentid, $_SESSION['tutorid'], "Payment Denied", $notifyMsg, "Payment");
             }
 
             header("Location: session.php?success=Payment $status.");
@@ -103,10 +106,7 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
                                 <?php if (count($sessions) > 0): ?>
                                     <?php foreach ($sessions as $session): ?>
                                         <div class="friend bg-white rad-6 p-20 p-relative">
-                                            <div class="contact">
-                                                <i class="fa-solid fa-phone"></i>
-                                                <i class="fa-regular fa-envelope"></i>
-                                            </div>
+
                                             <div class="txt-c">
                                                 <img class="rad-half mt-10 mb-10 w-100 h-100" src="../../img/avatar.png" alt="Student Avatar" />
                                                 <h4 class="m-0">
@@ -139,7 +139,7 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
                                                         ?>
                                                     </span>
                                                 </div>
-                                                <div>
+                                                <div class="mb-10">
                                                     <i class="fa-solid fa-check-double fa-fw"></i>
                                                     <span>
                                                         <?php
@@ -153,20 +153,37 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
                                                         ?>
                                                     </span>
                                                 </div>
+                                                <div class="mb-10">
+                                                    <i class="fa-solid fa-credit-card fa-fw"></i>
+                                                    <span>
+                                                        <?php
+                                                        $stmtPay = $conn->prepare("SELECT * FROM payment_confirmation WHERE studentid = ? AND tutorid = ? AND courseid = ? AND date_and_time = ? ORDER BY id DESC LIMIT 1");
+                                                        $stmtPay->execute([
+                                                            $session['studentid'],
+                                                            $_SESSION['tutorid'],
+                                                            $session['courseid'],
+                                                            $session['date_and_time']
+                                                        ]);
+                                                        $pay = $stmtPay->fetch(PDO::FETCH_ASSOC);
+                                                        if ($session['consensus'] === 'accepted') {
+                                                            if ($pay && $pay['status'] === 'accepted') {
+                                                                echo '<span class="c-green">Payment: Accepted</span>';
+                                                            } else {
+                                                                echo '<span class="c-orange">Payment: Pending</span>';
+                                                            }
+                                                        } else {
+                                                            echo '<span class="c-grey"> Not Yet</span>';
+                                                        }
+                                                        ?>
+                                                    </span>
+                                                </div>
                                             </div>
                                             <div class="info between-flex fs-13 mt-10">
                                                 <span class="c-grey">Student ID: <?= htmlspecialchars($session['studentid']) ?></span>
                                                 <div>
                                                     <a class="bg-orange c-white btn-shape" href="../chat/chat.php?studentid=<?= urlencode($session['studentid']) ?>">Chat</a>
                                                     <?php
-                                                    $stmtPay = $conn->prepare("SELECT * FROM payment_confirmation WHERE studentid = ? AND tutorid = ? AND courseid = ? AND date_and_time = ? ORDER BY id DESC LIMIT 1");
-                                                    $stmtPay->execute([
-                                                        $session['studentid'],
-                                                        $_SESSION['tutorid'],
-                                                        $session['courseid'],
-                                                        $session['date_and_time']
-                                                    ]);
-                                                    $pay = $stmtPay->fetch(PDO::FETCH_ASSOC);
+                                                    
 
                                                     $sessionStatus = $session['consensus'];
                                                     $imgPath = ($pay && !empty($pay['img_path']))
@@ -314,3 +331,26 @@ if (isset($_SESSION['tutorid']) && isset($_SESSION['role'])) {
     exit;
 }
 ?>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const paymentForm = document.querySelector('#paymentPopup form');
+    const acceptBtn = paymentForm.querySelector('button[name="action"][value="accept"]');
+    const denyBtn = paymentForm.querySelector('button[name="action"][value="deny"]');
+    const reasonField = document.getElementById("deny_reason");
+
+    // Remove required on accept
+    acceptBtn.addEventListener('click', function() {
+        reasonField.removeAttribute("required");
+    });
+
+    // Require reason on deny and check before submit
+    denyBtn.addEventListener('click', function(e) {
+        if (!reasonField.value.trim()) {
+            e.preventDefault();
+            reasonField.setAttribute("required", "true");
+            reasonField.focus();
+            alert("Please enter a reason for denial.");
+        }
+    });
+});
+</script>

@@ -25,8 +25,8 @@ if (isset($_SESSION['adminid']) &&
     <div class="container mt-5">
         <div class="text-center">
             <div class="col btn bg-orange m-2 py-3">
-                <h1 style="color: white">Welcome, <?= $_SESSION['name']?> - <?=$_SESSION['adminid'] ?></h1>
-                <p style="color: white">You are logged in as an <?= $_SESSION['role'] ?>.</p>
+                <h1 style="color: black">Welcome, <?= $_SESSION['name']?> - <?=$_SESSION['adminid'] ?></h1>
+                <p style="color: black">You are logged in as an <?= $_SESSION['role'] ?>.</p>
             </div>
         </div>
         
@@ -56,9 +56,6 @@ if (isset($_SESSION['adminid']) &&
                 </a>
                 <a href="report_processing/getReport.php" class="col btn btn-danger m-2 py-3">
                     <i class="fa fa-comments fs-1" aria-hidden="true"></i><br>Reports
-                </a>
-                <a href="../logout.php" class="col btn btn-warning m-2 py-3 col-5 text-white">
-                    <i class="fa fa-sign-out fs-1" aria-hidden="true"></i><br>Logout
                 </a>
             </div>
         </div>

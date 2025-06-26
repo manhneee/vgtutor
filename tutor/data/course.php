@@ -1,6 +1,7 @@
 
 <?php
-function getAllCourse($conn) {
+function getAllCourse($conn)
+{
     $sql = "SELECT 
                 course.courseid AS course_courseid,
                 course.course_name AS course_name,
@@ -15,4 +16,6 @@ function getAllCourse($conn) {
         return [];
     }
 }
+
+
 ?>
