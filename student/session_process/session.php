@@ -188,11 +188,11 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                                                 if ($paymentStatus && $paymentStatus['status'] === 'denied') {
                                                     // Payment denied: allow student to pay again
                                                     echo '<a class="btn-shape bg-orange c-white"
-        data-studentid="' . $_SESSION['studentid'] . '"
-        data-tutorid="' . $session['tutorid'] . '"
-        data-courseid="' . $session['courseid'] . '"
-        data-date_and_time="' . $session['date_and_time'] . '"
-        onclick="openPayModal(this)">Pay Now</a>';
+                                                            data-studentid="' . $_SESSION['studentid'] . '"
+                                                            data-tutorid="' . $session['tutorid'] . '"
+                                                            data-courseid="' . $session['courseid'] . '"
+                                                            data-date_and_time="' . $session['date_and_time'] . '"
+                                                            onclick="openPayModal(this)">Pay Now</a>';
                                                 } elseif ($session['paid']) {
                                                     // Payment accepted
                                                     echo '<span class="status-badge status-permitted">Paid</span>';
@@ -202,11 +202,11 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                                                 } elseif ($session['consensus'] === "accepted") {
                                                     // Session accepted, allow payment
                                                     echo '<a class="btn-shape bg-orange c-white"
-        data-studentid="' . $_SESSION['studentid'] . '"
-        data-tutorid="' . $session['tutorid'] . '"
-        data-courseid="' . $session['courseid'] . '"
-        data-date_and_time="' . $session['date_and_time'] . '"
-        onclick="openPayModal(this)">Pay Now</a>';
+                                                            data-studentid="' . $_SESSION['studentid'] . '"
+                                                            data-tutorid="' . $session['tutorid'] . '"
+                                                            data-courseid="' . $session['courseid'] . '"
+                                                            data-date_and_time="' . $session['date_and_time'] . '"
+                                                            onclick="openPayModal(this)">Pay Now</a>';
                                                 } else {
                                                     echo '-';
                                                 }
@@ -319,6 +319,7 @@ if (isset($_SESSION['studentid']) && isset($_SESSION['role'])) {
                         </div>
                     </form>
                 </div>
+            </div>
             </div>
 
         </body>
