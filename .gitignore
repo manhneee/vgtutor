@@ -1,0 +1,8 @@
+debug.txt
+*.log
+.env
+config.php
+uploads/
+temp/
+cache/
+VGtUtor.sql
