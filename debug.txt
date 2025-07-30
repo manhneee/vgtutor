@@ -1,2 +1,0 @@
-2025-07-17T19:54:05+02:00 - Signup POST: {"studentid":"10422047","password":"123","confirm_password":"123","fullname":"Pham Duc Manh","email":"10422047@student.vgu.edu.vn","major":"CSE","intake":"2022","signup_btn":""}
-2025-07-17T19:54:26+02:00 - Signup POST: {"studentid":"10422044","password":"123","confirm_password":"123","fullname":"Pham Duc Manh","email":"10422047@student.vgu.edu.vn","major":"CSE","intake":"2022","signup_btn":""}
