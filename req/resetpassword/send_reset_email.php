@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
                 $host = $_SERVER['HTTP_HOST'];
                 $baseUrl = $protocol . $host;
 
-                $resetLink = $baseUrl . "/vgtutor/student/resetpassword/reset_password.php?token={$token}";
+                $resetLink = $baseUrl . "/student/resetpassword/reset_password.php?token={$token}";
                 $mail->Body    = "
                     <p>Dear VGtUtor user,</p>
                     <p>We received a request to reset your password. Please click the link below to proceed:</p>

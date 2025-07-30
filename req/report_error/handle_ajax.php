@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 header('Content-Type: application/json');
 
 require_once __DIR__ . '/../../DB_connection.php';
+require_once '../vgtutor/config.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/vgtutor/student/data/notifications.php';
 
 
@@ -16,7 +17,7 @@ if (!isset($_SESSION['studentid']) && !isset($_SESSION['tutorid'])) {
 }
 
 
-$admin_id = 10422044;
+$admin_id = DEFAULT_ADMIN_ID;
 $type = 'report';
 // Ưu tiên lấy studentid nếu có, còn không lấy tutorid
 $user_id = isset($_SESSION['studentid']) ? intval($_SESSION['studentid']) : intval($_SESSION['tutorid']);

@@ -17,7 +17,7 @@ if (isset($_SESSION['studentid']) && $_SESSION['role'] === 'Student') {
   <head>
     <meta charset="UTF-8">
     <title>Chat</title>
-    <link rel="stylesheet" href="../../css/ChatForStudent.css" />
+    <link rel="stylesheet" href="../../css/chatForStudent.css" />
     <link rel="stylesheet" href="../../css/style1.css" />
     <link rel="stylesheet" href="../../css/framework.css" />
     <link rel="stylesheet" href="../../css/master.css" />

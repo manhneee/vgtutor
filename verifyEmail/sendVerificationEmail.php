@@ -34,7 +34,7 @@ function sendVerificationEmail($email, $token)
         $host = $_SERVER['HTTP_HOST'];
         $baseUrl = $protocol . $host;
 
-        $verifyLink = $baseUrl . "/vgtutor/verifyEmail/verify.php?email=" . urlencode($email) . "&token=" . $token;
+        $verifyLink = $baseUrl . "/verifyEmail/verify.php?email=" . urlencode($email) . "&token=" . $token;
 
         $mail->isHTML(true);
         $mail->Subject = 'Email Verification - VGtUtor';

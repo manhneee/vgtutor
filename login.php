@@ -1,4 +1,6 @@
 <?php
+require_once 'csrf.php';
+require_once 'rate_limit.php';
 session_start();
 include "DB_connection.php";
 require_once 'req/signup.php';
@@ -33,6 +35,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['signup_btn'])) {
 
 // Đăng nhập (Signin) - Chỉ hiện lỗi nếu có
 $login_error = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : "";
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $ip = $_SERVER['REMOTE_ADDR'];
+    if (!checkRateLimit($ip, 5, 900)) { // 5 attempts per 15 minutes
+        $login_error = "Too many login attempts. Please try again later.";
+    } elseif (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
+        $login_error = "Invalid request.";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -165,9 +176,10 @@ $login_error = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : "";
         <!-- SIGN IN FORM -->
         <div class="form-container sign-in">
             <form method="post" action="req/login.php">
+                <input type="hidden" name="csrf_token" value="<?= generateCSRFToken() ?>">
                 <h1>Student Login</h1>
                 <?php if ($login_error): ?>
-                    <div class="alert alert-danger"><?= $login_error ?></div>
+                    <div class="alert alert-danger"><?= htmlspecialchars($login_error) ?></div>
                 <?php endif; ?>
                 <input type="text" name="userid" placeholder="Student ID / Username" required />
                 <input type="password" name="password" placeholder="Password" required />

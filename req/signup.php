@@ -18,7 +18,8 @@ function registerStudent($conn, $studentid, $password, $fullname, $email, $major
         // Hash password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $token = md5(uniqid($email, true));
+        // Replace MD5 with cryptographically secure tokens
+        $token = bin2hex(random_bytes(32));
 
         // Insert into account
         $sql1 = "INSERT INTO account (userid, email, password, is_verified, verify_token) VALUES ( ?, ?, ?,?, ?)";

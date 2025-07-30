@@ -35,7 +35,7 @@ $stmt->execute([$email]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$user) {
-    exit('No account found for that email.');
+    exit('Invalid reset request.');  // Generic message
 }
 $userid = $user['accountid'];
 
