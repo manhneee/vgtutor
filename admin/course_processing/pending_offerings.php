@@ -30,7 +30,7 @@ if (isset($_SESSION['adminid']) && isset($_SESSION['role'])) {
             addNotification(
                 $conn,
                 $tutorid,               // user_id_receive (tutor nhận)
-                10422044,               // user_id_send (admin, có thể để null)
+                $_SESSION['adminid'],               // user_id_send (admin, có thể để null)
                 $title,
                 $msg,
                 'registration'
